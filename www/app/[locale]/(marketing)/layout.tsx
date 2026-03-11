@@ -31,12 +31,12 @@ export default function MarketingLayout({
           <span>
             Built by{' '}
             <a
-              href="https://bntvllnt.com"
+              href="https://vllnt.com"
               className="font-medium text-foreground underline-offset-4 hover:underline"
               target="_blank"
               rel="noopener noreferrer"
             >
-              bntvllnt
+              vllnt.com
             </a>
           </span>
           <span className="text-border">|</span>

@@ -9,6 +9,7 @@ import {
   Smartphone,
   Terminal,
   Wand2,
+  Zap,
 } from 'lucide-react'
 import { Badge } from '@vllnt/ui'
 import { Button } from '@vllnt/ui'
@@ -21,6 +22,14 @@ import {
 } from '@vllnt/ui'
 import { Separator } from '@vllnt/ui'
 
+import { NextjsLogo, ExpoLogo, ConvexLogo, VercelLogo } from '@/components/logos'
+import {
+  ClaudeCodeLogo,
+  CodexLogo,
+  CursorLogo,
+  GeminiLogo,
+  WindsurfLogo,
+} from '@/components/agent-logos'
 import { CommandBlock } from './command-block'
 
 export default function HomePage(): React.ReactNode {
@@ -176,6 +185,34 @@ export default function HomePage(): React.ReactNode {
 
       <Separator />
 
+      {/* Supported AI Agents */}
+      <section className="container mx-auto px-4 py-20 sm:px-6 sm:py-28">
+        <div className="mx-auto max-w-2xl text-center">
+          <div className="mb-4 inline-flex items-center gap-2 text-primary">
+            <Bot className="h-5 w-5" />
+            <span className="text-sm font-semibold uppercase tracking-wider">
+              Compatible
+            </span>
+          </div>
+          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
+            {t('Agents.title')}
+          </h2>
+          <p className="mt-4 text-muted-foreground sm:text-lg">
+            {t('Agents.subtitle')}
+          </p>
+        </div>
+
+        <div className="mx-auto mt-12 flex flex-wrap items-center justify-center gap-8 sm:gap-12">
+          <AgentLogoItem logo={<ClaudeCodeLogo className="h-12 w-12 sm:h-14 sm:w-14" />} name="Claude Code" />
+          <AgentLogoItem logo={<CodexLogo className="h-12 w-12 sm:h-14 sm:w-14" />} name="Codex" />
+          <AgentLogoItem logo={<CursorLogo className="h-12 w-12 sm:h-14 sm:w-14" />} name="Cursor" />
+          <AgentLogoItem logo={<WindsurfLogo className="h-12 w-12 sm:h-14 sm:w-14" />} name="Windsurf" />
+          <AgentLogoItem logo={<GeminiLogo className="h-12 w-12 sm:h-14 sm:w-14" />} name="Gemini CLI" />
+        </div>
+      </section>
+
+      <Separator />
+
       {/* Generators */}
       <section className="container mx-auto px-4 py-20 sm:px-6 sm:py-28">
         <div className="mx-auto max-w-2xl text-center">
@@ -221,6 +258,86 @@ export default function HomePage(): React.ReactNode {
             description={t('Generators.g6_desc')}
             isAddon
           />
+        </div>
+      </section>
+
+      <Separator />
+
+      {/* Stack & Recommendations */}
+      <section className="container mx-auto px-4 py-20 sm:px-6 sm:py-28">
+        <div className="mx-auto max-w-2xl text-center">
+          <div className="mb-4 inline-flex items-center gap-2 text-primary">
+            <Zap className="h-5 w-5" />
+            <span className="text-sm font-semibold uppercase tracking-wider">
+              Stack
+            </span>
+          </div>
+          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
+            {t('Stack.title')}
+          </h2>
+          <p className="mt-4 text-muted-foreground sm:text-lg">
+            {t('Stack.subtitle')}
+          </p>
+        </div>
+
+        {/* Logo strip */}
+        <div className="mx-auto mt-12 flex items-center justify-center gap-8 sm:gap-12">
+          <a
+            href="https://nextjs.org"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group flex flex-col items-center gap-2 text-muted-foreground transition-colors hover:text-foreground"
+          >
+            <NextjsLogo className="h-10 w-10 sm:h-12 sm:w-12" />
+            <span className="text-xs font-medium">Next.js</span>
+          </a>
+          <a
+            href="https://expo.dev"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group flex flex-col items-center gap-2 text-muted-foreground transition-colors hover:text-foreground"
+          >
+            <ExpoLogo className="h-10 w-10 sm:h-12 sm:w-12" />
+            <span className="text-xs font-medium">Expo</span>
+          </a>
+          <a
+            href="https://convex.dev"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group flex flex-col items-center gap-2 text-muted-foreground transition-colors hover:text-foreground"
+          >
+            <ConvexLogo className="h-10 w-10 sm:h-12 sm:w-12" />
+            <span className="text-xs font-medium">Convex</span>
+          </a>
+          <a
+            href="https://vercel.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group flex flex-col items-center gap-2 text-muted-foreground transition-colors hover:text-foreground"
+          >
+            <VercelLogo className="h-10 w-10 sm:h-12 sm:w-12" />
+            <span className="text-xs font-medium">Vercel</span>
+          </a>
+        </div>
+
+        {/* Recommendation cards */}
+        <div className="mx-auto mt-10 grid max-w-3xl gap-4 sm:grid-cols-2">
+          <div className="rounded-lg border border-border bg-card p-5">
+            <div className="mb-3 flex items-center gap-2">
+              <VercelLogo className="h-5 w-5" />
+              <span className="text-sm font-semibold text-foreground">Vercel</span>
+              <Badge variant="secondary" className="text-xs">recommended</Badge>
+            </div>
+            <p className="text-sm text-muted-foreground">{t('Stack.vercel')}</p>
+          </div>
+          <div className="rounded-lg border border-border bg-card p-5">
+            <div className="mb-3 flex items-center gap-2">
+              <ConvexLogo className="h-5 w-5" />
+              <span className="text-sm font-semibold text-foreground">Convex Cloud</span>
+              <Badge variant="secondary" className="text-xs">recommended</Badge>
+            </div>
+            <p className="text-sm text-muted-foreground">{t('Stack.convex')}</p>
+          </div>
         </div>
       </section>
     </>
@@ -285,6 +402,21 @@ function AgentFileCard({
         <p className="font-mono text-sm font-semibold text-foreground">{name}</p>
         <p className="mt-0.5 text-sm text-muted-foreground">{description}</p>
       </div>
+    </div>
+  )
+}
+
+function AgentLogoItem({
+  logo,
+  name,
+}: {
+  logo: React.ReactNode
+  name: string
+}): React.ReactNode {
+  return (
+    <div className="flex flex-col items-center gap-2.5 text-muted-foreground transition-colors hover:text-foreground">
+      {logo}
+      <span className="text-xs font-medium">{name}</span>
     </div>
   )
 }

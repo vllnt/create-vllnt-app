@@ -69,6 +69,16 @@
     "g6_cmd": "vllnt add payments",
     "g6_desc": "Stripe + Convex integration"
   },
+  "Agents": {
+    "title": "Works with your AI coding agent",
+    "subtitle": "Every scaffolded project ships with optimized rules for the leading AI coding agents. Your agent understands the architecture from the first prompt."
+  },
+  "Stack": {
+    "title": "Opinionated stack. Maximum performance.",
+    "subtitle": "Built on the best tools in the ecosystem. For maximum performance, we highly recommend deploying to Vercel and using Convex Cloud.",
+    "vercel": "Deploy frontend with zero-config. Edge functions, ISR, and global CDN out of the box.",
+    "convex": "Real-time backend with automatic caching, ACID transactions, and global edge deployment."
+  },
   "Footer": {
     "built_by": "Built by",
     "source": "Source"
