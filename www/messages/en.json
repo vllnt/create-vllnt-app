@@ -44,14 +44,14 @@
     }
   },
   "AgentFirst": {
-    "title": "Agent-first development",
-    "subtitle": "Every scaffolded project ships with AI agent contracts that make Claude, Cursor, and Windsurf immediately productive.",
-    "claude": "Blocking rules, stack info, Convex patterns, feature conventions",
-    "agents": "Architecture diagram, extension points, common tasks, pitfalls",
-    "cursor": "Cursor-optimized rules derived from CLAUDE.md",
-    "windsurf": "Windsurf-optimized rules derived from CLAUDE.md",
-    "docs": "Architecture, testing, i18n, theming, conventions, extending",
-    "features": "Vertical slices ready for AI scaffolding"
+    "title": "Agent-first primitives",
+    "subtitle": "Every scaffolded project ships with the building blocks that make AI coding agents immediately productive — skills, tools, rules, and context.",
+    "claude": "CLAUDE.md — blocking rules, stack info, Convex patterns, conventions",
+    "agents": "AGENTS.md — architecture, extension points, tasks, pitfalls",
+    "cursor": ".cursorrules — Cursor-optimized rules derived from CLAUDE.md",
+    "windsurf": ".windsurfrules — Windsurf-optimized rules derived from CLAUDE.md",
+    "docs": "docs/ — architecture, testing, i18n, theming, conventions, extending",
+    "features": "features/ — vertical slices ready for AI scaffolding"
   },
   "Generators": {
     "title": "Code generators",

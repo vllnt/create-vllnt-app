@@ -24,10 +24,10 @@ import { Separator } from '@vllnt/ui'
 
 import { NextjsLogo, ExpoLogo, ConvexLogo, VercelLogo } from '@/components/logos'
 import {
-  ClaudeCodeLogo,
-  CodexLogo,
+  AnthropicLogo,
   CursorLogo,
   GeminiLogo,
+  OpenAILogo,
   WindsurfLogo,
 } from '@/components/agent-logos'
 import { CommandBlock } from './command-block'
@@ -132,7 +132,7 @@ export default function HomePage(): React.ReactNode {
 
       <Separator />
 
-      {/* Agent-First */}
+      {/* Agent-First Primitives */}
       <section className="container mx-auto px-4 py-20 sm:px-6 sm:py-28">
         <div className="mx-auto max-w-2xl text-center">
           <div className="mb-4 inline-flex items-center gap-2 text-primary">
@@ -149,37 +149,48 @@ export default function HomePage(): React.ReactNode {
           </p>
         </div>
 
-        <div className="mx-auto mt-12 grid max-w-3xl gap-3 sm:grid-cols-2">
-          <AgentFileCard
-            icon={<FileCode2 className="h-4 w-4" />}
-            name="CLAUDE.md"
-            description={t('AgentFirst.claude')}
-          />
-          <AgentFileCard
-            icon={<FileCode2 className="h-4 w-4" />}
-            name="AGENTS.md"
-            description={t('AgentFirst.agents')}
-          />
-          <AgentFileCard
-            icon={<FileCode2 className="h-4 w-4" />}
-            name=".cursorrules"
-            description={t('AgentFirst.cursor')}
-          />
-          <AgentFileCard
-            icon={<FileCode2 className="h-4 w-4" />}
-            name=".windsurfrules"
-            description={t('AgentFirst.windsurf')}
-          />
-          <AgentFileCard
-            icon={<FileCode2 className="h-4 w-4" />}
-            name="docs/"
-            description={t('AgentFirst.docs')}
-          />
-          <AgentFileCard
-            icon={<Layers className="h-4 w-4" />}
-            name="features/"
-            description={t('AgentFirst.features')}
-          />
+        <div className="mx-auto mt-12 max-w-3xl space-y-6">
+          {/* Agent Rules */}
+          <div>
+            <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+              Agent Rules
+            </h3>
+            <div className="grid gap-3 sm:grid-cols-2">
+              <AgentFileCard
+                icon={<FileCode2 className="h-4 w-4" />}
+                description={t('AgentFirst.claude')}
+              />
+              <AgentFileCard
+                icon={<FileCode2 className="h-4 w-4" />}
+                description={t('AgentFirst.agents')}
+              />
+              <AgentFileCard
+                icon={<FileCode2 className="h-4 w-4" />}
+                description={t('AgentFirst.cursor')}
+              />
+              <AgentFileCard
+                icon={<FileCode2 className="h-4 w-4" />}
+                description={t('AgentFirst.windsurf')}
+              />
+            </div>
+          </div>
+
+          {/* Context & Scaffolding */}
+          <div>
+            <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+              Context &amp; Scaffolding
+            </h3>
+            <div className="grid gap-3 sm:grid-cols-2">
+              <AgentFileCard
+                icon={<Layers className="h-4 w-4" />}
+                description={t('AgentFirst.docs')}
+              />
+              <AgentFileCard
+                icon={<Layers className="h-4 w-4" />}
+                description={t('AgentFirst.features')}
+              />
+            </div>
+          </div>
         </div>
       </section>
 
@@ -203,8 +214,8 @@ export default function HomePage(): React.ReactNode {
         </div>
 
         <div className="mx-auto mt-12 flex flex-wrap items-center justify-center gap-8 sm:gap-12">
-          <AgentLogoItem logo={<ClaudeCodeLogo className="h-12 w-12 sm:h-14 sm:w-14" />} name="Claude Code" />
-          <AgentLogoItem logo={<CodexLogo className="h-12 w-12 sm:h-14 sm:w-14" />} name="Codex" />
+          <AgentLogoItem logo={<AnthropicLogo className="h-12 w-12 sm:h-14 sm:w-14" />} name="Claude Code" />
+          <AgentLogoItem logo={<OpenAILogo className="h-12 w-12 sm:h-14 sm:w-14" />} name="Codex" />
           <AgentLogoItem logo={<CursorLogo className="h-12 w-12 sm:h-14 sm:w-14" />} name="Cursor" />
           <AgentLogoItem logo={<WindsurfLogo className="h-12 w-12 sm:h-14 sm:w-14" />} name="Windsurf" />
           <AgentLogoItem logo={<GeminiLogo className="h-12 w-12 sm:h-14 sm:w-14" />} name="Gemini CLI" />
@@ -386,21 +397,25 @@ function ModeCard({
 
 function AgentFileCard({
   icon,
-  name,
   description,
 }: {
   icon: React.ReactNode
-  name: string
   description: string
 }): React.ReactNode {
+  const parts = description.split(' — ')
+  const fileName = parts[0]
+  const desc = parts.length > 1 ? parts[1] : description
+
   return (
     <div className="group flex items-start gap-3 rounded-lg border border-border bg-card p-4 transition-colors hover:bg-accent/50">
       <div className="mt-0.5 text-muted-foreground transition-colors group-hover:text-primary">
         {icon}
       </div>
       <div className="flex-1 min-w-0">
-        <p className="font-mono text-sm font-semibold text-foreground">{name}</p>
-        <p className="mt-0.5 text-sm text-muted-foreground">{description}</p>
+        <p className="font-mono text-sm font-semibold text-foreground">{fileName}</p>
+        {parts.length > 1 && (
+          <p className="mt-0.5 text-sm text-muted-foreground">{desc}</p>
+        )}
       </div>
     </div>
   )
