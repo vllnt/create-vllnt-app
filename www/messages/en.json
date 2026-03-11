@@ -1,0 +1,76 @@
+{
+  "Meta": {
+    "title": "create-vllnt-app — Agent-First Fullstack Scaffolder",
+    "description": "Scaffold production-grade Next.js, Expo, or fullstack monorepo projects with Convex backend. AI agent contracts included."
+  },
+  "Hero": {
+    "badge": "v0.1.0 — Alpha",
+    "title_prefix": "Ship with",
+    "title_highlight": "AI agents",
+    "title_suffix": "from day one",
+    "description": "Scaffold production-grade Next.js, Expo, or fullstack monorepo projects with Convex backend. CLAUDE.md + agent contracts included.",
+    "cta": "Get Started",
+    "command": "npx create-vllnt-app"
+  },
+  "Modes": {
+    "title": "Three modes. One command.",
+    "subtitle": "Pick your platform. Get a production-ready scaffold with AI agent contracts, feature-sliced architecture, and a Convex real-time backend.",
+    "web": {
+      "title": "Web",
+      "stack": "Next.js 15 + Convex + Tailwind v4 + next-intl",
+      "command": "npx create-vllnt-app --template web",
+      "f1": "App Router + Server Components",
+      "f2": "Feature-sliced architecture",
+      "f3": "i18n out of the box",
+      "f4": "Convex real-time backend"
+    },
+    "mobile": {
+      "title": "Mobile",
+      "stack": "Expo 55 + Convex + React Native + i18next",
+      "command": "npx create-vllnt-app --template mobile",
+      "f1": "Expo Router (typed routes)",
+      "f2": "Feature-sliced architecture",
+      "f3": "Dark mode + theming",
+      "f4": "Maestro E2E testing"
+    },
+    "fullstack": {
+      "title": "Fullstack",
+      "stack": "Turborepo + Next.js + Expo + Convex",
+      "command": "npx create-vllnt-app --template fullstack",
+      "f1": "Shared Convex backend",
+      "f2": "Universal React hooks",
+      "f3": "Cross-platform design tokens",
+      "f4": "turbo build pipeline"
+    }
+  },
+  "AgentFirst": {
+    "title": "Agent-first development",
+    "subtitle": "Every scaffolded project ships with AI agent contracts that make Claude, Cursor, and Windsurf immediately productive.",
+    "claude": "Blocking rules, stack info, Convex patterns, feature conventions",
+    "agents": "Architecture diagram, extension points, common tasks, pitfalls",
+    "cursor": "Cursor-optimized rules derived from CLAUDE.md",
+    "windsurf": "Windsurf-optimized rules derived from CLAUDE.md",
+    "docs": "Architecture, testing, i18n, theming, conventions, extending",
+    "features": "Vertical slices ready for AI scaffolding"
+  },
+  "Generators": {
+    "title": "Code generators",
+    "subtitle": "Generate pages, screens, features, components, hooks, and Convex domains — all following the conventions your AI agents already know.",
+    "g1_cmd": "vllnt generate page Dashboard",
+    "g1_desc": "New page with layout + metadata + i18n",
+    "g2_cmd": "vllnt generate feature billing",
+    "g2_desc": "Feature slice: components/ + hooks/ + index.ts",
+    "g3_cmd": "vllnt generate domain billing",
+    "g3_desc": "Convex domain: schemas + queries + mutations",
+    "g4_cmd": "vllnt generate component Button",
+    "g4_desc": "Shared UI component in components/ui/",
+    "g5_cmd": "vllnt add auth",
+    "g5_desc": "BetterAuth + Convex integration",
+    "g6_cmd": "vllnt add payments",
+    "g6_desc": "Stripe + Convex integration"
+  },
+  "Footer": {
+    "built_by": "Built by",
+    "source": "Source"
+  }
+}
