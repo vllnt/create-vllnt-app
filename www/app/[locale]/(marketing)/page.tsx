@@ -1,18 +1,4 @@
 import { useTranslations } from 'next-intl'
-import {
-  ArrowRight,
-  Bot,
-  Check,
-  FileCode2,
-  ExternalLink,
-  Globe,
-  Layers,
-  Package,
-  Smartphone,
-  Terminal,
-  Wand2,
-  Zap,
-} from 'lucide-react'
 import { Badge } from '@vllnt/ui'
 import { Button } from '@vllnt/ui'
 import {
@@ -40,42 +26,32 @@ export default function HomePage(): React.ReactNode {
   return (
     <>
       {/* Hero */}
-      <section className="relative overflow-hidden">
-        <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_60%_50%_at_50%_-20%,hsl(var(--primary)/0.08),transparent)]" />
-        <div className="container mx-auto flex flex-col items-center px-4 pt-24 pb-20 text-center sm:px-6 sm:pt-32 sm:pb-28">
-          <Badge
-            variant="outline"
-            className="mb-6 gap-1.5 px-3.5 py-1.5 text-sm font-medium"
-          >
-            <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500" />
-            </span>
-            {t('Hero.badge')}
-          </Badge>
+      <section className="container mx-auto flex flex-col items-center px-4 pt-24 pb-20 text-center sm:px-6 sm:pt-32 sm:pb-28">
+        <Badge
+          variant="outline"
+          className="mb-6 px-3.5 py-1.5 text-sm font-medium"
+        >
+          {t('Hero.badge')}
+        </Badge>
 
-          <h1 className="max-w-3xl text-4xl font-bold leading-[1.1] tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
-            {t('Hero.title_prefix')}{' '}
-            <span className="bg-gradient-to-r from-primary via-primary/80 to-primary/60 bg-clip-text text-transparent">
-              {t('Hero.title_highlight')}
-            </span>
-            <br />
-            {t('Hero.title_suffix')}
-          </h1>
+        <h1 className="max-w-3xl text-4xl font-bold leading-[1.1] tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
+          {t('Hero.title_prefix')}{' '}
+          {t('Hero.title_highlight')}
+          <br />
+          {t('Hero.title_suffix')}
+        </h1>
 
-          <p className="mt-6 max-w-2xl text-base text-muted-foreground sm:text-lg md:text-xl">
-            {t('Hero.description')}
-          </p>
+        <p className="mt-6 max-w-2xl text-base text-muted-foreground sm:text-lg md:text-xl">
+          {t('Hero.description')}
+        </p>
 
-          <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row">
-            <CommandBlock command={t('Hero.command')} />
-            <Button size="lg" className="gap-2" asChild>
-              <a href="#modes">
-                {t('Hero.cta')}
-                <ArrowRight className="h-4 w-4" />
-              </a>
-            </Button>
-          </div>
+        <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row">
+          <CommandBlock command={t('Hero.command')} />
+          <Button size="lg" asChild>
+            <a href="#modes">
+              {t('Hero.cta')}
+            </a>
+          </Button>
         </div>
       </section>
 
@@ -94,7 +70,6 @@ export default function HomePage(): React.ReactNode {
 
         <div className="mx-auto mt-12 grid max-w-5xl gap-6 md:grid-cols-3">
           <ModeCard
-            icon={<Globe className="h-5 w-5" />}
             title={t('Modes.web.title')}
             stack={t('Modes.web.stack')}
             command={t('Modes.web.command')}
@@ -106,7 +81,6 @@ export default function HomePage(): React.ReactNode {
             ]}
           />
           <ModeCard
-            icon={<Smartphone className="h-5 w-5" />}
             title={t('Modes.mobile.title')}
             stack={t('Modes.mobile.stack')}
             command={t('Modes.mobile.command')}
@@ -118,7 +92,6 @@ export default function HomePage(): React.ReactNode {
             ]}
           />
           <ModeCard
-            icon={<Layers className="h-5 w-5" />}
             title={t('Modes.fullstack.title')}
             stack={t('Modes.fullstack.stack')}
             command={t('Modes.fullstack.command')}
@@ -137,12 +110,6 @@ export default function HomePage(): React.ReactNode {
       {/* Agent-First Primitives */}
       <section className="container mx-auto px-4 py-20 sm:px-6 sm:py-28">
         <div className="mx-auto max-w-2xl text-center">
-          <div className="mb-4 inline-flex items-center gap-2 text-primary">
-            <Bot className="h-5 w-5" />
-            <span className="text-sm font-semibold uppercase tracking-wider">
-              AI-Native
-            </span>
-          </div>
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
             {t('AgentFirst.title')}
           </h2>
@@ -152,45 +119,25 @@ export default function HomePage(): React.ReactNode {
         </div>
 
         <div className="mx-auto mt-12 max-w-3xl space-y-6">
-          {/* Agent Rules */}
           <div>
             <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
               Agent Rules
             </h3>
             <div className="grid gap-3 sm:grid-cols-2">
-              <AgentFileCard
-                icon={<FileCode2 className="h-4 w-4" />}
-                description={t('AgentFirst.claude')}
-              />
-              <AgentFileCard
-                icon={<FileCode2 className="h-4 w-4" />}
-                description={t('AgentFirst.agents')}
-              />
-              <AgentFileCard
-                icon={<FileCode2 className="h-4 w-4" />}
-                description={t('AgentFirst.cursor')}
-              />
-              <AgentFileCard
-                icon={<FileCode2 className="h-4 w-4" />}
-                description={t('AgentFirst.windsurf')}
-              />
+              <AgentFileCard description={t('AgentFirst.claude')} />
+              <AgentFileCard description={t('AgentFirst.agents')} />
+              <AgentFileCard description={t('AgentFirst.cursor')} />
+              <AgentFileCard description={t('AgentFirst.windsurf')} />
             </div>
           </div>
 
-          {/* Context & Scaffolding */}
           <div>
             <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
               Context &amp; Scaffolding
             </h3>
             <div className="grid gap-3 sm:grid-cols-2">
-              <AgentFileCard
-                icon={<Layers className="h-4 w-4" />}
-                description={t('AgentFirst.docs')}
-              />
-              <AgentFileCard
-                icon={<Layers className="h-4 w-4" />}
-                description={t('AgentFirst.features')}
-              />
+              <AgentFileCard description={t('AgentFirst.docs')} />
+              <AgentFileCard description={t('AgentFirst.features')} />
             </div>
           </div>
         </div>
@@ -201,12 +148,6 @@ export default function HomePage(): React.ReactNode {
       {/* Supported AI Agents */}
       <section className="container mx-auto px-4 py-20 sm:px-6 sm:py-28">
         <div className="mx-auto max-w-2xl text-center">
-          <div className="mb-4 inline-flex items-center gap-2 text-primary">
-            <Bot className="h-5 w-5" />
-            <span className="text-sm font-semibold uppercase tracking-wider">
-              Compatible
-            </span>
-          </div>
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
             {t('Agents.title')}
           </h2>
@@ -229,12 +170,6 @@ export default function HomePage(): React.ReactNode {
       {/* Generators */}
       <section className="container mx-auto px-4 py-20 sm:px-6 sm:py-28">
         <div className="mx-auto max-w-2xl text-center">
-          <div className="mb-4 inline-flex items-center gap-2 text-primary">
-            <Wand2 className="h-5 w-5" />
-            <span className="text-sm font-semibold uppercase tracking-wider">
-              Scaffolding
-            </span>
-          </div>
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
             {t('Generators.title')}
           </h2>
@@ -279,12 +214,6 @@ export default function HomePage(): React.ReactNode {
       {/* Foundations — @vllnt packages */}
       <section className="container mx-auto px-4 py-20 sm:px-6 sm:py-28">
         <div className="mx-auto max-w-2xl text-center">
-          <div className="mb-4 inline-flex items-center gap-2 text-primary">
-            <Package className="h-5 w-5" />
-            <span className="text-sm font-semibold uppercase tracking-wider">
-              Foundations
-            </span>
-          </div>
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
             {t('Foundations.title')}
           </h2>
@@ -328,12 +257,6 @@ export default function HomePage(): React.ReactNode {
       {/* Stack & Recommendations */}
       <section className="container mx-auto px-4 py-20 sm:px-6 sm:py-28">
         <div className="mx-auto max-w-2xl text-center">
-          <div className="mb-4 inline-flex items-center gap-2 text-primary">
-            <Zap className="h-5 w-5" />
-            <span className="text-sm font-semibold uppercase tracking-wider">
-              Stack
-            </span>
-          </div>
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
             {t('Stack.title')}
           </h2>
@@ -342,13 +265,12 @@ export default function HomePage(): React.ReactNode {
           </p>
         </div>
 
-        {/* Logo strip */}
         <div className="mx-auto mt-12 flex items-center justify-center gap-8 sm:gap-12">
           <a
             href="https://nextjs.org"
             target="_blank"
             rel="noopener noreferrer"
-            className="group flex flex-col items-center gap-2 text-muted-foreground transition-colors hover:text-foreground"
+            className="flex flex-col items-center gap-2 text-muted-foreground transition-colors hover:text-foreground"
           >
             <NextjsLogo className="h-10 w-10 sm:h-12 sm:w-12" />
             <span className="text-xs font-medium">Next.js</span>
@@ -357,7 +279,7 @@ export default function HomePage(): React.ReactNode {
             href="https://expo.dev"
             target="_blank"
             rel="noopener noreferrer"
-            className="group flex flex-col items-center gap-2 text-muted-foreground transition-colors hover:text-foreground"
+            className="flex flex-col items-center gap-2 text-muted-foreground transition-colors hover:text-foreground"
           >
             <ExpoLogo className="h-10 w-10 sm:h-12 sm:w-12" />
             <span className="text-xs font-medium">Expo</span>
@@ -366,7 +288,7 @@ export default function HomePage(): React.ReactNode {
             href="https://convex.dev"
             target="_blank"
             rel="noopener noreferrer"
-            className="group flex flex-col items-center gap-2 text-muted-foreground transition-colors hover:text-foreground"
+            className="flex flex-col items-center gap-2 text-muted-foreground transition-colors hover:text-foreground"
           >
             <ConvexLogo className="h-10 w-10 sm:h-12 sm:w-12" />
             <span className="text-xs font-medium">Convex</span>
@@ -375,16 +297,15 @@ export default function HomePage(): React.ReactNode {
             href="https://vercel.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="group flex flex-col items-center gap-2 text-muted-foreground transition-colors hover:text-foreground"
+            className="flex flex-col items-center gap-2 text-muted-foreground transition-colors hover:text-foreground"
           >
             <VercelLogo className="h-10 w-10 sm:h-12 sm:w-12" />
             <span className="text-xs font-medium">Vercel</span>
           </a>
         </div>
 
-        {/* Recommendation cards */}
         <div className="mx-auto mt-10 grid max-w-3xl gap-4 sm:grid-cols-2">
-          <div className="rounded-lg border border-border bg-card p-5">
+          <div className="rounded-lg border border-border p-5">
             <div className="mb-3 flex items-center gap-2">
               <VercelLogo className="h-5 w-5" />
               <span className="text-sm font-semibold text-foreground">Vercel</span>
@@ -392,7 +313,7 @@ export default function HomePage(): React.ReactNode {
             </div>
             <p className="text-sm text-muted-foreground">{t('Stack.vercel')}</p>
           </div>
-          <div className="rounded-lg border border-border bg-card p-5">
+          <div className="rounded-lg border border-border p-5">
             <div className="mb-3 flex items-center gap-2">
               <ConvexLogo className="h-5 w-5" />
               <span className="text-sm font-semibold text-foreground">Convex Cloud</span>
@@ -407,45 +328,31 @@ export default function HomePage(): React.ReactNode {
 }
 
 function ModeCard({
-  icon,
   title,
   stack,
   command,
   features,
 }: {
-  icon: React.ReactNode
   title: string
   stack: string
   command: string
   features: string[]
 }): React.ReactNode {
   return (
-    <Card className="group relative flex flex-col overflow-hidden transition-shadow hover:shadow-lg">
-      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-primary/[0.03] to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
+    <Card className="flex flex-col overflow-hidden">
       <CardHeader className="flex-1">
-        <div className="mb-2 inline-flex h-9 w-9 items-center justify-center rounded-lg border border-border bg-muted text-primary">
-          {icon}
-        </div>
         <CardTitle className="text-xl">{title}</CardTitle>
         <CardDescription className="min-h-[2.5rem] text-sm">{stack}</CardDescription>
       </CardHeader>
       <CardContent>
         <div className="mb-4 rounded-md bg-zinc-950 px-3 py-2.5 dark:bg-zinc-900">
-          <code className="text-xs">
-            <span className="text-emerald-400">npx</span>{' '}
-            <span className="text-sky-400">{command.replace('npx ', '').split(' --')[0]}</span>
-            {command.includes('--') && (
-              <>
-                {' '}
-                <span className="text-amber-400">--{command.split('--')[1]}</span>
-              </>
-            )}
+          <code className="text-xs text-zinc-300">
+            $ {command}
           </code>
         </div>
         <ul className="space-y-2">
           {features.map((f) => (
-            <li key={f} className="flex items-start gap-2 text-sm text-muted-foreground">
-              <Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-green-500" />
+            <li key={f} className="text-sm text-muted-foreground">
               {f}
             </li>
           ))}
@@ -456,10 +363,8 @@ function ModeCard({
 }
 
 function AgentFileCard({
-  icon,
   description,
 }: {
-  icon: React.ReactNode
   description: string
 }): React.ReactNode {
   const parts = description.split(' — ')
@@ -467,16 +372,11 @@ function AgentFileCard({
   const desc = parts.length > 1 ? parts[1] : description
 
   return (
-    <div className="group flex items-start gap-3 rounded-lg border border-border bg-card p-4 transition-colors hover:bg-accent/50">
-      <div className="mt-0.5 text-muted-foreground transition-colors group-hover:text-primary">
-        {icon}
-      </div>
-      <div className="flex-1 min-w-0">
-        <p className="font-mono text-sm font-semibold text-foreground">{fileName}</p>
-        {parts.length > 1 && (
-          <p className="mt-0.5 text-sm text-muted-foreground">{desc}</p>
-        )}
-      </div>
+    <div className="rounded-lg border border-border p-4">
+      <p className="text-sm font-semibold text-foreground">{fileName}</p>
+      {parts.length > 1 && (
+        <p className="mt-0.5 text-sm text-muted-foreground">{desc}</p>
+      )}
     </div>
   )
 }
@@ -512,20 +412,10 @@ function PackageCard({
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className={`group flex items-start gap-3 rounded-lg border border-border bg-card p-4 transition-colors hover:bg-accent/50 ${className ?? ''}`}
+      className={`block rounded-lg border border-border p-4 transition-colors hover:bg-accent/50 ${className ?? ''}`}
     >
-      <div className="mt-0.5 text-muted-foreground transition-colors group-hover:text-primary">
-        <Package className="h-4 w-4" />
-      </div>
-      <div className="min-w-0 flex-1">
-        <div className="flex items-center gap-2">
-          <p className="font-mono text-sm font-semibold text-foreground">
-            {name}
-          </p>
-          <ExternalLink className="h-3 w-3 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100" />
-        </div>
-        <p className="mt-0.5 text-sm text-muted-foreground">{description}</p>
-      </div>
+      <p className="text-sm font-semibold text-foreground">{name}</p>
+      <p className="mt-0.5 text-sm text-muted-foreground">{description}</p>
     </a>
   )
 }
@@ -540,15 +430,10 @@ function GeneratorRow({
   isAddon?: boolean
 }): React.ReactNode {
   return (
-    <div className="flex flex-col gap-1.5 rounded-lg border border-border bg-card px-4 py-3 transition-colors hover:bg-accent/50 sm:flex-row sm:items-center sm:gap-4">
-      <div className="flex items-center gap-2">
-        <Terminal className="h-3.5 w-3.5 shrink-0 text-emerald-500" />
-        <code className="whitespace-nowrap text-sm font-medium">
-          <span className="text-emerald-500">{command.split(' ')[0]}</span>{' '}
-          <span className="text-sky-500">{command.split(' ')[1]}</span>{' '}
-          <span className="text-amber-500">{command.split(' ').slice(2).join(' ')}</span>
-        </code>
-      </div>
+    <div className="flex flex-col gap-1.5 rounded-lg border border-border px-4 py-3 sm:flex-row sm:items-center sm:gap-4">
+      <code className="whitespace-nowrap text-sm font-medium text-foreground">
+        $ {command}
+      </code>
       <span className="text-sm text-muted-foreground sm:ml-auto">
         {isAddon && (
           <Badge variant="secondary" className="mr-2 text-xs">
