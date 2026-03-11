@@ -1,0 +1,4 @@
+appId: com.{{packageName}}.app
+---
+- launchApp
+- assertVisible: "Welcome to {{projectName}}"

@@ -1,0 +1,27 @@
+# {{projectName}} — Cursor Rules (Monorepo)
+
+## BLOCKING Rules
+1. No `any` type — use `unknown` + type guards
+2. No direct DB calls from apps — use `@repo/client` hooks
+3. No business logic in components — extract to hooks or convex functions
+4. Features in `features/{name}/` — vertical slices per app
+5. Package boundaries — apps import from `@repo/*`, never from other apps
+6. Convex validators required — `args` + `returns` on every query/mutation
+7. Bounded reads — `.take(n)` or pagination
+8. Index-backed queries — `.withIndex()`
+9. Tests pass before merge — `turbo test && turbo typecheck`
+
+## Structure
+- `apps/web/` — Next.js (App Router, Turbopack)
+- `apps/mobile/` — Expo (Expo Router, React Native)
+- `packages/backend/` — Convex functions + schema
+- `packages/client/` — Universal React hooks
+- `packages/theme/` — Design tokens
+- `packages/shared/` — Shared types + utils
+
+## Package Graph
+```
+@repo/backend → @repo/client → apps/{web,mobile}
+@repo/theme → apps/{web,mobile}
+@repo/shared → all
+```

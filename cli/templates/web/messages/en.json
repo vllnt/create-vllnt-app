@@ -1,0 +1,23 @@
+{
+  "common": {
+    "appName": "{{projectName}}",
+    "loading": "Loading...",
+    "error": "Something went wrong",
+    "notFound": "Page not found"
+  },
+  "marketing": {
+    "title": "Welcome to {{projectName}}",
+    "description": "Built with create-vllnt-app"
+  },
+  "auth": {
+    "login": "Log in",
+    "register": "Sign up",
+    "logout": "Log out",
+    "email": "Email",
+    "password": "Password"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "welcome": "Welcome back"
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "name": "create-vllnt-app",
+  "version": "0.1.0",
+  "description": "Opinionated CLI platform for agent-first web and mobile development",
+  "type": "module",
+  "bin": {
+    "create-vllnt-app": "./dist/index.js",
+    "vllnt": "./dist/index.js"
+  },
+  "files": [
+    "dist",
+    "templates"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "typecheck": "tsc --noEmit"
+  },
+  "keywords": [
+    "cli",
+    "scaffold",
+    "nextjs",
+    "expo",
+    "convex",
+    "agent-first",
+    "create-app"
+  ],
+  "author": "bntvllnt",
+  "license": "MIT",
+  "dependencies": {
+    "@clack/prompts": "^0.9.1",
+    "chalk": "^5.4.1",
+    "commander": "^13.1.0",
+    "execa": "^9.5.2",
+    "fs-extra": "^11.3.0",
+    "glob": "^11.0.1",
+    "gradient-string": "^3.0.0",
+    "handlebars": "^4.7.8"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.4",
+    "@types/gradient-string": "^1.1.6",
+    "@types/node": "^22.15.0",
+    "tsup": "^8.4.0",
+    "typescript": "^5.8.3"
+  }
+}

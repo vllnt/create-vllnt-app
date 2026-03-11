@@ -1,0 +1,17 @@
+{
+  "tabs": {
+    "home": "Home",
+    "settings": "Settings"
+  },
+  "home": {
+    "title": "Welcome to {{projectName}}",
+    "subtitle": "Built with Expo + Convex"
+  },
+  "settings": {
+    "title": "Settings"
+  },
+  "auth": {
+    "login": "Log in",
+    "register": "Sign up"
+  }
+}

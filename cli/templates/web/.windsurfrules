@@ -1,0 +1,46 @@
+# {{projectName}} — Windsurf Rules
+
+## BLOCKING Rules
+1. No `any` type — use `unknown` + type guards
+2. No direct DB calls from UI — use convex queries/mutations
+3. No business logic in components — extract to features/ hooks or convex functions
+4. Features in `features/{name}/` — vertical slices with components/, hooks/, index.ts
+5. Shared UI only in `components/` — ui/ for primitives, layout/ for shells
+6. Convex validators required — `args` + `returns` on every query/mutation
+7. Bounded reads — `.take(n)` or pagination, never unbounded `.collect()`
+8. Index-backed queries — `.withIndex()`, no `.filter()` on full scans
+9. Tests pass before merge — `pnpm test && pnpm typecheck`
+
+## Stack
+- Next.js 15+ (App Router, Server Components, Turbopack)
+- Convex (reactive backend)
+- Tailwind CSS v4
+- next-intl (i18n)
+- TypeScript strict
+
+## Structure
+- `app/[locale]/` — pages (route groups: marketing, auth, dashboard)
+- `components/` — shared UI (ui/, layout/, providers/)
+- `features/` — vertical slices (components/, hooks/, index.ts)
+- `convex/` — backend (domain folders: schemas.ts, queries.ts, mutations.ts)
+- `lib/` — utilities
+- `i18n/` + `messages/` — internationalization
+
+## Convex Patterns
+- Domain folders: `convex/{domain}/schemas.ts + queries.ts + mutations.ts`
+- Dual validators: data validator + document validator (with _id, _creationTime)
+- Queries: `.withIndex()` + `.take(n)` + `args` + `returns`
+- Mutations: `internalMutation` for sensitive ops, `.withIndex()` for lookups
+- Schema: import domain tables into root `convex/schema.ts`
+
+## features/ Pattern
+- Each feature = self-contained vertical slice
+- Public API via `index.ts` barrel export
+- Consumers import from `@/features/{name}` only
+- Never import feature internals directly
+
+## Next.js Conventions
+- Server Components default, `'use client'` when needed
+- Data via convex hooks (useQuery/useMutation) in client components
+- Route groups `(name)` for layout segmentation
+- Middleware handles locale routing

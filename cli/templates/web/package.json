@@ -1,0 +1,44 @@
+{
+  "name": "{{packageName}}",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "playwright test"
+  },
+  "dependencies": {
+    "@vllnt/ui": "latest",
+    "convex": "^1.21.0",
+    "convex-helpers": "^0.1.75",
+    "next": "^15.3.0",
+    "next-intl": "^4.1.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "zod": "^3.24.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.0",
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.0",
+    "@vllnt/eslint-config": "latest",
+    "@vllnt/typescript": "latest",
+    "autoprefixer": "^10.4.21",
+    "eslint": "^9.25.0",
+    "postcss": "^8.5.3",
+    "tailwindcss": "^4.1.0",
+    "typescript": "^5.8.3",
+    "vitest": "^4.0.0",
+    "@playwright/test": "^1.52.0"
+  },
+  "packageManager": "pnpm@9.15.4",
+  "engines": {
+    "node": ">=22"
+  }
+}

@@ -1,0 +1,45 @@
+# {{projectName}} — Windsurf Rules
+
+## BLOCKING Rules
+1. No `any` type — use `unknown` + type guards
+2. No direct DB calls from UI — use convex queries/mutations
+3. No business logic in components — extract to features/ hooks or convex functions
+4. Features in `features/{name}/` — vertical slices with components/, hooks/, index.ts
+5. Shared UI only in `components/` — ui/ for primitives, layout/ for shells
+6. Convex validators required — `args` + `returns` on every query/mutation
+7. Bounded reads — `.take(n)` or pagination, never unbounded `.collect()`
+8. Index-backed queries — `.withIndex()`, no `.filter()` on full scans
+9. Tests pass before merge — `pnpm test && pnpm typecheck`
+
+## Stack
+- Expo 55+ (Expo Router, React Native)
+- Convex (reactive backend)
+- React Native StyleSheet + color tokens
+- i18next (i18n)
+- TypeScript strict
+
+## Structure
+- `app/` — screens (route groups: tabs, auth, stack)
+- `components/` — shared UI (ui/, layout/, providers/)
+- `features/` — vertical slices (components/, hooks/, index.ts)
+- `convex/` — backend (domain folders: schemas.ts, queries.ts, mutations.ts)
+- `contexts/` — React contexts (theme)
+- `lib/` — utilities, constants
+- `i18n/` — internationalization
+
+## Expo Patterns
+- File-based routing via Expo Router
+- Route groups: `(tabs)`, `(auth)`, `(stack)`
+- Platform variants: `.ios.ts`, `.android.ts`, `.web.ts`
+- Root layout: ThemeProvider > ConvexProvider > Stack
+
+## Convex Patterns
+- Domain folders: `convex/{domain}/schemas.ts + queries.ts + mutations.ts`
+- Dual validators: data validator + document validator
+- Queries: `.withIndex()` + `.take(n)` + `args` + `returns`
+- Mutations: `internalMutation` for sensitive ops
+
+## features/ Pattern
+- Each feature = self-contained vertical slice
+- Public API via `index.ts` barrel export
+- Consumers import from `@/features/{name}` only

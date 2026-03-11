@@ -1,0 +1,23 @@
+{
+  "name": "@repo/client",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "main": "./src/index.ts",
+  "scripts": {
+    "build": "tsc --noEmit",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@repo/backend": "workspace:*",
+    "convex": "^1.21.0",
+    "react": "^19.1.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.1.0",
+    "typescript": "^5.8.3"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0"
+  }
+}

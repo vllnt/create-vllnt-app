@@ -1,0 +1,6 @@
+{
+  "Home": {
+    "title": "Welcome to {{projectName}}",
+    "subtitle": "Built with Next.js + Convex"
+  }
+}

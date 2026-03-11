@@ -1,0 +1,19 @@
+{
+  "name": "@repo/theme",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "main": "./src/tokens.ts",
+  "exports": {
+    "./tokens": "./src/tokens.ts",
+    "./tailwind": "./src/tailwind.ts",
+    "./react-native": "./src/react-native.ts"
+  },
+  "scripts": {
+    "build": "tsc --noEmit",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.3"
+  }
+}
