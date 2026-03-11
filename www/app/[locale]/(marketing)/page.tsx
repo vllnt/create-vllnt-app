@@ -379,8 +379,17 @@ function ModeCard({
         <CardDescription className="text-sm">{stack}</CardDescription>
       </CardHeader>
       <CardContent>
-        <div className="mb-4 rounded-md bg-muted px-3 py-2">
-          <code className="text-xs text-primary">{command}</code>
+        <div className="mb-4 rounded-md bg-zinc-950 px-3 py-2.5 dark:bg-zinc-900">
+          <code className="text-xs">
+            <span className="text-emerald-400">npx</span>{' '}
+            <span className="text-sky-400">{command.replace('npx ', '').split(' --')[0]}</span>
+            {command.includes('--') && (
+              <>
+                {' '}
+                <span className="text-amber-400">--{command.split('--')[1]}</span>
+              </>
+            )}
+          </code>
         </div>
         <ul className="space-y-2">
           {features.map((f) => (
@@ -448,9 +457,11 @@ function GeneratorRow({
   return (
     <div className="flex flex-col gap-1.5 rounded-lg border border-border bg-card px-4 py-3 transition-colors hover:bg-accent/50 sm:flex-row sm:items-center sm:gap-4">
       <div className="flex items-center gap-2">
-        <Terminal className="h-3.5 w-3.5 shrink-0 text-muted-foreground" />
-        <code className="whitespace-nowrap text-sm font-medium text-foreground">
-          {command}
+        <Terminal className="h-3.5 w-3.5 shrink-0 text-emerald-500" />
+        <code className="whitespace-nowrap text-sm font-medium">
+          <span className="text-emerald-500">{command.split(' ')[0]}</span>{' '}
+          <span className="text-sky-500">{command.split(' ')[1]}</span>{' '}
+          <span className="text-amber-500">{command.split(' ').slice(2).join(' ')}</span>
         </code>
       </div>
       <span className="text-sm text-muted-foreground sm:ml-auto">

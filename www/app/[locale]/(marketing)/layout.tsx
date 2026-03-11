@@ -18,6 +18,12 @@ export default function MarketingLayout({
             create-vllnt-app
           </Link>
           <div className="flex items-center gap-3">
+            <Link
+              href="/manifesto"
+              className="hidden text-sm text-muted-foreground transition-colors hover:text-foreground sm:block"
+            >
+              Manifesto
+            </Link>
             <GitHubStars owner="vllnt" repo="create-vllnt-app" count={128} />
             <ThemeToggle />
           </div>

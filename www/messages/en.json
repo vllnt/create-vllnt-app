@@ -79,6 +79,22 @@
     "vercel": "Deploy frontend with zero-config. Edge functions, ISR, and global CDN out of the box.",
     "convex": "Real-time backend with automatic caching, ACID transactions, and global edge deployment."
   },
+  "Manifesto": {
+    "title": "Why I'm building this",
+    "subtitle": "An open letter from the creator of create-vllnt-app.",
+    "p1": "I've spent years building products — web apps, mobile apps, fullstack systems. Every new project started the same way: days of boilerplate, weeks of configuration, and the constant feeling that I was solving the same problems over and over.",
+    "p2": "Then AI coding agents arrived. Claude Code, Cursor, Codex, Windsurf — they changed everything. Suddenly I could ship 10x faster. But there was a catch: these agents are only as good as the context you give them. Drop an AI agent into a blank project and it flounders. Drop it into a well-structured project with clear rules, conventions, and architecture docs, and it becomes a 100x multiplier.",
+    "p3": "That's the insight behind create-vllnt-app. It's not just a scaffolder — it's the bridge between your idea and a project that AI agents can immediately understand and extend. CLAUDE.md files with blocking rules. AGENTS.md with architecture diagrams. Cursor and Windsurf rules derived from the same source of truth. Documentation that serves both humans and machines.",
+    "h_opinionated": "Opinionated by design",
+    "p4": "This scaffolder is deliberately opinionated. Next.js for web. Expo for mobile. Convex for the backend. Tailwind for styling. Feature-sliced architecture. These aren't arbitrary choices — they're the stack I've battle-tested across dozens of production apps. When your AI agent knows the stack, it writes better code. When the conventions are consistent, the agent makes fewer mistakes.",
+    "h_open": "Open source because it has to be",
+    "p5": "create-vllnt-app is open source because the best developer tools always are. I want every solo developer, every indie hacker, every small team to have the same scaffolding advantage that I do. Fork it, extend it, make it yours. The templates are just the starting point.",
+    "h_future": "The future is agent-first",
+    "p6": "We're at the beginning of a fundamental shift in how software gets built. The developers who win will be the ones who learn to work with AI agents, not against them. That means structuring projects for AI comprehension, writing rules that prevent common mistakes, and building scaffolds that give agents the context they need from the first prompt.",
+    "p7": "That's what create-vllnt-app is: a head start on the future of development.",
+    "signoff": "— bntvllnt",
+    "cta": "Get started"
+  },
   "Footer": {
     "built_by": "Built by",
     "source": "Source"
