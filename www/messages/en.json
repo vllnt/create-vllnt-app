@@ -4,13 +4,13 @@
     "description": "Scaffold production-grade Next.js, Expo, or fullstack monorepo projects with Convex backend. AI agent contracts included."
   },
   "Hero": {
-    "badge": "v0.1.0 — Alpha",
+    "badge": "v0.1.0 — Closed Alpha",
     "title_prefix": "Ship with",
     "title_highlight": "AI agents",
     "title_suffix": "from day one",
     "description": "Scaffold production-grade Next.js, Expo, or fullstack monorepo projects with Convex backend. CLAUDE.md + agent contracts included.",
     "cta": "Get Started",
-    "command": "npx create-vllnt-app"
+    "command": "npx create-vllnt-app@latest"
   },
   "Modes": {
     "title": "Three modes. One command.",
@@ -18,7 +18,7 @@
     "web": {
       "title": "Web",
       "stack": "Next.js 15 + Convex + Tailwind v4 + next-intl",
-      "command": "npx create-vllnt-app --template web",
+      "command": "npx create-vllnt-app@latest --template web",
       "f1": "App Router + Server Components",
       "f2": "Feature-sliced architecture",
       "f3": "i18n out of the box",
@@ -27,7 +27,7 @@
     "mobile": {
       "title": "Mobile",
       "stack": "Expo 55 + Convex + React Native + i18next",
-      "command": "npx create-vllnt-app --template mobile",
+      "command": "npx create-vllnt-app@latest --template mobile",
       "f1": "Expo Router (typed routes)",
       "f2": "Feature-sliced architecture",
       "f3": "Dark mode + theming",
@@ -36,7 +36,7 @@
     "fullstack": {
       "title": "Fullstack",
       "stack": "Turborepo + Next.js + Expo + Convex",
-      "command": "npx create-vllnt-app --template fullstack",
+      "command": "npx create-vllnt-app@latest --template fullstack",
       "f1": "Shared Convex backend",
       "f2": "Universal React hooks",
       "f3": "Cross-platform design tokens",
