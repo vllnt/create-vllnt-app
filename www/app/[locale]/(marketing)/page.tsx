@@ -369,14 +369,14 @@ function ModeCard({
   features: string[]
 }): React.ReactNode {
   return (
-    <Card className="group relative overflow-hidden transition-shadow hover:shadow-lg">
+    <Card className="group relative flex flex-col overflow-hidden transition-shadow hover:shadow-lg">
       <div className="absolute inset-0 -z-10 bg-gradient-to-b from-primary/[0.03] to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
-      <CardHeader>
+      <CardHeader className="flex-1">
         <div className="mb-2 inline-flex h-9 w-9 items-center justify-center rounded-lg border border-border bg-muted text-primary">
           {icon}
         </div>
         <CardTitle className="text-xl">{title}</CardTitle>
-        <CardDescription className="text-sm">{stack}</CardDescription>
+        <CardDescription className="min-h-[2.5rem] text-sm">{stack}</CardDescription>
       </CardHeader>
       <CardContent>
         <div className="mb-4 rounded-md bg-zinc-950 px-3 py-2.5 dark:bg-zinc-900">
