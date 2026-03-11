@@ -24,7 +24,7 @@ import { Separator } from '@vllnt/ui'
 
 import { NextjsLogo, ExpoLogo, ConvexLogo, VercelLogo } from '@/components/logos'
 import {
-  AnthropicLogo,
+  ClaudeLogo,
   CursorLogo,
   GeminiLogo,
   OpenAILogo,
@@ -214,7 +214,7 @@ export default function HomePage(): React.ReactNode {
         </div>
 
         <div className="mx-auto mt-12 flex flex-wrap items-center justify-center gap-8 sm:gap-12">
-          <AgentLogoItem logo={<AnthropicLogo className="h-12 w-12 sm:h-14 sm:w-14" />} name="Claude Code" />
+          <AgentLogoItem logo={<ClaudeLogo className="h-12 w-12 sm:h-14 sm:w-14" />} name="Claude Code" />
           <AgentLogoItem logo={<OpenAILogo className="h-12 w-12 sm:h-14 sm:w-14" />} name="Codex" />
           <AgentLogoItem logo={<CursorLogo className="h-12 w-12 sm:h-14 sm:w-14" />} name="Cursor" />
           <AgentLogoItem logo={<WindsurfLogo className="h-12 w-12 sm:h-14 sm:w-14" />} name="Windsurf" />
