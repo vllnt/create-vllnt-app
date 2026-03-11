@@ -4,8 +4,10 @@ import {
   Bot,
   Check,
   FileCode2,
+  ExternalLink,
   Globe,
   Layers,
+  Package,
   Smartphone,
   Terminal,
   Wand2,
@@ -274,6 +276,55 @@ export default function HomePage(): React.ReactNode {
 
       <Separator />
 
+      {/* Foundations — @vllnt packages */}
+      <section className="container mx-auto px-4 py-20 sm:px-6 sm:py-28">
+        <div className="mx-auto max-w-2xl text-center">
+          <div className="mb-4 inline-flex items-center gap-2 text-primary">
+            <Package className="h-5 w-5" />
+            <span className="text-sm font-semibold uppercase tracking-wider">
+              Foundations
+            </span>
+          </div>
+          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
+            {t('Foundations.title')}
+          </h2>
+          <p className="mt-4 text-muted-foreground sm:text-lg">
+            {t('Foundations.subtitle')}
+          </p>
+        </div>
+
+        <div className="mx-auto mt-12 grid max-w-3xl gap-3 sm:grid-cols-2">
+          <PackageCard
+            name={t('Foundations.ui_name')}
+            description={t('Foundations.ui_desc')}
+            href="https://www.npmjs.com/package/@vllnt/ui"
+          />
+          <PackageCard
+            name={t('Foundations.eslint_name')}
+            description={t('Foundations.eslint_desc')}
+            href="https://www.npmjs.com/package/@vllnt/eslint-config"
+          />
+          <PackageCard
+            name={t('Foundations.typescript_name')}
+            description={t('Foundations.typescript_desc')}
+            href="https://www.npmjs.com/package/@vllnt/typescript"
+          />
+          <PackageCard
+            name={t('Foundations.logger_name')}
+            description={t('Foundations.logger_desc')}
+            href="https://www.npmjs.com/package/@vllnt/logger"
+          />
+          <PackageCard
+            name={t('Foundations.analytics_name')}
+            description={t('Foundations.analytics_desc')}
+            href="https://www.npmjs.com/package/@vllnt/analytics"
+            className="sm:col-span-2"
+          />
+        </div>
+      </section>
+
+      <Separator />
+
       {/* Stack & Recommendations */}
       <section className="container mx-auto px-4 py-20 sm:px-6 sm:py-28">
         <div className="mx-auto max-w-2xl text-center">
@@ -442,6 +493,40 @@ function AgentLogoItem({
       {logo}
       <span className="text-xs font-medium">{name}</span>
     </div>
+  )
+}
+
+function PackageCard({
+  name,
+  description,
+  href,
+  className,
+}: {
+  name: string
+  description: string
+  href: string
+  className?: string
+}): React.ReactNode {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={`group flex items-start gap-3 rounded-lg border border-border bg-card p-4 transition-colors hover:bg-accent/50 ${className ?? ''}`}
+    >
+      <div className="mt-0.5 text-muted-foreground transition-colors group-hover:text-primary">
+        <Package className="h-4 w-4" />
+      </div>
+      <div className="min-w-0 flex-1">
+        <div className="flex items-center gap-2">
+          <p className="font-mono text-sm font-semibold text-foreground">
+            {name}
+          </p>
+          <ExternalLink className="h-3 w-3 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100" />
+        </div>
+        <p className="mt-0.5 text-sm text-muted-foreground">{description}</p>
+      </div>
+    </a>
   )
 }
 

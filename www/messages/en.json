@@ -73,6 +73,20 @@
     "title": "Works with your AI coding agent",
     "subtitle": "Every scaffolded project ships with optimized rules for the leading AI coding agents. Your agent understands the architecture from the first prompt."
   },
+  "Foundations": {
+    "title": "Built on @vllnt open source",
+    "subtitle": "Every scaffolded project is powered by a growing ecosystem of open-source packages — maintained, tested, and published on npm.",
+    "ui_name": "@vllnt/ui",
+    "ui_desc": "93 React components built on Radix UI + Tailwind CSS + CVA",
+    "eslint_name": "@vllnt/eslint-config",
+    "eslint_desc": "Strict ESLint config for TypeScript — all rules enforce error, no warnings",
+    "typescript_name": "@vllnt/typescript",
+    "typescript_desc": "Shared TypeScript configurations for Next.js, Expo, and library projects",
+    "logger_name": "@vllnt/logger",
+    "logger_desc": "Structured logging for server and edge runtimes",
+    "analytics_name": "@vllnt/analytics",
+    "analytics_desc": "Privacy-first analytics with consent management and React integration"
+  },
   "Stack": {
     "title": "Opinionated stack. Maximum performance.",
     "subtitle": "Built on the best tools in the ecosystem. For maximum performance, we highly recommend deploying to Vercel and using Convex Cloud.",

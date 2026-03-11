@@ -1,0 +1,338 @@
+# create-vllnt-app
+
+> Opinionated CLI for scaffolding agent-first web (Next.js), mobile (Expo), and fullstack monorepo projects with Convex backend. Ships AI agent contracts (CLAUDE.md, AGENTS.md, .cursorrules, .windsurfrules) and feature-sliced architecture out of the box.
+
+## Installation
+
+```bash
+npx create-vllnt-app@latest
+```
+
+Or install globally:
+
+```bash
+npm install -g create-vllnt-app
+```
+
+Binary names: `create-vllnt-app` or `vllnt`
+
+---
+
+## Commands
+
+### vllnt new [name]
+
+Scaffold a new project from template.
+
+**Arguments:**
+- `[name]` — Project name (optional, prompted if omitted)
+
+**Options:**
+- `-t, --template <template>` — Template: `web`, `mobile`, or `fullstack`
+- `-y, --yes` — Skip all prompts, use defaults (name=`my-app`, template=`web`)
+- `--agent` — Machine-readable JSON output (implies `--yes`, sets `VLLNT_AGENT=1`)
+- `--package-manager <pm>` — Package manager: `npm`, `pnpm`, `yarn`, or `bun`
+- `--skip-install` — Skip dependency installation after scaffold
+
+**Examples:**
+
+```bash
+# Interactive mode
+npx create-vllnt-app@latest
+
+# Non-interactive with defaults
+npx create-vllnt-app@latest --yes
+
+# Specific template
+npx create-vllnt-app@latest my-project --template mobile
+
+# Agent/CI mode (JSON output)
+npx create-vllnt-app@latest --agent --template web
+
+# Skip install
+npx create-vllnt-app@latest my-project --template web --skip-install
+```
+
+**JSON Output (agent mode):**
+
+Success:
+```json
+{
+  "success": true,
+  "path": "/absolute/path/to/project",
+  "template": "web",
+  "files": ["app/page.tsx", "convex/schema.ts", "..."],
+  "packageManager": "pnpm"
+}
+```
+
+Error:
+```json
+{
+  "success": false,
+  "error": "INVALID_NAME",
+  "message": "Project name cannot contain spaces"
+}
+```
+
+Error codes: `INVALID_NAME`, `DIR_EXISTS`, `SCAFFOLD_FAILED`, `NOT_IMPLEMENTED`
+
+### vllnt add <feature>
+
+Add integrations to an existing project.
+
+**Planned features:**
+- `auth` — BetterAuth + Convex adapter
+- `payments` — Polar.sh via @convex-dev/polar
+- `analytics` — @vllnt/analytics integration
+
+### vllnt generate <type> <name>
+
+Generate code artifacts following project conventions. Alias: `vllnt gen`
+
+**Types:**
+- `page <Name>` — New page with layout + metadata + i18n
+- `screen <Name>` — New mobile screen with navigation
+- `feature <name>` — Feature slice: components/ + hooks/ + index.ts
+- `component <Name>` — Shared UI component
+- `hook <name>` — Custom React hook
+- `domain <name>` — Convex domain: schemas + queries + mutations
+
+### vllnt doctor
+
+Health check for a vllnt project. Validates configuration, dependencies, and project structure.
+
+---
+
+## Templates
+
+### web — Next.js + Convex
+
+**Stack:** Next.js 16, Convex, Tailwind CSS v4, next-intl, @vllnt/ui, Playwright, Vitest
+
+**Directory structure:**
+```
+├── app/[locale]/          # App Router with i18n locale routing
+├── components/
+│   ├── layout/            # Header, footer, shared layout
+│   ├── providers/         # ConvexProvider, ThemeProvider
+│   └── ui/                # @vllnt/ui re-exports
+├── convex/
+│   ├── auth/              # Auth domain (schemas, queries, mutations)
+│   ├── lib/               # Convex utilities
+│   ├── schema.ts          # Root schema
+│   ├── http.ts            # HTTP routes
+│   └── convex.config.ts   # Convex configuration
+├── features/              # Feature-sliced vertical architecture
+│   ├── auth/hooks/        # Auth feature hooks
+│   └── dashboard/         # Dashboard feature components
+├── hooks/                 # Shared hooks
+├── i18n/                  # i18n configuration
+├── messages/              # Translation files (en.json, etc.)
+├── lib/                   # Utilities
+├── tests/e2e/             # Playwright E2E tests
+├── docs/                  # Architecture, testing, i18n, theming docs
+├── specs/                 # Feature specs
+├── CLAUDE.md              # Claude Code agent contract
+├── AGENTS.md              # Multi-agent architecture doc
+├── .cursorrules           # Cursor agent rules
+├── .windsurfrules         # Windsurf agent rules
+├── next.config.mjs
+├── tailwind.config.ts
+├── playwright.config.ts
+└── package.json
+```
+
+**Key patterns:**
+- Feature-sliced architecture: `features/{name}/components/`, `features/{name}/hooks/`
+- Convex domain folders: `convex/{domain}/schemas.ts`, `queries.ts`, `mutations.ts`
+- i18n with next-intl: locale routing via `[locale]` segment
+- @vllnt/ui components (93 Radix + Tailwind components)
+- Server Components by default, client components only when needed
+
+### mobile — Expo + Convex
+
+**Stack:** Expo 55, React Native, Convex, i18next, Maestro E2E, TypeScript
+
+**Directory structure:**
+```
+├── app/
+│   ├── (auth)/            # Auth navigation stack
+│   ├── (stack)/           # Main stack navigator
+│   └── (tabs)/            # Tab-based navigation
+├── components/
+│   ├── layout/            # Shared mobile layout
+│   ├── providers/         # ConvexProvider
+│   └── ui/                # Custom ThemedText, ThemedView primitives
+├── convex/
+│   ├── auth/              # Auth domain
+│   └── convex.config.ts
+├── features/              # Feature-sliced vertical architecture
+│   ├── auth/
+│   └── settings/
+├── hooks/                 # Shared hooks
+├── i18n/locales/          # Translation JSON files
+├── .maestro/              # Maestro E2E test flows
+├── docs/                  # Architecture docs
+├── CLAUDE.md              # Agent contract
+├── AGENTS.md
+├── .cursorrules
+├── .windsurfrules
+├── app.json               # Expo configuration
+├── metro.config.cjs
+├── eas.json               # EAS Build config
+└── package.json
+```
+
+**Key differences from web:**
+- i18next (not next-intl)
+- Custom UI primitives (not @vllnt/ui — no React Native support)
+- expo-router for navigation
+- Maestro for E2E testing (not Playwright)
+- EAS Build for app store deployment
+
+### fullstack — Turborepo Monorepo
+
+**Stack:** Turborepo, pnpm workspaces, Next.js + Expo + Convex, shared packages
+
+**Directory structure:**
+```
+├── apps/
+│   ├── web/               # Full Next.js app (same as web template)
+│   └── mobile/            # Full Expo app (same as mobile template)
+├── packages/
+│   ├── backend/           # Shared Convex backend (domain folders)
+│   ├── client/            # Shared Convex hooks + API wrappers
+│   ├── shared/            # Shared types, enums, constants
+│   └── theme/             # Design tokens, Tailwind config, RN theme
+├── docs/                  # Cross-platform architecture docs
+├── specs/                 # Top-level feature specs
+├── turbo.json             # Turborepo pipeline config
+├── pnpm-workspace.yaml    # Workspace definition
+└── package.json           # Root package
+```
+
+**Key feature:** Shared Convex backend between web and mobile. Design system via `packages/theme`.
+
+---
+
+## Agent Contracts
+
+Every scaffolded project ships with AI agent configuration files:
+
+### CLAUDE.md
+Blocking rules for Claude Code. Contains:
+- Stack information and versions
+- Convex patterns (dual validators, domain folders, withIndex)
+- Architecture conventions (feature-sliced, Server Components)
+- Forbidden patterns and anti-patterns
+- Testing requirements
+
+### AGENTS.md
+Multi-agent architecture reference. Contains:
+- System architecture diagrams
+- Extension points for adding features
+- Common tasks and how to accomplish them
+- Pitfalls and gotchas
+
+### .cursorrules
+Cursor-optimized rules derived from CLAUDE.md.
+
+### .windsurfrules
+Windsurf-optimized rules derived from CLAUDE.md.
+
+### docs/
+Architecture documentation:
+- `architecture.md` — System design and data flow
+- `testing.md` — Testing strategy and patterns
+- `i18n.md` — Internationalization guide
+- `theming.md` — Theme system and customization
+- `extending.md` — How to add features
+
+---
+
+## Project Name Validation
+
+- Must not be empty or whitespace-only
+- No spaces allowed
+- Must match npm naming: `^(?:@[a-z0-9-*~][a-z0-9-*._~]*\/)?[a-z0-9-~][a-z0-9-._~]*$`
+- Cannot be reserved: `node_modules`, `favicon.ico`, `package.json`, `tsconfig.json`, `.git`, `.env`, `src`, `dist`, `build`, `public`, `test`, `tests`
+- Max 214 characters
+
+---
+
+## Package Manager Detection
+
+When `--package-manager` is not specified:
+
+| Lockfile | Manager |
+|----------|---------|
+| `pnpm-lock.yaml` | pnpm |
+| `yarn.lock` | yarn |
+| `bun.lockb` | bun |
+| `package-lock.json` | npm |
+| No lockfile | pnpm (default) |
+
+Fallback: reads `npm_config_user_agent` environment variable.
+
+---
+
+## Scaffolding Process
+
+1. **Validate** project name against naming rules
+2. **Check** target directory doesn't exist
+3. **Copy** template directory to target
+4. **Process** text files — replace `{{projectName}}` and `{{packageName}}` placeholders
+5. **Initialize** git repository with initial commit
+6. **Install** dependencies (unless `--skip-install`)
+7. **Return** result metadata
+
+**Processed file extensions:** `.ts`, `.tsx`, `.js`, `.jsx`, `.json`, `.md`, `.mdx`, `.yaml`, `.yml`, `.toml`, `.css`, `.html`, `.mjs`, `.cjs`, `.env`, `.env.example`, `.gitignore`, `.prettierrc`, `.eslintrc`
+
+---
+
+## Environment Variables
+
+| Variable | Purpose |
+|----------|---------|
+| `VLLNT_AGENT` | Set to `1` when `--agent` flag used. Suppresses banner and interactive output. |
+
+---
+
+## Ecosystem Packages
+
+All packages are MIT licensed and published on npm under the `@vllnt` scope.
+
+### @vllnt/ui
+93 React components built on Radix UI, Tailwind CSS, and CVA. Web-only (no React Native support). Used by the web template.
+
+### @vllnt/eslint-config
+Strict ESLint configuration for TypeScript projects. All rules enforce error — no warnings. Includes configs for Next.js, React, and library projects.
+
+### @vllnt/typescript
+Shared TypeScript configurations. Provides `nextjs.json`, `expo.json`, and `library.json` base configs.
+
+### @vllnt/logger
+Structured logging for server and edge runtimes. JSON output, log levels, context injection.
+
+### @vllnt/analytics
+Lightweight, privacy-first analytics with consent management. React integration, DNT support, GDPR-friendly.
+
+---
+
+## Architecture Decisions
+
+- **Feature-sliced architecture**: Vertical slices in `features/` directory, shared UI in `components/`
+- **Convex domain folders**: `convex/{domain}/schemas.ts` + `queries.ts` + `mutations.ts`
+- **Dual validators**: Convex schemas use both runtime validators and TypeScript types
+- **Server Components default**: Next.js pages are Server Components unless client interactivity needed
+- **No stack choices**: Everything is fixed and opinionated — no configuration prompts for stack
+
+---
+
+## Links
+
+- **Source:** https://github.com/vllnt/create-vllnt-app
+- **Website:** https://create-vllnt-app.vllnt.com
+- **npm:** https://www.npmjs.com/package/create-vllnt-app
+- **Author:** bntvllnt (https://vllnt.com)
