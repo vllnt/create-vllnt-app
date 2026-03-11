@@ -1,14 +1,11 @@
 import '../globals.css'
 
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
 import { notFound } from 'next/navigation'
 import { hasLocale, NextIntlClientProvider } from 'next-intl'
 import { ThemeProvider } from 'next-themes'
 
 import { routing } from '@/i18n/routing'
-
-const inter = Inter({ subsets: ['latin'] })
 
 const siteUrl = 'https://create-vllnt-app.vllnt.com'
 const title = 'create-vllnt-app — Agent-First Fullstack Scaffolder'
@@ -94,7 +91,7 @@ export default async function RootLayout({
 
   return (
     <html lang={locale} suppressHydrationWarning>
-      <body className={inter.className}>
+      <body>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
