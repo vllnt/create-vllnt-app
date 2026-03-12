@@ -1,8 +1,18 @@
-import vllntConfig from '@vllnt/eslint-config'
+import { nextjs } from '@vllnt/eslint-config'
 
 export default [
-  ...vllntConfig,
   {
-    ignores: ['node_modules/', '.next/', 'out/', 'dist/'],
+    ignores: [
+      'node_modules/**',
+      '.next/**',
+      'out/**',
+      'dist/**',
+      'eslint.config.js',
+      'next.config.*',
+      'postcss.config.*',
+      'tailwind.config.*',
+      'next-env.d.ts',
+    ],
   },
+  ...nextjs,
 ]

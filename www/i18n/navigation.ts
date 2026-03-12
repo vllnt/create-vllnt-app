@@ -1,4 +1,7 @@
 import { createNavigation } from 'next-intl/navigation'
+
 import { routing } from './routing'
 
-export const { Link, redirect, usePathname, useRouter } = createNavigation(routing)
+// eslint-disable-next-line @typescript-eslint/naming-convention -- React component from next-intl
+export const { Link, redirect, usePathname, useRouter } =
+  createNavigation(routing)

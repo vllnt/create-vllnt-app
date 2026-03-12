@@ -1,6 +1,6 @@
-import { Link } from '@/i18n/navigation'
 import { GitHubStars } from '@/components/github-stars'
 import { ThemeToggle } from '@/components/theme-toggle'
+import { Link } from '@/i18n/navigation'
 
 export default function MarketingLayout({
   children,
@@ -19,12 +19,12 @@ export default function MarketingLayout({
           </Link>
           <div className="flex items-center gap-3">
             <Link
-              href="/manifesto"
               className="hidden text-sm text-muted-foreground transition-colors hover:text-foreground sm:block"
+              href="/manifesto"
             >
               Manifesto
             </Link>
-            <GitHubStars owner="vllnt" repo="create-vllnt-app" count={128} />
+            <GitHubStars count={128} owner="vllnt" repo="create-vllnt-app" />
             <ThemeToggle />
           </div>
         </nav>
@@ -37,20 +37,20 @@ export default function MarketingLayout({
           <span>
             Built by{' '}
             <a
-              href="https://vllnt.com"
               className="font-medium text-foreground underline-offset-4 hover:underline"
-              target="_blank"
+              href="https://vllnt.com"
               rel="noopener noreferrer"
+              target="_blank"
             >
               vllnt.com
             </a>
           </span>
           <span className="text-border">|</span>
           <a
-            href="https://github.com/vllnt/create-vllnt-app"
             className="font-medium text-foreground underline-offset-4 hover:underline"
-            target="_blank"
+            href="https://github.com/vllnt/create-vllnt-app"
             rel="noopener noreferrer"
+            target="_blank"
           >
             Source
           </a>

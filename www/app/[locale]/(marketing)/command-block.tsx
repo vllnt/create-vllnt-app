@@ -1,9 +1,10 @@
 'use client'
 
-import { Check, Copy, Terminal } from 'lucide-react'
 import { useState } from 'react'
 
-interface CommandBlockProps {
+import { Check, Copy, Terminal } from 'lucide-react'
+
+type CommandBlockProps = {
   command: string
 }
 
@@ -11,9 +12,11 @@ export function CommandBlock({ command }: CommandBlockProps): React.ReactNode {
   const [copied, setCopied] = useState(false)
 
   function handleCopy(): void {
-    navigator.clipboard.writeText(command)
+    void navigator.clipboard.writeText(command)
     setCopied(true)
-    setTimeout(() => setCopied(false), 2000)
+    setTimeout(() => {
+      setCopied(false)
+    }, 2000)
   }
 
   return (
@@ -21,10 +24,10 @@ export function CommandBlock({ command }: CommandBlockProps): React.ReactNode {
       <Terminal className="h-4 w-4 text-muted-foreground" />
       <span className="text-foreground">{command}</span>
       <button
-        type="button"
-        onClick={handleCopy}
-        className="inline-flex h-7 w-7 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
         aria-label="Copy command"
+        className="inline-flex h-7 w-7 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+        onClick={handleCopy}
+        type="button"
       >
         {copied ? (
           <Check className="h-3.5 w-3.5 text-green-500" />

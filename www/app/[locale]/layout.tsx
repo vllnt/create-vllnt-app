@@ -13,9 +13,9 @@ const description =
   'Scaffold production-grade Next.js, Expo, or fullstack monorepo projects with Convex backend. CLAUDE.md + AI agent contracts included.'
 
 export const metadata: Metadata = {
-  title,
+  authors: [{ name: 'vllnt', url: 'https://vllnt.com' }],
+  creator: 'vllnt',
   description,
-  metadataBase: new URL(siteUrl),
   keywords: [
     'create-vllnt-app',
     'scaffolder',
@@ -34,41 +34,41 @@ export const metadata: Metadata = {
     'agent-first',
     'CLI',
   ],
-  authors: [{ name: 'vllnt', url: 'https://vllnt.com' }],
-  creator: 'vllnt',
+  metadataBase: new URL(siteUrl),
   openGraph: {
-    type: 'website',
-    locale: 'en_US',
-    url: siteUrl,
-    siteName: 'create-vllnt-app',
-    title,
     description,
     images: [
       {
+        alt: 'create-vllnt-app — Ship with AI agents from day one',
+        height: 630,
         url: '/og.png',
         width: 1200,
-        height: 630,
-        alt: 'create-vllnt-app — Ship with AI agents from day one',
       },
     ],
-  },
-  twitter: {
-    card: 'summary_large_image',
+    locale: 'en_US',
+    siteName: 'create-vllnt-app',
     title,
-    description,
-    images: ['/og.png'],
-    creator: '@bntvllnt',
+    type: 'website',
+    url: siteUrl,
   },
   robots: {
-    index: true,
     follow: true,
     googleBot: {
-      index: true,
       follow: true,
-      'max-video-preview': -1,
+      index: true,
       'max-image-preview': 'large',
       'max-snippet': -1,
+      'max-video-preview': -1,
     },
+    index: true,
+  },
+  title,
+  twitter: {
+    card: 'summary_large_image',
+    creator: '@bntvllnt',
+    description,
+    images: ['/og.png'],
+    title,
   },
 }
 

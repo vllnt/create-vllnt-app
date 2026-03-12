@@ -1,4 +1,3 @@
-import { useTranslations } from 'next-intl'
 import { Badge } from '@vllnt/ui'
 import { Button } from '@vllnt/ui'
 import {
@@ -9,8 +8,8 @@ import {
   CardTitle,
 } from '@vllnt/ui'
 import { Separator } from '@vllnt/ui'
+import { useTranslations } from 'next-intl'
 
-import { NextjsLogo, ExpoLogo, ConvexLogo, VercelLogo } from '@/components/logos'
 import {
   ClaudeLogo,
   CursorLogo,
@@ -18,6 +17,13 @@ import {
   OpenAILogo,
   WindsurfLogo,
 } from '@/components/agent-logos'
+import {
+  ConvexLogo,
+  ExpoLogo,
+  NextjsLogo,
+  VercelLogo,
+} from '@/components/logos'
+
 import { CommandBlock } from './command-block'
 
 export default function HomePage(): React.ReactNode {
@@ -28,15 +34,14 @@ export default function HomePage(): React.ReactNode {
       {/* Hero */}
       <section className="container mx-auto flex flex-col items-center px-4 pt-24 pb-20 text-center sm:px-6 sm:pt-32 sm:pb-28">
         <Badge
-          variant="outline"
           className="mb-6 px-3.5 py-1.5 text-sm font-medium"
+          variant="outline"
         >
           {t('Hero.badge')}
         </Badge>
 
         <h1 className="max-w-3xl text-4xl font-bold leading-[1.1] tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
-          {t('Hero.title_prefix')}{' '}
-          {t('Hero.title_highlight')}
+          {t('Hero.title_prefix')} {t('Hero.title_highlight')}
           <br />
           {t('Hero.title_suffix')}
         </h1>
@@ -47,10 +52,8 @@ export default function HomePage(): React.ReactNode {
 
         <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row">
           <CommandBlock command={t('Hero.command')} />
-          <Button size="lg" asChild>
-            <a href="#modes">
-              {t('Hero.cta')}
-            </a>
+          <Button asChild size="lg">
+            <a href="#modes">{t('Hero.cta')}</a>
           </Button>
         </div>
       </section>
@@ -58,7 +61,10 @@ export default function HomePage(): React.ReactNode {
       <Separator />
 
       {/* Three Modes */}
-      <section id="modes" className="container mx-auto px-4 py-20 sm:px-6 sm:py-28">
+      <section
+        className="container mx-auto px-4 py-20 sm:px-6 sm:py-28"
+        id="modes"
+      >
         <div className="mx-auto max-w-2xl text-center">
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
             {t('Modes.title')}
@@ -70,8 +76,6 @@ export default function HomePage(): React.ReactNode {
 
         <div className="mx-auto mt-12 grid max-w-5xl gap-6 md:grid-cols-3">
           <ModeCard
-            title={t('Modes.web.title')}
-            stack={t('Modes.web.stack')}
             command={t('Modes.web.command')}
             features={[
               t('Modes.web.f1'),
@@ -79,10 +83,10 @@ export default function HomePage(): React.ReactNode {
               t('Modes.web.f3'),
               t('Modes.web.f4'),
             ]}
+            stack={t('Modes.web.stack')}
+            title={t('Modes.web.title')}
           />
           <ModeCard
-            title={t('Modes.mobile.title')}
-            stack={t('Modes.mobile.stack')}
             command={t('Modes.mobile.command')}
             features={[
               t('Modes.mobile.f1'),
@@ -90,10 +94,10 @@ export default function HomePage(): React.ReactNode {
               t('Modes.mobile.f3'),
               t('Modes.mobile.f4'),
             ]}
+            stack={t('Modes.mobile.stack')}
+            title={t('Modes.mobile.title')}
           />
           <ModeCard
-            title={t('Modes.fullstack.title')}
-            stack={t('Modes.fullstack.stack')}
             command={t('Modes.fullstack.command')}
             features={[
               t('Modes.fullstack.f1'),
@@ -101,6 +105,8 @@ export default function HomePage(): React.ReactNode {
               t('Modes.fullstack.f3'),
               t('Modes.fullstack.f4'),
             ]}
+            stack={t('Modes.fullstack.stack')}
+            title={t('Modes.fullstack.title')}
           />
         </div>
       </section>
@@ -157,11 +163,26 @@ export default function HomePage(): React.ReactNode {
         </div>
 
         <div className="mx-auto mt-12 flex flex-wrap items-center justify-center gap-8 sm:gap-12">
-          <AgentLogoItem logo={<ClaudeLogo className="h-12 w-12 sm:h-14 sm:w-14" />} name="Claude Code" />
-          <AgentLogoItem logo={<OpenAILogo className="h-12 w-12 sm:h-14 sm:w-14" />} name="Codex" />
-          <AgentLogoItem logo={<CursorLogo className="h-12 w-12 sm:h-14 sm:w-14" />} name="Cursor" />
-          <AgentLogoItem logo={<WindsurfLogo className="h-12 w-12 sm:h-14 sm:w-14" />} name="Windsurf" />
-          <AgentLogoItem logo={<GeminiLogo className="h-12 w-12 sm:h-14 sm:w-14" />} name="Gemini CLI" />
+          <AgentLogoItem
+            logo={<ClaudeLogo className="h-12 w-12 sm:h-14 sm:w-14" />}
+            name="Claude Code"
+          />
+          <AgentLogoItem
+            logo={<OpenAILogo className="h-12 w-12 sm:h-14 sm:w-14" />}
+            name="Codex"
+          />
+          <AgentLogoItem
+            logo={<CursorLogo className="h-12 w-12 sm:h-14 sm:w-14" />}
+            name="Cursor"
+          />
+          <AgentLogoItem
+            logo={<WindsurfLogo className="h-12 w-12 sm:h-14 sm:w-14" />}
+            name="Windsurf"
+          />
+          <AgentLogoItem
+            logo={<GeminiLogo className="h-12 w-12 sm:h-14 sm:w-14" />}
+            name="Gemini CLI"
+          />
         </div>
       </section>
 
@@ -224,30 +245,30 @@ export default function HomePage(): React.ReactNode {
 
         <div className="mx-auto mt-12 grid max-w-3xl gap-3 sm:grid-cols-2">
           <PackageCard
-            name={t('Foundations.ui_name')}
             description={t('Foundations.ui_desc')}
             href="https://www.npmjs.com/package/@vllnt/ui"
+            name={t('Foundations.ui_name')}
           />
           <PackageCard
-            name={t('Foundations.eslint_name')}
             description={t('Foundations.eslint_desc')}
             href="https://www.npmjs.com/package/@vllnt/eslint-config"
+            name={t('Foundations.eslint_name')}
           />
           <PackageCard
-            name={t('Foundations.typescript_name')}
             description={t('Foundations.typescript_desc')}
             href="https://www.npmjs.com/package/@vllnt/typescript"
+            name={t('Foundations.typescript_name')}
           />
           <PackageCard
-            name={t('Foundations.logger_name')}
             description={t('Foundations.logger_desc')}
             href="https://www.npmjs.com/package/@vllnt/logger"
+            name={t('Foundations.logger_name')}
           />
           <PackageCard
-            name={t('Foundations.analytics_name')}
+            className="sm:col-span-2"
             description={t('Foundations.analytics_desc')}
             href="https://www.npmjs.com/package/@vllnt/analytics"
-            className="sm:col-span-2"
+            name={t('Foundations.analytics_name')}
           />
         </div>
       </section>
@@ -267,37 +288,37 @@ export default function HomePage(): React.ReactNode {
 
         <div className="mx-auto mt-12 flex items-center justify-center gap-8 sm:gap-12">
           <a
-            href="https://nextjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
             className="flex flex-col items-center gap-2 text-muted-foreground transition-colors hover:text-foreground"
+            href="https://nextjs.org"
+            rel="noopener noreferrer"
+            target="_blank"
           >
             <NextjsLogo className="h-10 w-10 sm:h-12 sm:w-12" />
             <span className="text-xs font-medium">Next.js</span>
           </a>
           <a
-            href="https://expo.dev"
-            target="_blank"
-            rel="noopener noreferrer"
             className="flex flex-col items-center gap-2 text-muted-foreground transition-colors hover:text-foreground"
+            href="https://expo.dev"
+            rel="noopener noreferrer"
+            target="_blank"
           >
             <ExpoLogo className="h-10 w-10 sm:h-12 sm:w-12" />
             <span className="text-xs font-medium">Expo</span>
           </a>
           <a
-            href="https://convex.dev"
-            target="_blank"
-            rel="noopener noreferrer"
             className="flex flex-col items-center gap-2 text-muted-foreground transition-colors hover:text-foreground"
+            href="https://convex.dev"
+            rel="noopener noreferrer"
+            target="_blank"
           >
             <ConvexLogo className="h-10 w-10 sm:h-12 sm:w-12" />
             <span className="text-xs font-medium">Convex</span>
           </a>
           <a
-            href="https://vercel.com"
-            target="_blank"
-            rel="noopener noreferrer"
             className="flex flex-col items-center gap-2 text-muted-foreground transition-colors hover:text-foreground"
+            href="https://vercel.com"
+            rel="noopener noreferrer"
+            target="_blank"
           >
             <VercelLogo className="h-10 w-10 sm:h-12 sm:w-12" />
             <span className="text-xs font-medium">Vercel</span>
@@ -308,16 +329,24 @@ export default function HomePage(): React.ReactNode {
           <div className="rounded-lg border border-border p-5">
             <div className="mb-3 flex items-center gap-2">
               <VercelLogo className="h-5 w-5" />
-              <span className="text-sm font-semibold text-foreground">Vercel</span>
-              <Badge variant="secondary" className="text-xs">recommended</Badge>
+              <span className="text-sm font-semibold text-foreground">
+                Vercel
+              </span>
+              <Badge className="text-xs" variant="secondary">
+                recommended
+              </Badge>
             </div>
             <p className="text-sm text-muted-foreground">{t('Stack.vercel')}</p>
           </div>
           <div className="rounded-lg border border-border p-5">
             <div className="mb-3 flex items-center gap-2">
               <ConvexLogo className="h-5 w-5" />
-              <span className="text-sm font-semibold text-foreground">Convex Cloud</span>
-              <Badge variant="secondary" className="text-xs">recommended</Badge>
+              <span className="text-sm font-semibold text-foreground">
+                Convex Cloud
+              </span>
+              <Badge className="text-xs" variant="secondary">
+                recommended
+              </Badge>
             </div>
             <p className="text-sm text-muted-foreground">{t('Stack.convex')}</p>
           </div>
@@ -328,31 +357,31 @@ export default function HomePage(): React.ReactNode {
 }
 
 function ModeCard({
-  title,
-  stack,
   command,
   features,
+  stack,
+  title,
 }: {
-  title: string
-  stack: string
   command: string
   features: string[]
+  stack: string
+  title: string
 }): React.ReactNode {
   return (
     <Card className="flex flex-col overflow-hidden">
       <CardHeader className="flex-1">
         <CardTitle className="text-xl">{title}</CardTitle>
-        <CardDescription className="min-h-[2.5rem] text-sm">{stack}</CardDescription>
+        <CardDescription className="min-h-[2.5rem] text-sm">
+          {stack}
+        </CardDescription>
       </CardHeader>
       <CardContent>
         <div className="mb-4 rounded-md bg-zinc-950 px-3 py-2.5 dark:bg-zinc-900">
-          <code className="text-xs text-zinc-300">
-            $ {command}
-          </code>
+          <code className="text-xs text-zinc-300">$ {command}</code>
         </div>
         <ul className="space-y-2">
           {features.map((f) => (
-            <li key={f} className="text-sm text-muted-foreground">
+            <li className="text-sm text-muted-foreground" key={f}>
               {f}
             </li>
           ))}
@@ -397,22 +426,22 @@ function AgentLogoItem({
 }
 
 function PackageCard({
-  name,
+  className,
   description,
   href,
-  className,
+  name,
 }: {
-  name: string
+  className?: string
   description: string
   href: string
-  className?: string
+  name: string
 }): React.ReactNode {
   return (
     <a
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
       className={`block rounded-lg border border-border p-4 transition-colors hover:bg-accent/50 ${className ?? ''}`}
+      href={href}
+      rel="noopener noreferrer"
+      target="_blank"
     >
       <p className="text-sm font-semibold text-foreground">{name}</p>
       <p className="mt-0.5 text-sm text-muted-foreground">{description}</p>
@@ -435,11 +464,11 @@ function GeneratorRow({
         $ {command}
       </code>
       <span className="text-sm text-muted-foreground sm:ml-auto">
-        {isAddon && (
-          <Badge variant="secondary" className="mr-2 text-xs">
+        {isAddon ? (
+          <Badge className="mr-2 text-xs" variant="secondary">
             addon
           </Badge>
-        )}
+        ) : null}
         {description}
       </span>
     </div>
