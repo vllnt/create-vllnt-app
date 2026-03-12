@@ -1,15 +1,14 @@
-import type { Metadata } from 'next'
-import { useTranslations } from 'next-intl'
-import { ArrowRight } from 'lucide-react'
 import { Button } from '@vllnt/ui'
 import { Separator } from '@vllnt/ui'
+import type { Metadata } from 'next'
+import { useTranslations } from 'next-intl'
 
 import { Link } from '@/i18n/navigation'
 
 export const metadata: Metadata = {
-  title: 'Manifesto — create-vllnt-app',
   description:
     'Why I built create-vllnt-app and open-sourced it. The future of development is agent-first.',
+  title: 'Manifesto — create-vllnt-app',
 }
 
 export default function ManifestoPage(): React.ReactNode {
@@ -53,11 +52,8 @@ export default function ManifestoPage(): React.ReactNode {
       </div>
 
       <div className="mt-16">
-        <Button size="lg" className="gap-2" asChild>
-          <Link href="/">
-            {t('cta')}
-            <ArrowRight className="h-4 w-4" />
-          </Link>
+        <Button asChild size="lg">
+          <Link href="/">{t('cta')}</Link>
         </Button>
       </div>
     </article>
