@@ -1,0 +1,53 @@
+# create-vllnt-app
+
+> Opinionated CLI for scaffolding agent-first web (Next.js), mobile (Expo), and fullstack monorepo projects with Convex backend. Ships AI agent contracts (CLAUDE.md, AGENTS.md, .cursorrules, .windsurfrules) and feature-sliced architecture out of the box.
+
+## Quick Start
+
+Install and scaffold a new project:
+
+```
+npx create-vllnt-app@latest
+npx create-vllnt-app@latest --template web
+npx create-vllnt-app@latest --template mobile
+npx create-vllnt-app@latest --template fullstack
+```
+
+## Commands
+
+- `vllnt new [name]`: Scaffold a new project from template
+- `vllnt add <feature>`: Add integrations (auth, payments, analytics)
+- `vllnt generate <type> <name>`: Generate pages, features, components, hooks, Convex domains
+- `vllnt doctor`: Health check for vllnt project
+
+## Templates
+
+- **web**: Next.js 16 + Convex + Tailwind v4 + next-intl + @vllnt/ui
+- **mobile**: Expo 55 + Convex + React Native + i18next + Maestro E2E
+- **fullstack**: Turborepo monorepo with shared Convex backend, web + mobile apps
+
+## Agent Mode
+
+For AI coding agents and CI/CD pipelines:
+
+```
+npx create-vllnt-app@latest --agent --template web
+```
+
+Returns JSON: `{ success, path, template, files[], packageManager }`
+
+Set `VLLNT_AGENT=1` to suppress interactive output.
+
+## Ecosystem Packages
+
+- [@vllnt/ui](https://www.npmjs.com/package/@vllnt/ui): 93 React components (Radix UI + Tailwind + CVA)
+- [@vllnt/eslint-config](https://www.npmjs.com/package/@vllnt/eslint-config): Strict ESLint config for TypeScript
+- [@vllnt/typescript](https://www.npmjs.com/package/@vllnt/typescript): Shared TypeScript configurations
+- [@vllnt/logger](https://www.npmjs.com/package/@vllnt/logger): Structured logging
+- [@vllnt/analytics](https://www.npmjs.com/package/@vllnt/analytics): Privacy-first analytics with consent management
+
+## Links
+
+- [Source](https://github.com/vllnt/create-vllnt-app)
+- [Website](https://create-vllnt-app.vllnt.com)
+- [Full LLM Reference](./llms-full.txt): Complete CLI reference with all flags, templates, and architecture details

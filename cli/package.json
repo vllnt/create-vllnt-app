@@ -9,7 +9,9 @@
   },
   "files": [
     "dist",
-    "templates"
+    "templates",
+    "llms.txt",
+    "llms-full.txt"
   ],
   "scripts": {
     "build": "tsup",

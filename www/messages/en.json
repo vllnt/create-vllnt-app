@@ -1,0 +1,116 @@
+{
+  "Meta": {
+    "title": "create-vllnt-app — Agent-First Fullstack Scaffolder",
+    "description": "Scaffold production-grade Next.js, Expo, or fullstack monorepo projects with Convex backend. AI agent contracts included."
+  },
+  "Hero": {
+    "badge": "v0.1.0 — Closed Alpha",
+    "title_prefix": "Ship with",
+    "title_highlight": "AI agents",
+    "title_suffix": "from day one",
+    "description": "Scaffold production-grade Next.js, Expo, or fullstack monorepo projects with Convex backend. CLAUDE.md + agent contracts included.",
+    "cta": "Get Started",
+    "command": "npx create-vllnt-app@latest"
+  },
+  "Modes": {
+    "title": "Three modes. One command.",
+    "subtitle": "Pick your platform. Get a production-ready scaffold with AI agent contracts, feature-sliced architecture, and a Convex real-time backend.",
+    "web": {
+      "title": "Web",
+      "stack": "Next.js 15 + Convex + Tailwind v4 + next-intl",
+      "command": "npx create-vllnt-app@latest --template web",
+      "f1": "App Router + Server Components",
+      "f2": "Feature-sliced architecture",
+      "f3": "i18n out of the box",
+      "f4": "Convex real-time backend"
+    },
+    "mobile": {
+      "title": "Mobile",
+      "stack": "Expo 55 + Convex + React Native + i18next",
+      "command": "npx create-vllnt-app@latest --template mobile",
+      "f1": "Expo Router (typed routes)",
+      "f2": "Feature-sliced architecture",
+      "f3": "Dark mode + theming",
+      "f4": "Maestro E2E testing"
+    },
+    "fullstack": {
+      "title": "Fullstack",
+      "stack": "Turborepo + Next.js + Expo + Convex",
+      "command": "npx create-vllnt-app@latest --template fullstack",
+      "f1": "Shared Convex backend",
+      "f2": "Universal React hooks",
+      "f3": "Cross-platform design tokens",
+      "f4": "turbo build pipeline"
+    }
+  },
+  "AgentFirst": {
+    "title": "Agent-first primitives",
+    "subtitle": "Every scaffolded project ships with the building blocks that make AI coding agents immediately productive — skills, tools, rules, and context.",
+    "claude": "CLAUDE.md — blocking rules, stack info, Convex patterns, conventions",
+    "agents": "AGENTS.md — architecture, extension points, tasks, pitfalls",
+    "cursor": ".cursorrules — Cursor-optimized rules derived from CLAUDE.md",
+    "windsurf": ".windsurfrules — Windsurf-optimized rules derived from CLAUDE.md",
+    "docs": "docs/ — architecture, testing, i18n, theming, conventions, extending",
+    "features": "features/ — vertical slices ready for AI scaffolding"
+  },
+  "Generators": {
+    "title": "Code generators",
+    "subtitle": "Generate pages, screens, features, components, hooks, and Convex domains — all following the conventions your AI agents already know.",
+    "g1_cmd": "vllnt generate page Dashboard",
+    "g1_desc": "New page with layout + metadata + i18n",
+    "g2_cmd": "vllnt generate feature billing",
+    "g2_desc": "Feature slice: components/ + hooks/ + index.ts",
+    "g3_cmd": "vllnt generate domain billing",
+    "g3_desc": "Convex domain: schemas + queries + mutations",
+    "g4_cmd": "vllnt generate component Button",
+    "g4_desc": "Shared UI component in components/ui/",
+    "g5_cmd": "vllnt add auth",
+    "g5_desc": "BetterAuth + Convex integration",
+    "g6_cmd": "vllnt add payments",
+    "g6_desc": "Stripe + Convex integration"
+  },
+  "Agents": {
+    "title": "Works with your AI coding agent",
+    "subtitle": "Every scaffolded project ships with optimized rules for the leading AI coding agents. Your agent understands the architecture from the first prompt."
+  },
+  "Foundations": {
+    "title": "Built on @vllnt open source",
+    "subtitle": "Every scaffolded project is powered by a growing ecosystem of open-source packages — maintained, tested, and published on npm.",
+    "ui_name": "@vllnt/ui",
+    "ui_desc": "93 React components built on Radix UI + Tailwind CSS + CVA",
+    "eslint_name": "@vllnt/eslint-config",
+    "eslint_desc": "Strict ESLint config for TypeScript — all rules enforce error, no warnings",
+    "typescript_name": "@vllnt/typescript",
+    "typescript_desc": "Shared TypeScript configurations for Next.js, Expo, and library projects",
+    "logger_name": "@vllnt/logger",
+    "logger_desc": "Structured logging for server and edge runtimes",
+    "analytics_name": "@vllnt/analytics",
+    "analytics_desc": "Privacy-first analytics with consent management and React integration"
+  },
+  "Stack": {
+    "title": "Opinionated stack. Maximum performance.",
+    "subtitle": "Built on the best tools in the ecosystem. For maximum performance, we highly recommend deploying to Vercel and using Convex Cloud.",
+    "vercel": "Deploy frontend with zero-config. Edge functions, ISR, and global CDN out of the box.",
+    "convex": "Real-time backend with automatic caching, ACID transactions, and global edge deployment."
+  },
+  "Manifesto": {
+    "title": "Why I'm building this",
+    "subtitle": "An open letter from the creator of create-vllnt-app.",
+    "p1": "I've spent years building products — web apps, mobile apps, fullstack systems. Every new project started the same way: days of boilerplate, weeks of configuration, and the constant feeling that I was solving the same problems over and over.",
+    "p2": "Then AI coding agents arrived. Claude Code, Cursor, Codex, Windsurf — they changed everything. Suddenly I could ship 10x faster. But there was a catch: these agents are only as good as the context you give them. Drop an AI agent into a blank project and it flounders. Drop it into a well-structured project with clear rules, conventions, and architecture docs, and it becomes a 100x multiplier.",
+    "p3": "That's the insight behind create-vllnt-app. It's not just a scaffolder — it's the bridge between your idea and a project that AI agents can immediately understand and extend. CLAUDE.md files with blocking rules. AGENTS.md with architecture diagrams. Cursor and Windsurf rules derived from the same source of truth. Documentation that serves both humans and machines.",
+    "h_opinionated": "Opinionated by design",
+    "p4": "This scaffolder is deliberately opinionated. Next.js for web. Expo for mobile. Convex for the backend. Tailwind for styling. Feature-sliced architecture. These aren't arbitrary choices — they're the stack I've battle-tested across dozens of production apps. When your AI agent knows the stack, it writes better code. When the conventions are consistent, the agent makes fewer mistakes.",
+    "h_open": "Open source because it has to be",
+    "p5": "create-vllnt-app is open source because the best developer tools always are. I want every solo developer, every indie hacker, every small team to have the same scaffolding advantage that I do. Fork it, extend it, make it yours. The templates are just the starting point.",
+    "h_future": "The future is agent-first",
+    "p6": "We're at the beginning of a fundamental shift in how software gets built. The developers who win will be the ones who learn to work with AI agents, not against them. That means structuring projects for AI comprehension, writing rules that prevent common mistakes, and building scaffolds that give agents the context they need from the first prompt.",
+    "p7": "That's what create-vllnt-app is: a head start on the future of development.",
+    "signoff": "— bntvllnt",
+    "cta": "Get started"
+  },
+  "Footer": {
+    "built_by": "Built by",
+    "source": "Source"
+  }
+}
