@@ -1,19 +1,19 @@
 {
   "Meta": {
-    "title": "create-vllnt-app — The App Factory Your AI Agent Already Understands",
-    "description": "Pick a preset. Get a production-ready app with guardrails your AI coding agent can't break."
+    "title": "create-vllnt-app — Ship production apps 10x faster with AI agents",
+    "description": "One command. Production-ready app. Your AI agent codes, the guardrails keep it clean."
   },
   "Hero": {
-    "badge": "v0.1.0 — Composable Sections",
-    "title_prefix": "The app factory",
-    "title_highlight": "your AI agent already understands",
-    "description": "Pick a preset. Get a production-ready app with strict guardrails your AI agent can't break. CLAUDE.md + vllnt doctor included.",
+    "badge": "Private Alpha",
+    "title_prefix": "Ship production apps",
+    "title_highlight": "10x faster with AI agents",
+    "description": "One command. Production-ready app. Your AI agent starts coding immediately — strict guardrails keep every line clean.",
     "cta": "See Presets",
     "command": "npx create-vllnt-app@latest"
   },
   "Presets": {
     "title": "What are you building?",
-    "subtitle": "Pick a preset. Each one assembles the right sections with strict guardrails, agent contracts, and a Convex backend (when needed).",
+    "subtitle": "Pick a preset. Get a production-ready project in seconds. Your AI agent understands the architecture from the first prompt.",
     "landing": "Landing Page",
     "blog": "Blog",
     "marketing": "Marketing Site",
@@ -23,48 +23,48 @@
     "internal": "Internal Tool",
     "docs": "Docs Site",
     "custom": "Custom",
-    "custom_hint": "pick sections manually"
+    "custom_hint": "pick what you need"
   },
   "Sections": {
-    "title": "Composable sections",
-    "subtitle": "Each section maps to a Next.js route group. Pick what you need — your agent handles the rest.",
-    "landing": "Marketing pages, hero, CTA, pricing",
-    "blog": "MDX content, categories, RSS",
-    "dashboard": "Auth-gated app area, data tables, charts",
-    "auth": "Login, register, profile, Convex backend",
-    "docs": "Documentation site with MDX",
-    "admin": "Admin panel, user management"
+    "title": "Build exactly what you need",
+    "subtitle": "Each preset assembles the right pieces. Start small, scale up. Your agent knows how to extend every section.",
+    "landing": "Hero, pricing, CTA — ready to convert",
+    "blog": "MDX-powered content, ship posts fast",
+    "dashboard": "Data tables, charts, protected routes",
+    "auth": "Login, register, sessions — just works",
+    "docs": "Documentation your users actually read",
+    "admin": "User management, settings, controls"
   },
   "AgentFirst": {
-    "title": "Your agent's first read: CLAUDE.md",
-    "subtitle": "Every scaffolded project ships with machine-readable contracts. Your agent reads CLAUDE.md and starts coding within guardrails immediately.",
-    "workflow_label": "Agent workflow",
-    "step1": "Agent reads CLAUDE.md — understands stack + rules",
-    "step2": "Agent runs vllnt doctor --json — validates health",
-    "step3": "Agent codes features — eslint strict catches violations",
-    "step4": "Agent ships — lint + typecheck + build all pass",
-    "claude": "Blocking rules, stack info, conventions",
-    "agents": "Architecture, extension points, tasks",
-    "vllnt_json": "Active sections, preset, backend status"
+    "title": "Your AI agent is productive from line one",
+    "subtitle": "Every project ships with machine-readable contracts. Your agent reads them and starts building — no guessing, no hallucinating, no wrong patterns.",
+    "workflow_label": "How it works",
+    "step1": "You run one command — project scaffolded in seconds",
+    "step2": "Your agent reads CLAUDE.md — understands every rule",
+    "step3": "Your agent codes — guardrails catch mistakes instantly",
+    "step4": "You ship — lint, types, and build all pass",
+    "claude": "Strict rules your agent follows",
+    "agents": "Architecture your agent understands",
+    "vllnt_json": "Project state your agent reads"
   },
   "Guardrails": {
-    "title": "Zero warnings. Everything is an error.",
-    "subtitle": "Strict rules baked into every scaffold. Your agent can't deviate — lint and typecheck catch violations instantly.",
-    "eslint": "Errors only, no warnings. Every rule enforces. No eslint-disable allowed.",
-    "typescript": "Strict mode, no any, no ts-ignore. Type guards at boundaries.",
-    "convex": "Dual validators, bounded reads, withIndex for queries. No full table scans.",
-    "zero_error": "Every scaffold passes lint + typecheck + build out of the box. If it doesn't, it's a CLI bug."
+    "title": "Your agent can't break things",
+    "subtitle": "Strict rules baked into every project. Your agent writes code that passes on the first try.",
+    "eslint": "Every lint rule is an error. No warnings to ignore. Code is clean or it doesn't compile.",
+    "typescript": "Strict mode everywhere. Your agent uses type guards, not type assertions.",
+    "convex": "Database queries are validated, bounded, and indexed. No N+1, no full table scans.",
+    "zero_error": "Every scaffolded project passes lint, typecheck, and build. Out of the box. Guaranteed."
   },
   "Doctor": {
-    "title": "Preflight for every change",
-    "subtitle": "vllnt doctor validates project health and surfaces issues with structured fix commands your agent can execute directly.",
-    "check": "Health check",
-    "preflight": "Section preflight",
-    "agent_output": "Structured for agents"
+    "title": "Health check before you ship",
+    "subtitle": "One command validates your entire project. Your agent reads the structured output and fixes issues automatically.",
+    "check": "Full health check",
+    "preflight": "Section-specific validation",
+    "agent_output": "Machine-readable for agents"
   },
   "Agents": {
-    "title": "Works with your AI coding agent",
-    "subtitle": "Every scaffolded project ships with optimized rules for the leading AI coding agents. Your agent understands the architecture from the first prompt."
+    "title": "Works with every AI coding agent",
+    "subtitle": "Claude Code, Codex, Cursor, Windsurf, Gemini — your agent reads the same contracts and follows the same rules."
   },
   "Manifesto": {
     "title": "Why I'm building this",

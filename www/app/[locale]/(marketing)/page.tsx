@@ -140,24 +140,12 @@ export default function HomePage(): React.ReactNode {
         </div>
 
         <div className="mx-auto mt-12 grid max-w-3xl gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          <SectionCard
-            desc={t('Sections.landing')}
-            name="landing"
-            route="(marketing)/"
-          />
-          <SectionCard desc={t('Sections.blog')} name="blog" route="(blog)/" />
-          <SectionCard
-            desc={t('Sections.dashboard')}
-            name="dashboard"
-            route="(dashboard)/"
-          />
-          <SectionCard desc={t('Sections.auth')} name="auth" route="(auth)/" />
-          <SectionCard desc={t('Sections.docs')} name="docs" route="(docs)/" />
-          <SectionCard
-            desc={t('Sections.admin')}
-            name="admin"
-            route="(admin)/"
-          />
+          <SectionCard desc={t('Sections.landing')} name="Landing" />
+          <SectionCard desc={t('Sections.blog')} name="Blog" />
+          <SectionCard desc={t('Sections.dashboard')} name="Dashboard" />
+          <SectionCard desc={t('Sections.auth')} name="Auth" />
+          <SectionCard desc={t('Sections.docs')} name="Docs" />
+          <SectionCard desc={t('Sections.admin')} name="Admin" />
         </div>
       </section>
 
@@ -405,20 +393,13 @@ function PresetCard({
 function SectionCard({
   desc,
   name,
-  route,
 }: {
   desc: string
   name: string
-  route: string
 }): React.ReactNode {
   return (
     <div className="rounded-lg border border-border p-4">
-      <div className="flex items-center gap-2">
-        <p className="text-sm font-semibold text-foreground">{name}</p>
-        <Badge className="text-xs" variant="outline">
-          {route}
-        </Badge>
-      </div>
+      <p className="text-sm font-semibold text-foreground">{name}</p>
       <p className="mt-1 text-sm text-muted-foreground">{desc}</p>
     </div>
   )
