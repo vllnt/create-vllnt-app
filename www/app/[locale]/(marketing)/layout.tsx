@@ -24,7 +24,7 @@ export default function MarketingLayout({
             >
               Manifesto
             </Link>
-            <GitHubStars count={128} owner="vllnt" repo="create-vllnt-app" />
+            <GitHubStars owner="vllnt" repo="create-vllnt-app" />
             <ThemeToggle />
           </div>
         </nav>
