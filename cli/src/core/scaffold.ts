@@ -221,7 +221,7 @@ function generateAgentsMd(
     .filter(Boolean)
     .join('\n\n')
 
-  return `# ${projectName} — Agent Architecture Guide
+  return `# ${projectName} — Agent architecture guide
 
 ## Extension Points
 
