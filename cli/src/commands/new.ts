@@ -4,7 +4,7 @@ import path from 'node:path'
 import fs from 'fs-extra'
 import { validateProjectName } from '../utils/validate.js'
 import { detectPackageManager } from '../utils/package-manager.js'
-import { scaffold } from '../core/scaffold.js'
+import { scaffold, scaffoldLegacy } from '../core/scaffold.js'
 import {
   PRESETS,
   ALL_SECTIONS,
@@ -50,16 +50,9 @@ export const newCommand = new Command('new')
     const packageManager = opts.packageManager ?? detectPackageManager()
 
     // Backward compat: --template web → --preset saas (closest match)
+    // Mobile and fullstack still use legacy monolithic templates
     if (presetName === 'web') presetName = 'saas'
-    if (presetName === 'mobile' || presetName === 'fullstack') {
-      const msg = `Template "${presetName}" is not yet supported in v2. Use a web preset.`
-      if (isAgent) {
-        console.log(JSON.stringify({ success: false, error: 'UNSUPPORTED_TEMPLATE', message: msg }))
-      } else {
-        p.log.error(msg)
-      }
-      process.exit(1)
-    }
+    const isLegacyTemplate = presetName === 'mobile' || presetName === 'fullstack'
 
     if (!isNonInteractive) {
       p.intro('Create a new vllnt project')
@@ -164,28 +157,30 @@ export const newCommand = new Command('new')
         process.exit(1)
       }
 
-      if (opts.sections) {
-        sections = resolveTransitiveDeps(opts.sections.split(',').map((s) => s.trim()))
-        presetName = 'custom'
-        includeBackend = needsBackend(sections) && !opts.skipBackend
-      } else if (!presetName) {
-        presetName = 'saas'
-        const preset = getPreset(presetName)!
-        sections = preset.sections
-        includeBackend = preset.backend && !opts.skipBackend
-      } else {
-        const preset = getPreset(presetName)
-        if (!preset) {
-          const msg = `Unknown preset "${presetName}". Available: ${PRESETS.map((p) => p.name).join(', ')}`
-          if (isAgent) {
-            console.log(JSON.stringify({ success: false, error: 'UNKNOWN_PRESET', message: msg }))
-          } else {
-            console.error(msg)
+      if (!isLegacyTemplate) {
+        if (opts.sections) {
+          sections = resolveTransitiveDeps(opts.sections.split(',').map((s) => s.trim()))
+          presetName = 'custom'
+          includeBackend = needsBackend(sections) && !opts.skipBackend
+        } else if (!presetName) {
+          presetName = 'saas'
+          const preset = getPreset(presetName)!
+          sections = preset.sections
+          includeBackend = preset.backend && !opts.skipBackend
+        } else {
+          const preset = getPreset(presetName)
+          if (!preset) {
+            const msg = `Unknown preset "${presetName}". Available: ${PRESETS.map((p) => p.name).join(', ')}`
+            if (isAgent) {
+              console.log(JSON.stringify({ success: false, error: 'UNKNOWN_PRESET', message: msg }))
+            } else {
+              console.error(msg)
+            }
+            process.exit(1)
           }
-          process.exit(1)
+          sections = preset.sections
+          includeBackend = preset.backend && !opts.skipBackend
         }
-        sections = preset.sections
-        includeBackend = preset.backend && !opts.skipBackend
       }
     }
 
@@ -202,33 +197,58 @@ export const newCommand = new Command('new')
     }
 
     try {
-      const result = await scaffold({
-        name: projectName!,
-        preset: presetName!,
-        sections,
-        targetDir,
-        packageManager,
-        includeBackend,
-        isAgent,
-        isNonInteractive,
-        skipInstall: opts.skipInstall ?? false,
-      })
+      if (isLegacyTemplate) {
+        // Legacy path for mobile/fullstack (monolithic templates)
+        const result = await scaffoldLegacy({
+          name: projectName!,
+          template: presetName as 'mobile' | 'fullstack',
+          targetDir,
+          packageManager,
+          isAgent,
+          isNonInteractive,
+          skipInstall: opts.skipInstall ?? false,
+          includeBackend: true,
+        })
 
-      if (isAgent) {
-        console.log(JSON.stringify(result))
-      } else {
-        p.outro(`Project created at ./${projectName}`)
-        console.log()
-        console.log(`  cd ${projectName}`)
-        console.log(`  ${packageManager} dev`)
-        console.log()
-        if (includeBackend) {
-          console.log('  Start backend: npx convex dev')
+        if (isAgent) {
+          console.log(JSON.stringify(result))
+        } else {
+          p.outro(`Project created at ./${projectName}`)
+          console.log()
+          console.log(`  cd ${projectName}`)
+          console.log(`  ${packageManager} dev`)
+          console.log()
+          console.log('  Agent contract ready: CLAUDE.md + AGENTS.md + docs/')
         }
-        console.log('  Health check:  vllnt doctor')
-        console.log()
-        console.log(`  Sections: ${sections.join(', ')}`)
-        console.log('  Agent contract ready: CLAUDE.md + AGENTS.md + vllnt.json')
+      } else {
+        const result = await scaffold({
+          name: projectName!,
+          preset: presetName!,
+          sections,
+          targetDir,
+          packageManager,
+          includeBackend,
+          isAgent,
+          isNonInteractive,
+          skipInstall: opts.skipInstall ?? false,
+        })
+
+        if (isAgent) {
+          console.log(JSON.stringify(result))
+        } else {
+          p.outro(`Project created at ./${projectName}`)
+          console.log()
+          console.log(`  cd ${projectName}`)
+          console.log(`  ${packageManager} dev`)
+          console.log()
+          if (includeBackend) {
+            console.log('  Start backend: npx convex dev')
+          }
+          console.log('  Health check:  vllnt doctor')
+          console.log()
+          console.log(`  Sections: ${sections.join(', ')}`)
+          console.log('  Agent contract ready: CLAUDE.md + AGENTS.md + vllnt.json')
+        }
       }
     } catch (error: unknown) {
       const message = error instanceof Error ? error.message : 'Unknown error occurred'

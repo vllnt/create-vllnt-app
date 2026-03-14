@@ -448,3 +448,84 @@ export async function scaffold(options: ScaffoldOptions): Promise<ScaffoldResult
     process.off('SIGTERM', onSignal)
   }
 }
+
+interface LegacyScaffoldOptions {
+  name: string
+  template: 'mobile' | 'fullstack'
+  targetDir: string
+  packageManager: string
+  isAgent: boolean
+  isNonInteractive: boolean
+  skipInstall: boolean
+  includeBackend: boolean
+}
+
+export async function scaffoldLegacy(options: LegacyScaffoldOptions): Promise<ScaffoldResult> {
+  const { name, template, targetDir, packageManager, isAgent, isNonInteractive, skipInstall } = options
+  const templateDir = path.resolve(__dirname, '..', 'templates', template)
+
+  if (!fs.existsSync(templateDir)) {
+    throw new Error(`Template "${template}" not found at ${templateDir}. This is a bug — please report it.`)
+  }
+
+  const spinner = !isAgent ? p.spinner() : null
+
+  let cleanupNeeded = true
+  const cleanup = async (): Promise<void> => {
+    if (cleanupNeeded && fs.existsSync(targetDir)) {
+      await fs.remove(targetDir)
+    }
+  }
+
+  const onSignal = (): void => {
+    cleanup().then(() => process.exit(130))
+  }
+  process.on('SIGINT', onSignal)
+  process.on('SIGTERM', onSignal)
+
+  try {
+    spinner?.start(`Scaffolding ${template} project...`)
+
+    await fs.copy(templateDir, targetDir)
+
+    const replacements: Record<string, string> = {
+      projectName: name,
+      packageName: name,
+    }
+    await processTemplateFiles(targetDir, replacements)
+
+    spinner?.stop('Template copied.')
+
+    const gitOk = await initGit(targetDir)
+    if (!isAgent && !gitOk) {
+      p.log.warn('Git not available. Skipping git init.')
+    }
+
+    const installOk = skipInstall
+      ? true
+      : await installDeps(targetDir, packageManager, isAgent, isNonInteractive)
+    if (!installOk && !isAgent) {
+      p.log.warn(`Install failed. Run: cd ${name} && ${getInstallCommand(packageManager as PackageManager)}`)
+    }
+
+    cleanupNeeded = false
+
+    const files = collectFiles(targetDir)
+
+    return {
+      success: true,
+      path: targetDir,
+      preset: template,
+      sections: [],
+      backend: true,
+      files,
+      packageManager,
+    }
+  } catch (error) {
+    await cleanup()
+    throw error
+  } finally {
+    process.off('SIGINT', onSignal)
+    process.off('SIGTERM', onSignal)
+  }
+}
