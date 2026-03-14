@@ -43,7 +43,9 @@ export default function HomePage(): React.ReactNode {
         <h1 className="max-w-3xl text-4xl font-bold leading-[1.1] tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
           {t('Hero.title_prefix')}
           <br />
-          <span className="text-muted-foreground">{t('Hero.title_highlight')}</span>
+          <span className="text-muted-foreground">
+            {t('Hero.title_highlight')}
+          </span>
         </h1>
 
         <p className="mt-6 max-w-2xl text-base text-muted-foreground sm:text-lg md:text-xl">
@@ -138,12 +140,24 @@ export default function HomePage(): React.ReactNode {
         </div>
 
         <div className="mx-auto mt-12 grid max-w-3xl gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          <SectionCard name="landing" route="(marketing)/" desc={t('Sections.landing')} />
-          <SectionCard name="blog" route="(blog)/" desc={t('Sections.blog')} />
-          <SectionCard name="dashboard" route="(dashboard)/" desc={t('Sections.dashboard')} />
-          <SectionCard name="auth" route="(auth)/" desc={t('Sections.auth')} />
-          <SectionCard name="docs" route="(docs)/" desc={t('Sections.docs')} />
-          <SectionCard name="admin" route="(admin)/" desc={t('Sections.admin')} />
+          <SectionCard
+            desc={t('Sections.landing')}
+            name="landing"
+            route="(marketing)/"
+          />
+          <SectionCard desc={t('Sections.blog')} name="blog" route="(blog)/" />
+          <SectionCard
+            desc={t('Sections.dashboard')}
+            name="dashboard"
+            route="(dashboard)/"
+          />
+          <SectionCard desc={t('Sections.auth')} name="auth" route="(auth)/" />
+          <SectionCard desc={t('Sections.docs')} name="docs" route="(docs)/" />
+          <SectionCard
+            desc={t('Sections.admin')}
+            name="admin"
+            route="(admin)/"
+          />
         </div>
       </section>
 
@@ -166,17 +180,32 @@ export default function HomePage(): React.ReactNode {
               {t('AgentFirst.workflow_label')}
             </p>
             <div className="space-y-1.5 font-mono text-sm text-zinc-300">
-              <p><span className="text-zinc-500">1.</span> {t('AgentFirst.step1')}</p>
-              <p><span className="text-zinc-500">2.</span> {t('AgentFirst.step2')}</p>
-              <p><span className="text-zinc-500">3.</span> {t('AgentFirst.step3')}</p>
-              <p><span className="text-zinc-500">4.</span> {t('AgentFirst.step4')}</p>
+              <p>
+                <span className="text-zinc-500">1.</span>{' '}
+                {t('AgentFirst.step1')}
+              </p>
+              <p>
+                <span className="text-zinc-500">2.</span>{' '}
+                {t('AgentFirst.step2')}
+              </p>
+              <p>
+                <span className="text-zinc-500">3.</span>{' '}
+                {t('AgentFirst.step3')}
+              </p>
+              <p>
+                <span className="text-zinc-500">4.</span>{' '}
+                {t('AgentFirst.step4')}
+              </p>
             </div>
           </div>
 
           <div className="mt-6 grid gap-3 sm:grid-cols-3">
-            <AgentFileCard name="CLAUDE.md" desc={t('AgentFirst.claude')} />
-            <AgentFileCard name="AGENTS.md" desc={t('AgentFirst.agents')} />
-            <AgentFileCard name="vllnt.json" desc={t('AgentFirst.vllnt_json')} />
+            <AgentFileCard desc={t('AgentFirst.claude')} name="CLAUDE.md" />
+            <AgentFileCard desc={t('AgentFirst.agents')} name="AGENTS.md" />
+            <AgentFileCard
+              desc={t('AgentFirst.vllnt_json')}
+              name="vllnt.json"
+            />
           </div>
         </div>
       </section>
@@ -196,20 +225,20 @@ export default function HomePage(): React.ReactNode {
 
         <div className="mx-auto mt-12 grid max-w-3xl gap-4 sm:grid-cols-2">
           <GuardrailCard
-            name="@vllnt/eslint-config"
             desc={t('Guardrails.eslint')}
+            name="@vllnt/eslint-config"
           />
           <GuardrailCard
-            name="TypeScript strict"
             desc={t('Guardrails.typescript')}
+            name="TypeScript strict"
           />
           <GuardrailCard
-            name="Convex validators"
             desc={t('Guardrails.convex')}
+            name="Convex validators"
           />
           <GuardrailCard
-            name="Zero-Error Guarantee"
             desc={t('Guardrails.zero_error')}
+            name="Zero-Error Guarantee"
           />
         </div>
       </section>
@@ -228,28 +257,40 @@ export default function HomePage(): React.ReactNode {
         </div>
 
         <div className="mx-auto mt-12 max-w-2xl rounded-lg border border-border bg-zinc-950 p-5 dark:bg-zinc-900">
-          <div className="space-y-1 font-mono text-sm text-zinc-300">
-            <p className="text-zinc-400">$ vllnt doctor --json</p>
-            <p className="text-zinc-500">{'{'}</p>
-            <p className="pl-4"><span className="text-emerald-400">&quot;status&quot;</span>: <span className="text-amber-400">&quot;pass&quot;</span>,</p>
-            <p className="pl-4"><span className="text-emerald-400">&quot;message&quot;</span>: <span className="text-amber-400">&quot;All 8 checks passing&quot;</span>,</p>
-            <p className="pl-4"><span className="text-emerald-400">&quot;fix&quot;</span>: {'{'} <span className="text-emerald-400">&quot;cmd&quot;</span>: <span className="text-amber-400">&quot;pnpm&quot;</span>, <span className="text-emerald-400">&quot;args&quot;</span>: [<span className="text-amber-400">&quot;install&quot;</span>] {'}'}</p>
-            <p className="text-zinc-500">{'}'}</p>
-          </div>
+          <pre className="font-mono text-sm text-zinc-300">
+            <code>
+              {'$ vllnt doctor --json\n'}
+              {'{\n'}
+              {'  "status": "pass",\n'}
+              {'  "message": "All 8 checks passing",\n'}
+              {'  "fix": { "cmd": "pnpm", "args": ["install"] }\n'}
+              {'}'}
+            </code>
+          </pre>
         </div>
 
         <div className="mx-auto mt-6 grid max-w-2xl gap-3 sm:grid-cols-3">
           <div className="rounded-lg border border-border p-4 text-center">
-            <code className="text-sm font-medium text-foreground">vllnt doctor</code>
-            <p className="mt-1 text-xs text-muted-foreground">{t('Doctor.check')}</p>
+            <code className="text-sm font-medium text-foreground">
+              vllnt doctor
+            </code>
+            <p className="mt-1 text-xs text-muted-foreground">
+              {t('Doctor.check')}
+            </p>
           </div>
           <div className="rounded-lg border border-border p-4 text-center">
-            <code className="text-sm font-medium text-foreground">--for blog</code>
-            <p className="mt-1 text-xs text-muted-foreground">{t('Doctor.preflight')}</p>
+            <code className="text-sm font-medium text-foreground">
+              --for blog
+            </code>
+            <p className="mt-1 text-xs text-muted-foreground">
+              {t('Doctor.preflight')}
+            </p>
           </div>
           <div className="rounded-lg border border-border p-4 text-center">
             <code className="text-sm font-medium text-foreground">--json</code>
-            <p className="mt-1 text-xs text-muted-foreground">{t('Doctor.agent_output')}</p>
+            <p className="mt-1 text-xs text-muted-foreground">
+              {t('Doctor.agent_output')}
+            </p>
           </div>
         </div>
       </section>
@@ -345,7 +386,9 @@ function PresetCard({
   sections: string
 }): React.ReactNode {
   return (
-    <Card className={`flex flex-col overflow-hidden ${highlight ? 'border-foreground' : ''}`}>
+    <Card
+      className={`flex flex-col overflow-hidden ${highlight ? 'border-foreground' : ''}`}
+    >
       <CardHeader className="flex-1 pb-2">
         <CardTitle className="text-lg">{name}</CardTitle>
         <CardDescription className="text-xs">{sections}</CardDescription>
@@ -372,7 +415,9 @@ function SectionCard({
     <div className="rounded-lg border border-border p-4">
       <div className="flex items-center gap-2">
         <p className="text-sm font-semibold text-foreground">{name}</p>
-        <Badge className="text-xs" variant="outline">{route}</Badge>
+        <Badge className="text-xs" variant="outline">
+          {route}
+        </Badge>
       </div>
       <p className="mt-1 text-sm text-muted-foreground">{desc}</p>
     </div>
