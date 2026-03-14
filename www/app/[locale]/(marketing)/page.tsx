@@ -41,9 +41,9 @@ export default function HomePage(): React.ReactNode {
         </Badge>
 
         <h1 className="max-w-3xl text-4xl font-bold leading-[1.1] tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
-          {t('Hero.title_prefix')} {t('Hero.title_highlight')}
+          {t('Hero.title_prefix')}
           <br />
-          {t('Hero.title_suffix')}
+          <span className="text-muted-foreground">{t('Hero.title_highlight')}</span>
         </h1>
 
         <p className="mt-6 max-w-2xl text-base text-muted-foreground sm:text-lg md:text-xl">
@@ -53,67 +53,103 @@ export default function HomePage(): React.ReactNode {
         <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row">
           <CommandBlock command={t('Hero.command')} />
           <Button asChild size="lg">
-            <a href="#modes">{t('Hero.cta')}</a>
+            <a href="#presets">{t('Hero.cta')}</a>
           </Button>
         </div>
       </section>
 
       <Separator />
 
-      {/* Three Modes */}
+      {/* Presets */}
       <section
         className="container mx-auto px-4 py-20 sm:px-6 sm:py-28"
-        id="modes"
+        id="presets"
       >
         <div className="mx-auto max-w-2xl text-center">
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-            {t('Modes.title')}
+            {t('Presets.title')}
           </h2>
           <p className="mt-4 text-muted-foreground sm:text-lg">
-            {t('Modes.subtitle')}
+            {t('Presets.subtitle')}
           </p>
         </div>
 
-        <div className="mx-auto mt-12 grid max-w-5xl gap-6 md:grid-cols-3">
-          <ModeCard
-            command={t('Modes.web.command')}
-            features={[
-              t('Modes.web.f1'),
-              t('Modes.web.f2'),
-              t('Modes.web.f3'),
-              t('Modes.web.f4'),
-            ]}
-            stack={t('Modes.web.stack')}
-            title={t('Modes.web.title')}
+        <div className="mx-auto mt-12 grid max-w-5xl gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <PresetCard
+            command="--preset landing"
+            name={t('Presets.landing')}
+            sections="landing"
           />
-          <ModeCard
-            command={t('Modes.mobile.command')}
-            features={[
-              t('Modes.mobile.f1'),
-              t('Modes.mobile.f2'),
-              t('Modes.mobile.f3'),
-              t('Modes.mobile.f4'),
-            ]}
-            stack={t('Modes.mobile.stack')}
-            title={t('Modes.mobile.title')}
+          <PresetCard
+            command="--preset blog"
+            name={t('Presets.blog')}
+            sections="blog"
           />
-          <ModeCard
-            command={t('Modes.fullstack.command')}
-            features={[
-              t('Modes.fullstack.f1'),
-              t('Modes.fullstack.f2'),
-              t('Modes.fullstack.f3'),
-              t('Modes.fullstack.f4'),
-            ]}
-            stack={t('Modes.fullstack.stack')}
-            title={t('Modes.fullstack.title')}
+          <PresetCard
+            command="--preset marketing"
+            name={t('Presets.marketing')}
+            sections="landing + blog"
+          />
+          <PresetCard
+            command="--preset saas"
+            highlight
+            name={t('Presets.saas')}
+            sections="landing + dashboard + auth"
+          />
+          <PresetCard
+            command="--preset full-saas"
+            name={t('Presets.full_saas')}
+            sections="landing + dashboard + auth + blog + docs"
+          />
+          <PresetCard
+            command="--preset dashboard"
+            name={t('Presets.dashboard')}
+            sections="dashboard + auth"
+          />
+          <PresetCard
+            command="--preset internal"
+            name={t('Presets.internal')}
+            sections="dashboard + admin + auth"
+          />
+          <PresetCard
+            command="--preset docs"
+            name={t('Presets.docs')}
+            sections="docs"
+          />
+          <PresetCard
+            command="Custom"
+            name={t('Presets.custom')}
+            sections={t('Presets.custom_hint')}
           />
         </div>
       </section>
 
       <Separator />
 
-      {/* Agent-First Primitives */}
+      {/* Composable Sections */}
+      <section className="container mx-auto px-4 py-20 sm:px-6 sm:py-28">
+        <div className="mx-auto max-w-2xl text-center">
+          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
+            {t('Sections.title')}
+          </h2>
+          <p className="mt-4 text-muted-foreground sm:text-lg">
+            {t('Sections.subtitle')}
+          </p>
+        </div>
+
+        <div className="mx-auto mt-12 grid max-w-3xl gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          <SectionCard name="landing" route="(marketing)/" desc={t('Sections.landing')} />
+          <SectionCard name="blog" route="(blog)/" desc={t('Sections.blog')} />
+          <SectionCard name="dashboard" route="(dashboard)/" desc={t('Sections.dashboard')} />
+          <SectionCard name="auth" route="(auth)/" desc={t('Sections.auth')} />
+          <SectionCard name="docs" route="(docs)/" desc={t('Sections.docs')} />
+          <SectionCard name="admin" route="(admin)/" desc={t('Sections.admin')} />
+        </div>
+      </section>
+
+      <Separator />
+
+      {/* Agent-First */}
       <section className="container mx-auto px-4 py-20 sm:px-6 sm:py-28">
         <div className="mx-auto max-w-2xl text-center">
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
@@ -124,34 +160,103 @@ export default function HomePage(): React.ReactNode {
           </p>
         </div>
 
-        <div className="mx-auto mt-12 max-w-3xl space-y-6">
-          <div>
-            <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-              Agent Rules
-            </h3>
-            <div className="grid gap-3 sm:grid-cols-2">
-              <AgentFileCard description={t('AgentFirst.claude')} />
-              <AgentFileCard description={t('AgentFirst.agents')} />
-              <AgentFileCard description={t('AgentFirst.cursor')} />
-              <AgentFileCard description={t('AgentFirst.windsurf')} />
+        <div className="mx-auto mt-12 max-w-3xl">
+          <div className="rounded-lg border border-border bg-zinc-950 p-5 dark:bg-zinc-900">
+            <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-zinc-400">
+              {t('AgentFirst.workflow_label')}
+            </p>
+            <div className="space-y-1.5 font-mono text-sm text-zinc-300">
+              <p><span className="text-zinc-500">1.</span> {t('AgentFirst.step1')}</p>
+              <p><span className="text-zinc-500">2.</span> {t('AgentFirst.step2')}</p>
+              <p><span className="text-zinc-500">3.</span> {t('AgentFirst.step3')}</p>
+              <p><span className="text-zinc-500">4.</span> {t('AgentFirst.step4')}</p>
             </div>
           </div>
 
-          <div>
-            <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-              Context &amp; Scaffolding
-            </h3>
-            <div className="grid gap-3 sm:grid-cols-2">
-              <AgentFileCard description={t('AgentFirst.docs')} />
-              <AgentFileCard description={t('AgentFirst.features')} />
-            </div>
+          <div className="mt-6 grid gap-3 sm:grid-cols-3">
+            <AgentFileCard name="CLAUDE.md" desc={t('AgentFirst.claude')} />
+            <AgentFileCard name="AGENTS.md" desc={t('AgentFirst.agents')} />
+            <AgentFileCard name="vllnt.json" desc={t('AgentFirst.vllnt_json')} />
           </div>
         </div>
       </section>
 
       <Separator />
 
-      {/* Supported AI Agents */}
+      {/* Guardrails */}
+      <section className="container mx-auto px-4 py-20 sm:px-6 sm:py-28">
+        <div className="mx-auto max-w-2xl text-center">
+          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
+            {t('Guardrails.title')}
+          </h2>
+          <p className="mt-4 text-muted-foreground sm:text-lg">
+            {t('Guardrails.subtitle')}
+          </p>
+        </div>
+
+        <div className="mx-auto mt-12 grid max-w-3xl gap-4 sm:grid-cols-2">
+          <GuardrailCard
+            name="@vllnt/eslint-config"
+            desc={t('Guardrails.eslint')}
+          />
+          <GuardrailCard
+            name="TypeScript strict"
+            desc={t('Guardrails.typescript')}
+          />
+          <GuardrailCard
+            name="Convex validators"
+            desc={t('Guardrails.convex')}
+          />
+          <GuardrailCard
+            name="Zero-Error Guarantee"
+            desc={t('Guardrails.zero_error')}
+          />
+        </div>
+      </section>
+
+      <Separator />
+
+      {/* Doctor */}
+      <section className="container mx-auto px-4 py-20 sm:px-6 sm:py-28">
+        <div className="mx-auto max-w-2xl text-center">
+          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
+            {t('Doctor.title')}
+          </h2>
+          <p className="mt-4 text-muted-foreground sm:text-lg">
+            {t('Doctor.subtitle')}
+          </p>
+        </div>
+
+        <div className="mx-auto mt-12 max-w-2xl rounded-lg border border-border bg-zinc-950 p-5 dark:bg-zinc-900">
+          <div className="space-y-1 font-mono text-sm text-zinc-300">
+            <p className="text-zinc-400">$ vllnt doctor --json</p>
+            <p className="text-zinc-500">{'{'}</p>
+            <p className="pl-4"><span className="text-emerald-400">&quot;status&quot;</span>: <span className="text-amber-400">&quot;pass&quot;</span>,</p>
+            <p className="pl-4"><span className="text-emerald-400">&quot;message&quot;</span>: <span className="text-amber-400">&quot;All 8 checks passing&quot;</span>,</p>
+            <p className="pl-4"><span className="text-emerald-400">&quot;fix&quot;</span>: {'{'} <span className="text-emerald-400">&quot;cmd&quot;</span>: <span className="text-amber-400">&quot;pnpm&quot;</span>, <span className="text-emerald-400">&quot;args&quot;</span>: [<span className="text-amber-400">&quot;install&quot;</span>] {'}'}</p>
+            <p className="text-zinc-500">{'}'}</p>
+          </div>
+        </div>
+
+        <div className="mx-auto mt-6 grid max-w-2xl gap-3 sm:grid-cols-3">
+          <div className="rounded-lg border border-border p-4 text-center">
+            <code className="text-sm font-medium text-foreground">vllnt doctor</code>
+            <p className="mt-1 text-xs text-muted-foreground">{t('Doctor.check')}</p>
+          </div>
+          <div className="rounded-lg border border-border p-4 text-center">
+            <code className="text-sm font-medium text-foreground">--for blog</code>
+            <p className="mt-1 text-xs text-muted-foreground">{t('Doctor.preflight')}</p>
+          </div>
+          <div className="rounded-lg border border-border p-4 text-center">
+            <code className="text-sm font-medium text-foreground">--json</code>
+            <p className="mt-1 text-xs text-muted-foreground">{t('Doctor.agent_output')}</p>
+          </div>
+        </div>
+      </section>
+
+      <Separator />
+
+      {/* Supported Agents + Stack */}
       <section className="container mx-auto px-4 py-20 sm:px-6 sm:py-28">
         <div className="mx-auto max-w-2xl text-center">
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
@@ -184,107 +289,6 @@ export default function HomePage(): React.ReactNode {
             name="Gemini CLI"
           />
         </div>
-      </section>
-
-      <Separator />
-
-      {/* Generators */}
-      <section className="container mx-auto px-4 py-20 sm:px-6 sm:py-28">
-        <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-            {t('Generators.title')}
-          </h2>
-          <p className="mt-4 text-muted-foreground sm:text-lg">
-            {t('Generators.subtitle')}
-          </p>
-        </div>
-
-        <div className="mx-auto mt-12 max-w-2xl space-y-2">
-          <GeneratorRow
-            command={t('Generators.g1_cmd')}
-            description={t('Generators.g1_desc')}
-          />
-          <GeneratorRow
-            command={t('Generators.g2_cmd')}
-            description={t('Generators.g2_desc')}
-          />
-          <GeneratorRow
-            command={t('Generators.g3_cmd')}
-            description={t('Generators.g3_desc')}
-          />
-          <GeneratorRow
-            command={t('Generators.g4_cmd')}
-            description={t('Generators.g4_desc')}
-          />
-          <Separator className="my-4" />
-          <GeneratorRow
-            command={t('Generators.g5_cmd')}
-            description={t('Generators.g5_desc')}
-            isAddon
-          />
-          <GeneratorRow
-            command={t('Generators.g6_cmd')}
-            description={t('Generators.g6_desc')}
-            isAddon
-          />
-        </div>
-      </section>
-
-      <Separator />
-
-      {/* Foundations — @vllnt packages */}
-      <section className="container mx-auto px-4 py-20 sm:px-6 sm:py-28">
-        <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-            {t('Foundations.title')}
-          </h2>
-          <p className="mt-4 text-muted-foreground sm:text-lg">
-            {t('Foundations.subtitle')}
-          </p>
-        </div>
-
-        <div className="mx-auto mt-12 grid max-w-3xl gap-3 sm:grid-cols-2">
-          <PackageCard
-            description={t('Foundations.ui_desc')}
-            href="https://www.npmjs.com/package/@vllnt/ui"
-            name={t('Foundations.ui_name')}
-          />
-          <PackageCard
-            description={t('Foundations.eslint_desc')}
-            href="https://www.npmjs.com/package/@vllnt/eslint-config"
-            name={t('Foundations.eslint_name')}
-          />
-          <PackageCard
-            description={t('Foundations.typescript_desc')}
-            href="https://www.npmjs.com/package/@vllnt/typescript"
-            name={t('Foundations.typescript_name')}
-          />
-          <PackageCard
-            description={t('Foundations.logger_desc')}
-            href="https://www.npmjs.com/package/@vllnt/logger"
-            name={t('Foundations.logger_name')}
-          />
-          <PackageCard
-            className="sm:col-span-2"
-            description={t('Foundations.analytics_desc')}
-            href="https://www.npmjs.com/package/@vllnt/analytics"
-            name={t('Foundations.analytics_name')}
-          />
-        </div>
-      </section>
-
-      <Separator />
-
-      {/* Stack & Recommendations */}
-      <section className="container mx-auto px-4 py-20 sm:px-6 sm:py-28">
-        <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-            {t('Stack.title')}
-          </h2>
-          <p className="mt-4 text-muted-foreground sm:text-lg">
-            {t('Stack.subtitle')}
-          </p>
-        </div>
 
         <div className="mx-auto mt-12 flex items-center justify-center gap-8 sm:gap-12">
           <a
@@ -294,7 +298,7 @@ export default function HomePage(): React.ReactNode {
             target="_blank"
           >
             <NextjsLogo className="h-10 w-10 sm:h-12 sm:w-12" />
-            <span className="text-xs font-medium">Next.js</span>
+            <span className="text-xs font-medium">Next.js 16</span>
           </a>
           <a
             className="flex flex-col items-center gap-2 text-muted-foreground transition-colors hover:text-foreground"
@@ -303,7 +307,7 @@ export default function HomePage(): React.ReactNode {
             target="_blank"
           >
             <ExpoLogo className="h-10 w-10 sm:h-12 sm:w-12" />
-            <span className="text-xs font-medium">Expo</span>
+            <span className="text-xs font-medium">Expo 55</span>
           </a>
           <a
             className="flex flex-col items-center gap-2 text-muted-foreground transition-colors hover:text-foreground"
@@ -324,88 +328,83 @@ export default function HomePage(): React.ReactNode {
             <span className="text-xs font-medium">Vercel</span>
           </a>
         </div>
-
-        <div className="mx-auto mt-10 grid max-w-3xl gap-4 sm:grid-cols-2">
-          <div className="rounded-lg border border-border p-5">
-            <div className="mb-3 flex items-center gap-2">
-              <VercelLogo className="h-5 w-5" />
-              <span className="text-sm font-semibold text-foreground">
-                Vercel
-              </span>
-              <Badge className="text-xs" variant="secondary">
-                recommended
-              </Badge>
-            </div>
-            <p className="text-sm text-muted-foreground">{t('Stack.vercel')}</p>
-          </div>
-          <div className="rounded-lg border border-border p-5">
-            <div className="mb-3 flex items-center gap-2">
-              <ConvexLogo className="h-5 w-5" />
-              <span className="text-sm font-semibold text-foreground">
-                Convex Cloud
-              </span>
-              <Badge className="text-xs" variant="secondary">
-                recommended
-              </Badge>
-            </div>
-            <p className="text-sm text-muted-foreground">{t('Stack.convex')}</p>
-          </div>
-        </div>
       </section>
     </>
   )
 }
 
-function ModeCard({
+function PresetCard({
   command,
-  features,
-  stack,
-  title,
+  highlight = false,
+  name,
+  sections,
 }: {
   command: string
-  features: string[]
-  stack: string
-  title: string
+  highlight?: boolean
+  name: string
+  sections: string
 }): React.ReactNode {
   return (
-    <Card className="flex flex-col overflow-hidden">
-      <CardHeader className="flex-1">
-        <CardTitle className="text-xl">{title}</CardTitle>
-        <CardDescription className="min-h-[2.5rem] text-sm">
-          {stack}
-        </CardDescription>
+    <Card className={`flex flex-col overflow-hidden ${highlight ? 'border-foreground' : ''}`}>
+      <CardHeader className="flex-1 pb-2">
+        <CardTitle className="text-lg">{name}</CardTitle>
+        <CardDescription className="text-xs">{sections}</CardDescription>
       </CardHeader>
       <CardContent>
-        <div className="mb-4 rounded-md bg-zinc-950 px-3 py-2.5 dark:bg-zinc-900">
-          <code className="text-xs text-zinc-300">$ {command}</code>
+        <div className="rounded-md bg-zinc-950 px-3 py-2 dark:bg-zinc-900">
+          <code className="text-xs text-zinc-300">{command}</code>
         </div>
-        <ul className="space-y-2">
-          {features.map((f) => (
-            <li className="text-sm text-muted-foreground" key={f}>
-              {f}
-            </li>
-          ))}
-        </ul>
       </CardContent>
     </Card>
   )
 }
 
-function AgentFileCard({
-  description,
+function SectionCard({
+  desc,
+  name,
+  route,
 }: {
-  description: string
+  desc: string
+  name: string
+  route: string
 }): React.ReactNode {
-  const parts = description.split(' — ')
-  const fileName = parts[0]
-  const desc = parts.length > 1 ? parts[1] : description
-
   return (
     <div className="rounded-lg border border-border p-4">
-      <p className="text-sm font-semibold text-foreground">{fileName}</p>
-      {parts.length > 1 && (
-        <p className="mt-0.5 text-sm text-muted-foreground">{desc}</p>
-      )}
+      <div className="flex items-center gap-2">
+        <p className="text-sm font-semibold text-foreground">{name}</p>
+        <Badge className="text-xs" variant="outline">{route}</Badge>
+      </div>
+      <p className="mt-1 text-sm text-muted-foreground">{desc}</p>
+    </div>
+  )
+}
+
+function AgentFileCard({
+  desc,
+  name,
+}: {
+  desc: string
+  name: string
+}): React.ReactNode {
+  return (
+    <div className="rounded-lg border border-border p-4">
+      <p className="text-sm font-semibold text-foreground">{name}</p>
+      <p className="mt-0.5 text-sm text-muted-foreground">{desc}</p>
+    </div>
+  )
+}
+
+function GuardrailCard({
+  desc,
+  name,
+}: {
+  desc: string
+  name: string
+}): React.ReactNode {
+  return (
+    <div className="rounded-lg border border-border p-4">
+      <p className="text-sm font-semibold text-foreground">{name}</p>
+      <p className="mt-1 text-sm text-muted-foreground">{desc}</p>
     </div>
   )
 }
@@ -421,56 +420,6 @@ function AgentLogoItem({
     <div className="flex flex-col items-center gap-2.5 text-muted-foreground transition-colors hover:text-foreground">
       {logo}
       <span className="text-xs font-medium">{name}</span>
-    </div>
-  )
-}
-
-function PackageCard({
-  className,
-  description,
-  href,
-  name,
-}: {
-  className?: string
-  description: string
-  href: string
-  name: string
-}): React.ReactNode {
-  return (
-    <a
-      className={`block rounded-lg border border-border p-4 transition-colors hover:bg-accent/50 ${className ?? ''}`}
-      href={href}
-      rel="noopener noreferrer"
-      target="_blank"
-    >
-      <p className="text-sm font-semibold text-foreground">{name}</p>
-      <p className="mt-0.5 text-sm text-muted-foreground">{description}</p>
-    </a>
-  )
-}
-
-function GeneratorRow({
-  command,
-  description,
-  isAddon = false,
-}: {
-  command: string
-  description: string
-  isAddon?: boolean
-}): React.ReactNode {
-  return (
-    <div className="flex flex-col gap-1.5 rounded-lg border border-border px-4 py-3 sm:flex-row sm:items-center sm:gap-4">
-      <code className="whitespace-nowrap text-sm font-medium text-foreground">
-        $ {command}
-      </code>
-      <span className="text-sm text-muted-foreground sm:ml-auto">
-        {isAddon ? (
-          <Badge className="mr-2 text-xs" variant="secondary">
-            addon
-          </Badge>
-        ) : null}
-        {description}
-      </span>
     </div>
   )
 }

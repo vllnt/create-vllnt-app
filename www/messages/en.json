@@ -1,97 +1,70 @@
 {
   "Meta": {
-    "title": "create-vllnt-app — Agent-First Fullstack Scaffolder",
-    "description": "Scaffold production-grade Next.js, Expo, or fullstack monorepo projects with Convex backend. AI agent contracts included."
+    "title": "create-vllnt-app — The App Factory Your AI Agent Already Understands",
+    "description": "Pick a preset. Get a production-ready app with guardrails your AI coding agent can't break."
   },
   "Hero": {
-    "badge": "v0.1.0 — Closed Alpha",
-    "title_prefix": "Ship with",
-    "title_highlight": "AI agents",
-    "title_suffix": "from day one",
-    "description": "Scaffold production-grade Next.js, Expo, or fullstack monorepo projects with Convex backend. CLAUDE.md + agent contracts included.",
-    "cta": "Get Started",
+    "badge": "v0.1.0 — Composable Sections",
+    "title_prefix": "The app factory",
+    "title_highlight": "your AI agent already understands",
+    "description": "Pick a preset. Get a production-ready app with strict guardrails your AI agent can't break. CLAUDE.md + vllnt doctor included.",
+    "cta": "See Presets",
     "command": "npx create-vllnt-app@latest"
   },
-  "Modes": {
-    "title": "Three modes. One command.",
-    "subtitle": "Pick your platform. Get a production-ready scaffold with AI agent contracts, feature-sliced architecture, and a Convex real-time backend.",
-    "web": {
-      "title": "Web",
-      "stack": "Next.js 15 + Convex + Tailwind v4 + next-intl",
-      "command": "npx create-vllnt-app@latest --template web",
-      "f1": "App Router + Server Components",
-      "f2": "Feature-sliced architecture",
-      "f3": "i18n out of the box",
-      "f4": "Convex real-time backend"
-    },
-    "mobile": {
-      "title": "Mobile",
-      "stack": "Expo 55 + Convex + React Native + i18next",
-      "command": "npx create-vllnt-app@latest --template mobile",
-      "f1": "Expo Router (typed routes)",
-      "f2": "Feature-sliced architecture",
-      "f3": "Dark mode + theming",
-      "f4": "Maestro E2E testing"
-    },
-    "fullstack": {
-      "title": "Fullstack",
-      "stack": "Turborepo + Next.js + Expo + Convex",
-      "command": "npx create-vllnt-app@latest --template fullstack",
-      "f1": "Shared Convex backend",
-      "f2": "Universal React hooks",
-      "f3": "Cross-platform design tokens",
-      "f4": "turbo build pipeline"
-    }
+  "Presets": {
+    "title": "What are you building?",
+    "subtitle": "Pick a preset. Each one assembles the right sections with strict guardrails, agent contracts, and a Convex backend (when needed).",
+    "landing": "Landing Page",
+    "blog": "Blog",
+    "marketing": "Marketing Site",
+    "saas": "SaaS",
+    "full_saas": "Full SaaS",
+    "dashboard": "Dashboard",
+    "internal": "Internal Tool",
+    "docs": "Docs Site",
+    "custom": "Custom",
+    "custom_hint": "pick sections manually"
+  },
+  "Sections": {
+    "title": "Composable sections",
+    "subtitle": "Each section maps to a Next.js route group. Pick what you need — your agent handles the rest.",
+    "landing": "Marketing pages, hero, CTA, pricing",
+    "blog": "MDX content, categories, RSS",
+    "dashboard": "Auth-gated app area, data tables, charts",
+    "auth": "Login, register, profile, Convex backend",
+    "docs": "Documentation site with MDX",
+    "admin": "Admin panel, user management"
   },
   "AgentFirst": {
-    "title": "Agent-first primitives",
-    "subtitle": "Every scaffolded project ships with the building blocks that make AI coding agents immediately productive — skills, tools, rules, and context.",
-    "claude": "CLAUDE.md — blocking rules, stack info, Convex patterns, conventions",
-    "agents": "AGENTS.md — architecture, extension points, tasks, pitfalls",
-    "cursor": ".cursorrules — Cursor-optimized rules derived from CLAUDE.md",
-    "windsurf": ".windsurfrules — Windsurf-optimized rules derived from CLAUDE.md",
-    "docs": "docs/ — architecture, testing, i18n, theming, conventions, extending",
-    "features": "features/ — vertical slices ready for AI scaffolding"
+    "title": "Your agent's first read: CLAUDE.md",
+    "subtitle": "Every scaffolded project ships with machine-readable contracts. Your agent reads CLAUDE.md and starts coding within guardrails immediately.",
+    "workflow_label": "Agent workflow",
+    "step1": "Agent reads CLAUDE.md — understands stack + rules",
+    "step2": "Agent runs vllnt doctor --json — validates health",
+    "step3": "Agent codes features — eslint strict catches violations",
+    "step4": "Agent ships — lint + typecheck + build all pass",
+    "claude": "Blocking rules, stack info, conventions",
+    "agents": "Architecture, extension points, tasks",
+    "vllnt_json": "Active sections, preset, backend status"
   },
-  "Generators": {
-    "title": "Code generators",
-    "subtitle": "Generate pages, screens, features, components, hooks, and Convex domains — all following the conventions your AI agents already know.",
-    "g1_cmd": "vllnt generate page Dashboard",
-    "g1_desc": "New page with layout + metadata + i18n",
-    "g2_cmd": "vllnt generate feature billing",
-    "g2_desc": "Feature slice: components/ + hooks/ + index.ts",
-    "g3_cmd": "vllnt generate domain billing",
-    "g3_desc": "Convex domain: schemas + queries + mutations",
-    "g4_cmd": "vllnt generate component Button",
-    "g4_desc": "Shared UI component in components/ui/",
-    "g5_cmd": "vllnt add auth",
-    "g5_desc": "BetterAuth + Convex integration",
-    "g6_cmd": "vllnt add payments",
-    "g6_desc": "Stripe + Convex integration"
+  "Guardrails": {
+    "title": "Zero warnings. Everything is an error.",
+    "subtitle": "Strict rules baked into every scaffold. Your agent can't deviate — lint and typecheck catch violations instantly.",
+    "eslint": "Errors only, no warnings. Every rule enforces. No eslint-disable allowed.",
+    "typescript": "Strict mode, no any, no ts-ignore. Type guards at boundaries.",
+    "convex": "Dual validators, bounded reads, withIndex for queries. No full table scans.",
+    "zero_error": "Every scaffold passes lint + typecheck + build out of the box. If it doesn't, it's a CLI bug."
+  },
+  "Doctor": {
+    "title": "Preflight for every change",
+    "subtitle": "vllnt doctor validates project health and surfaces issues with structured fix commands your agent can execute directly.",
+    "check": "Health check",
+    "preflight": "Section preflight",
+    "agent_output": "Structured for agents"
   },
   "Agents": {
     "title": "Works with your AI coding agent",
     "subtitle": "Every scaffolded project ships with optimized rules for the leading AI coding agents. Your agent understands the architecture from the first prompt."
-  },
-  "Foundations": {
-    "title": "Built on @vllnt open source",
-    "subtitle": "Every scaffolded project is powered by a growing ecosystem of open-source packages — maintained, tested, and published on npm.",
-    "ui_name": "@vllnt/ui",
-    "ui_desc": "93 React components built on Radix UI + Tailwind CSS + CVA",
-    "eslint_name": "@vllnt/eslint-config",
-    "eslint_desc": "Strict ESLint config for TypeScript — all rules enforce error, no warnings",
-    "typescript_name": "@vllnt/typescript",
-    "typescript_desc": "Shared TypeScript configurations for Next.js, Expo, and library projects",
-    "logger_name": "@vllnt/logger",
-    "logger_desc": "Structured logging for server and edge runtimes",
-    "analytics_name": "@vllnt/analytics",
-    "analytics_desc": "Privacy-first analytics with consent management and React integration"
-  },
-  "Stack": {
-    "title": "Opinionated stack. Maximum performance.",
-    "subtitle": "Built on the best tools in the ecosystem. For maximum performance, we highly recommend deploying to Vercel and using Convex Cloud.",
-    "vercel": "Deploy frontend with zero-config. Edge functions, ISR, and global CDN out of the box.",
-    "convex": "Real-time backend with automatic caching, ACID transactions, and global edge deployment."
   },
   "Manifesto": {
     "title": "Why I'm building this",
