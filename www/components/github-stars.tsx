@@ -19,7 +19,7 @@ async function fetchStarCount(owner: string, repo: string): Promise<number> {
       { next: { revalidate: 3600 } },
     )
     if (!response.ok) return 0
-    const data = await response.json() as { stargazers_count: number }
+    const data = (await response.json()) as { stargazers_count: number }
     return data.stargazers_count
   } catch {
     return 0
