@@ -5,24 +5,35 @@ import fs from 'fs-extra'
 import { validateProjectName } from '../utils/validate.js'
 import { detectPackageManager } from '../utils/package-manager.js'
 import { scaffold } from '../core/scaffold.js'
-
-export type Template = 'web' | 'mobile' | 'fullstack'
+import {
+  PRESETS,
+  ALL_SECTIONS,
+  getPreset,
+  resolveTransitiveDeps,
+  needsBackend,
+} from '../core/presets.js'
 
 interface NewOptions {
-  template?: Template
+  template?: string
+  preset?: string
   yes?: boolean
   agent?: boolean
   packageManager?: string
   skipInstall?: boolean
+  skipBackend?: boolean
+  sections?: string
 }
 
 export const newCommand = new Command('new')
   .argument('[name]', 'Project name')
-  .option('-t, --template <template>', 'Template: web, mobile, fullstack')
+  .option('-p, --preset <preset>', 'Preset: landing, blog, marketing, saas, full-saas, dashboard, internal, docs')
+  .option('-t, --template <template>', 'Alias for --preset (backward compat)')
   .option('-y, --yes', 'Skip prompts, use defaults')
   .option('--agent', 'Machine-readable JSON output (implies --yes)')
   .option('--package-manager <pm>', 'Package manager: npm, pnpm, yarn, bun')
   .option('--skip-install', 'Skip dependency installation')
+  .option('--skip-backend', 'Skip Convex backend setup')
+  .option('--sections <sections>', 'Comma-separated sections for custom preset')
   .description('Scaffold a new project')
   .action(async (name: string | undefined, opts: NewOptions) => {
     const isAgent = opts.agent ?? false
@@ -33,12 +44,27 @@ export const newCommand = new Command('new')
     }
 
     let projectName = name
-    let template = opts.template as Template | undefined
-    let packageManager = opts.packageManager ?? detectPackageManager()
+    let presetName = opts.preset ?? opts.template
+    let sections: string[] = []
+    let includeBackend = !opts.skipBackend
+    const packageManager = opts.packageManager ?? detectPackageManager()
+
+    // Backward compat: --template web → --preset saas (closest match)
+    if (presetName === 'web') presetName = 'saas'
+    if (presetName === 'mobile' || presetName === 'fullstack') {
+      const msg = `Template "${presetName}" is not yet supported in v2. Use a web preset.`
+      if (isAgent) {
+        console.log(JSON.stringify({ success: false, error: 'UNSUPPORTED_TEMPLATE', message: msg }))
+      } else {
+        p.log.error(msg)
+      }
+      process.exit(1)
+    }
 
     if (!isNonInteractive) {
       p.intro('Create a new vllnt project')
 
+      // 1. Project name
       if (!projectName) {
         const nameResult = await p.text({
           message: 'Project name',
@@ -58,54 +84,108 @@ export const newCommand = new Command('new')
         }
       }
 
-      if (!template) {
-        const templateResult = await p.select({
-          message: 'Select template',
+      // 2. Preset selection
+      if (!presetName) {
+        const presetResult = await p.select({
+          message: 'What are you building?',
           options: [
+            ...PRESETS.map((preset) => ({
+              value: preset.name,
+              label: preset.label,
+              hint: preset.hint,
+            })),
             {
-              value: 'web' as const,
-              label: 'Web',
-              hint: 'Next.js 16 + Convex + Tailwind v4 + next-intl + @vllnt/ui',
-            },
-            {
-              value: 'mobile' as const,
-              label: 'Mobile',
-              hint: 'Expo 55 + Convex + React Native + i18next',
-            },
-            {
-              value: 'fullstack' as const,
-              label: 'Full Stack',
-              hint: 'Monorepo: apps/web + apps/mobile + packages/backend',
+              value: 'custom',
+              label: 'Custom',
+              hint: 'Pick sections manually',
             },
           ],
         })
-        if (p.isCancel(templateResult)) {
+        if (p.isCancel(presetResult)) {
           p.cancel('Cancelled.')
           process.exit(0)
         }
-        template = templateResult
+        presetName = presetResult as string
+      }
+
+      // 3. Custom section selection
+      if (presetName === 'custom') {
+        const sectionsResult = await p.multiselect({
+          message: 'Select sections',
+          options: ALL_SECTIONS.map((s) => ({
+            value: s,
+            label: s.charAt(0).toUpperCase() + s.slice(1),
+          })),
+          required: true,
+        })
+        if (p.isCancel(sectionsResult)) {
+          p.cancel('Cancelled.')
+          process.exit(0)
+        }
+        sections = resolveTransitiveDeps(sectionsResult as string[])
+
+        // Notify about auto-added deps
+        const added = sections.filter((s) => !(sectionsResult as string[]).includes(s))
+        if (added.length > 0) {
+          p.log.info(`Auto-added required sections: ${added.join(', ')}`)
+        }
+      } else {
+        const preset = getPreset(presetName)
+        if (!preset) {
+          p.log.error(`Unknown preset "${presetName}". Available: ${PRESETS.map((p) => p.name).join(', ')}`)
+          process.exit(1)
+        }
+        sections = preset.sections
+        includeBackend = preset.backend && !opts.skipBackend
+      }
+
+      // 4. Backend prompt (only if sections need it and user hasn't opted out)
+      if (!opts.skipBackend && presetName === 'custom' && needsBackend(sections)) {
+        const backendResult = await p.confirm({
+          message: 'Include Convex backend?',
+          initialValue: true,
+        })
+        if (p.isCancel(backendResult)) {
+          p.cancel('Cancelled.')
+          process.exit(0)
+        }
+        includeBackend = backendResult
       }
     } else {
-      if (!projectName) {
-        projectName = 'my-app'
-      }
+      // Non-interactive mode
+      if (!projectName) projectName = 'my-app'
       const nameError = validateProjectName(projectName)
       if (nameError) {
         if (isAgent) {
-          console.log(
-            JSON.stringify({
-              success: false,
-              error: 'INVALID_NAME',
-              message: nameError,
-            }),
-          )
+          console.log(JSON.stringify({ success: false, error: 'INVALID_NAME', message: nameError }))
         } else {
           console.error(`Error: ${nameError}`)
         }
         process.exit(1)
       }
-      if (!template) {
-        template = 'web'
+
+      if (opts.sections) {
+        sections = resolveTransitiveDeps(opts.sections.split(',').map((s) => s.trim()))
+        presetName = 'custom'
+        includeBackend = needsBackend(sections) && !opts.skipBackend
+      } else if (!presetName) {
+        presetName = 'saas'
+        const preset = getPreset(presetName)!
+        sections = preset.sections
+        includeBackend = preset.backend && !opts.skipBackend
+      } else {
+        const preset = getPreset(presetName)
+        if (!preset) {
+          const msg = `Unknown preset "${presetName}". Available: ${PRESETS.map((p) => p.name).join(', ')}`
+          if (isAgent) {
+            console.log(JSON.stringify({ success: false, error: 'UNKNOWN_PRESET', message: msg }))
+          } else {
+            console.error(msg)
+          }
+          process.exit(1)
+        }
+        sections = preset.sections
+        includeBackend = preset.backend && !opts.skipBackend
       }
     }
 
@@ -114,13 +194,7 @@ export const newCommand = new Command('new')
     if (fs.existsSync(targetDir) && fs.readdirSync(targetDir).length > 0) {
       const message = `Directory "${projectName}" already exists and is not empty.`
       if (isAgent) {
-        console.log(
-          JSON.stringify({
-            success: false,
-            error: 'DIR_EXISTS',
-            message,
-          }),
-        )
+        console.log(JSON.stringify({ success: false, error: 'DIR_EXISTS', message }))
       } else {
         p.log.error(message)
       }
@@ -130,9 +204,11 @@ export const newCommand = new Command('new')
     try {
       const result = await scaffold({
         name: projectName!,
-        template: template!,
+        preset: presetName!,
+        sections,
         targetDir,
         packageManager,
+        includeBackend,
         isAgent,
         isNonInteractive,
         skipInstall: opts.skipInstall ?? false,
@@ -146,22 +222,18 @@ export const newCommand = new Command('new')
         console.log(`  cd ${projectName}`)
         console.log(`  ${packageManager} dev`)
         console.log()
-        console.log('  Add features:  vllnt add auth')
-        console.log('  Generate code: vllnt generate feature dashboard')
+        if (includeBackend) {
+          console.log('  Start backend: npx convex dev')
+        }
+        console.log('  Health check:  vllnt doctor')
         console.log()
-        console.log('  Agent contract ready: CLAUDE.md + AGENTS.md + docs/')
+        console.log(`  Sections: ${sections.join(', ')}`)
+        console.log('  Agent contract ready: CLAUDE.md + AGENTS.md + vllnt.json')
       }
     } catch (error: unknown) {
-      const message =
-        error instanceof Error ? error.message : 'Unknown error occurred'
+      const message = error instanceof Error ? error.message : 'Unknown error occurred'
       if (isAgent) {
-        console.log(
-          JSON.stringify({
-            success: false,
-            error: 'SCAFFOLD_FAILED',
-            message,
-          }),
-        )
+        console.log(JSON.stringify({ success: false, error: 'SCAFFOLD_FAILED', message }))
       } else {
         p.log.error(`Scaffold failed: ${message}`)
       }

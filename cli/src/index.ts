@@ -21,7 +21,8 @@ program.addCommand(generateCommand)
 program.addCommand(doctorCommand)
 
 program.hook('preAction', () => {
-  if (!process.env.VLLNT_AGENT) {
+  const args = process.argv
+  if (!process.env.VLLNT_AGENT && !args.includes('--agent') && !args.includes('--json')) {
     showBanner()
   }
 })

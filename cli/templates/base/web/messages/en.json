@@ -1,0 +1,9 @@
+{
+  "Meta": {
+    "title": "{{projectName}}",
+    "description": "Built with create-vllnt-app"
+  },
+  "common": {
+    "notFound": "Page not found"
+  }
+}

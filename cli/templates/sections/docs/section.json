@@ -1,0 +1,20 @@
+{
+  "name": "docs",
+  "routeGroup": "(docs)",
+  "requires": [],
+  "requiresBackend": false,
+  "dependencies": {},
+  "devDependencies": {},
+  "i18nNamespace": "Docs",
+  "i18nKeys": {
+    "Docs": {
+      "title": "Documentation",
+      "description": "Guides and reference"
+    }
+  },
+  "claudeMdRules": [
+    "Documentation lives in content/docs/ as MDX files",
+    "Docs routes are public — no auth required"
+  ],
+  "agentsMdExtensions": "### Docs Section\n- Docs pages in (docs)/\n- MDX content in content/docs/\n- Add doc: content/docs/{slug}.mdx"
+}

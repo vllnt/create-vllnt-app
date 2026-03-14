@@ -1,9 +1,10 @@
 import fs from 'node:fs'
 import path from 'node:path'
-import type { Template } from '../commands/new.js'
+
+type ProjectType = 'web' | 'mobile' | 'fullstack' | null
 
 interface ProjectInfo {
-  type: Template | null
+  type: ProjectType
   root: string
   hasConvex: boolean
   isMonorepo: boolean

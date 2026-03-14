@@ -1,0 +1,28 @@
+{
+  "name": "auth",
+  "routeGroup": "(auth)",
+  "requires": [],
+  "requiresBackend": true,
+  "dependencies": {
+    "convex": "^1.21.0",
+    "convex-helpers": "^0.1.75"
+  },
+  "devDependencies": {},
+  "i18nNamespace": "Auth",
+  "i18nKeys": {
+    "Auth": {
+      "login": "Sign in",
+      "register": "Create account",
+      "email": "Email",
+      "password": "Password",
+      "submit": "Continue"
+    }
+  },
+  "claudeMdRules": [
+    "No direct DB calls from UI — all data flows through Convex queries/mutations",
+    "Convex validators required — every query/mutation must declare args and returns validators",
+    "Bounded reads — every .collect() must use .take(n) or pagination",
+    "Indexes for queries — use .withIndex() for filtered reads"
+  ],
+  "agentsMdExtensions": "### Auth Section\n- Auth pages in (auth)/\n- Features in features/auth/\n- Convex backend in convex/auth/\n- ConvexProvider wraps app in components/providers/convex-provider.tsx\n- Add new Convex domain: convex/{domain}/schemas.ts + queries.ts + mutations.ts"
+}
