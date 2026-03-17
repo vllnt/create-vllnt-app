@@ -10,12 +10,14 @@
     "dev": "turbo dev",
     "lint": "turbo lint",
     "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
     "test:watch": "vitest",
     "typecheck": "turbo typecheck"
   },
   "devDependencies": {
     "@types/fs-extra": "^11.0.4",
     "@types/node": "^22.15.0",
+    "@vitest/coverage-v8": "^4.0.18",
     "execa": "^9.5.2",
     "fs-extra": "^11.3.0",
     "turbo": "^2.4.4",
