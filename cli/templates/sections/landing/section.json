@@ -1,0 +1,21 @@
+{
+  "name": "landing",
+  "routeGroup": "(marketing)",
+  "requires": [],
+  "requiresBackend": false,
+  "dependencies": {},
+  "devDependencies": {},
+  "i18nNamespace": "Landing",
+  "i18nKeys": {
+    "Landing": {
+      "title": "Welcome to {{projectName}}",
+      "description": "Built with create-vllnt-app",
+      "cta": "Get Started"
+    }
+  },
+  "claudeMdRules": [
+    "Landing pages use Server Components by default",
+    "Marketing routes live in app/[locale]/(marketing)/"
+  ],
+  "agentsMdExtensions": "### Landing Section\n- Public marketing pages in (marketing)/\n- Add new marketing pages: app/[locale]/(marketing)/pricing/page.tsx"
+}

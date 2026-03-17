@@ -1,7 +1,7 @@
 import { execaNode } from 'execa'
 import fs from 'fs-extra'
 import path from 'node:path'
-import os from 'node:os'
+import { getTestRoot } from './tmp.js'
 
 const CLI_PATH = path.resolve(__dirname, '../../cli/dist/index.js')
 
@@ -47,7 +47,8 @@ export async function runCli(
 }
 
 export async function createTmpDir(prefix = 'vllnt-test-'): Promise<string> {
-  const dir = await fs.mkdtemp(path.join(os.tmpdir(), prefix))
+  const root = await getTestRoot()
+  const dir = await fs.mkdtemp(path.join(root, prefix))
   return dir
 }
 

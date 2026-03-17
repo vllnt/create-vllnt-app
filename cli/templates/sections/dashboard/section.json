@@ -1,0 +1,20 @@
+{
+  "name": "dashboard",
+  "routeGroup": "(dashboard)",
+  "requires": ["auth"],
+  "requiresBackend": true,
+  "dependencies": {},
+  "devDependencies": {},
+  "i18nNamespace": "Dashboard",
+  "i18nKeys": {
+    "Dashboard": {
+      "title": "Dashboard",
+      "welcome": "Welcome back"
+    }
+  },
+  "claudeMdRules": [
+    "Dashboard pages are auth-protected — redirect to /login if unauthenticated",
+    "Use Server Components for initial data load, Client Components for interactive charts"
+  ],
+  "agentsMdExtensions": "### Dashboard Section\n- Protected routes in (dashboard)/\n- Features in features/dashboard/\n- Add widgets: features/dashboard/components/{name}.tsx"
+}

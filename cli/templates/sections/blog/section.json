@@ -1,0 +1,20 @@
+{
+  "name": "blog",
+  "routeGroup": "(blog)",
+  "requires": [],
+  "requiresBackend": false,
+  "dependencies": {},
+  "devDependencies": {},
+  "i18nNamespace": "Blog",
+  "i18nKeys": {
+    "Blog": {
+      "title": "Blog",
+      "description": "Latest posts and updates"
+    }
+  },
+  "claudeMdRules": [
+    "Blog posts live in content/blog/ as MDX files",
+    "Blog routes are public — no auth required"
+  ],
+  "agentsMdExtensions": "### Blog Section\n- Blog pages in (blog)/\n- MDX content in content/blog/\n- Add post: content/blog/{slug}.mdx"
+}

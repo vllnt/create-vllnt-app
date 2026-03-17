@@ -1,10 +1,7 @@
 import { describe, it, expect, beforeAll, afterAll } from 'vitest'
 import path from 'node:path'
-import os from 'node:os'
 import fs from 'fs-extra'
-import { execaNode } from 'execa'
-
-const CLI_PATH = path.resolve(__dirname, '../../cli/dist/index.js')
+import { runCli, createTmpDir, cleanTmpDir } from '../helpers/cli.js'
 
 describe('scaffold-mobile', () => {
   let tmpDir: string
@@ -12,28 +9,21 @@ describe('scaffold-mobile', () => {
   const projectName = 'test-mobile-app'
 
   beforeAll(async () => {
-    tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), 'vllnt-test-mobile-'))
+    tmpDir = await createTmpDir('vllnt-test-mobile-')
     projectDir = path.join(tmpDir, projectName)
   })
 
   afterAll(async () => {
-    if (tmpDir) {
-      await fs.remove(tmpDir)
-    }
+    if (tmpDir) await cleanTmpDir(tmpDir)
   })
 
   it('AC-2: scaffolds a mobile project with correct structure', async () => {
-    const result = await execaNode(CLI_PATH, [
+    const result = await runCli([
       'new', projectName,
       '--template', 'mobile',
       '--yes',
       '--skip-install',
-    ], {
-      cwd: tmpDir,
-      timeout: 60_000,
-      env: { ...process.env, NO_COLOR: '1' },
-      reject: false,
-    })
+    ], { cwd: tmpDir })
 
     expect(result.exitCode, `CLI failed: ${result.stderr}`).toBe(0)
     expect(fs.existsSync(projectDir)).toBe(true)

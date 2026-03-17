@@ -1,0 +1,20 @@
+{
+  "name": "admin",
+  "routeGroup": "(admin)",
+  "requires": ["auth"],
+  "requiresBackend": true,
+  "dependencies": {},
+  "devDependencies": {},
+  "i18nNamespace": "Admin",
+  "i18nKeys": {
+    "Admin": {
+      "title": "Admin",
+      "description": "Manage users and settings"
+    }
+  },
+  "claudeMdRules": [
+    "Admin routes require admin role — check user role in layout",
+    "Admin pages live in app/[locale]/(admin)/"
+  ],
+  "agentsMdExtensions": "### Admin Section\n- Admin pages in (admin)/\n- Features in features/admin/\n- Add admin page: app/[locale]/(admin)/{name}/page.tsx"
+}

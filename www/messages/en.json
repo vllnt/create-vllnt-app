@@ -1,97 +1,70 @@
 {
   "Meta": {
-    "title": "create-vllnt-app — Agent-First Fullstack Scaffolder",
-    "description": "Scaffold production-grade Next.js, Expo, or fullstack monorepo projects with Convex backend. AI agent contracts included."
+    "title": "create-vllnt-app — Ship production apps 10x faster with AI agents",
+    "description": "One command. Production-ready app. Your AI agent codes, the guardrails keep it clean."
   },
   "Hero": {
-    "badge": "v0.1.0 — Closed Alpha",
-    "title_prefix": "Ship with",
-    "title_highlight": "AI agents",
-    "title_suffix": "from day one",
-    "description": "Scaffold production-grade Next.js, Expo, or fullstack monorepo projects with Convex backend. CLAUDE.md + agent contracts included.",
-    "cta": "Get Started",
+    "badge": "Private Alpha",
+    "title_prefix": "Ship production apps",
+    "title_highlight": "10x faster with AI agents",
+    "description": "One command. Production-ready app. Your AI agent starts coding immediately — strict guardrails keep every line clean.",
+    "cta": "See Presets",
     "command": "npx create-vllnt-app@latest"
   },
-  "Modes": {
-    "title": "Three modes. One command.",
-    "subtitle": "Pick your platform. Get a production-ready scaffold with AI agent contracts, feature-sliced architecture, and a Convex real-time backend.",
-    "web": {
-      "title": "Web",
-      "stack": "Next.js 15 + Convex + Tailwind v4 + next-intl",
-      "command": "npx create-vllnt-app@latest --template web",
-      "f1": "App Router + Server Components",
-      "f2": "Feature-sliced architecture",
-      "f3": "i18n out of the box",
-      "f4": "Convex real-time backend"
-    },
-    "mobile": {
-      "title": "Mobile",
-      "stack": "Expo 55 + Convex + React Native + i18next",
-      "command": "npx create-vllnt-app@latest --template mobile",
-      "f1": "Expo Router (typed routes)",
-      "f2": "Feature-sliced architecture",
-      "f3": "Dark mode + theming",
-      "f4": "Maestro E2E testing"
-    },
-    "fullstack": {
-      "title": "Fullstack",
-      "stack": "Turborepo + Next.js + Expo + Convex",
-      "command": "npx create-vllnt-app@latest --template fullstack",
-      "f1": "Shared Convex backend",
-      "f2": "Universal React hooks",
-      "f3": "Cross-platform design tokens",
-      "f4": "turbo build pipeline"
-    }
+  "Presets": {
+    "title": "What are you building?",
+    "subtitle": "Pick a preset. Get a production-ready project in seconds. Your AI agent understands the architecture from the first prompt.",
+    "landing": "Landing Page",
+    "blog": "Blog",
+    "marketing": "Marketing Site",
+    "saas": "SaaS",
+    "full_saas": "Full SaaS",
+    "dashboard": "Dashboard",
+    "internal": "Internal Tool",
+    "docs": "Docs Site",
+    "custom": "Custom",
+    "custom_hint": "pick what you need"
+  },
+  "Sections": {
+    "title": "Build exactly what you need",
+    "subtitle": "Each preset assembles the right pieces. Start small, scale up. Your agent knows how to extend every section.",
+    "landing": "Hero, pricing, CTA — ready to convert",
+    "blog": "MDX-powered content, ship posts fast",
+    "dashboard": "Data tables, charts, protected routes",
+    "auth": "Login, register, sessions — just works",
+    "docs": "Documentation your users actually read",
+    "admin": "User management, settings, controls"
   },
   "AgentFirst": {
-    "title": "Agent-first primitives",
-    "subtitle": "Every scaffolded project ships with the building blocks that make AI coding agents immediately productive — skills, tools, rules, and context.",
-    "claude": "CLAUDE.md — blocking rules, stack info, Convex patterns, conventions",
-    "agents": "AGENTS.md — architecture, extension points, tasks, pitfalls",
-    "cursor": ".cursorrules — Cursor-optimized rules derived from CLAUDE.md",
-    "windsurf": ".windsurfrules — Windsurf-optimized rules derived from CLAUDE.md",
-    "docs": "docs/ — architecture, testing, i18n, theming, conventions, extending",
-    "features": "features/ — vertical slices ready for AI scaffolding"
+    "title": "Your AI agent is productive from line one",
+    "subtitle": "Every project ships with machine-readable contracts. Your agent reads them and starts building — no guessing, no hallucinating, no wrong patterns.",
+    "workflow_label": "How it works",
+    "step1": "You run one command — project scaffolded in seconds",
+    "step2": "Your agent reads CLAUDE.md — understands every rule",
+    "step3": "Your agent codes — guardrails catch mistakes instantly",
+    "step4": "You ship — lint, types, and build all pass",
+    "claude": "Strict rules your agent follows",
+    "agents": "Architecture your agent understands",
+    "vllnt_json": "Project state your agent reads"
   },
-  "Generators": {
-    "title": "Code generators",
-    "subtitle": "Generate pages, screens, features, components, hooks, and Convex domains — all following the conventions your AI agents already know.",
-    "g1_cmd": "vllnt generate page Dashboard",
-    "g1_desc": "New page with layout + metadata + i18n",
-    "g2_cmd": "vllnt generate feature billing",
-    "g2_desc": "Feature slice: components/ + hooks/ + index.ts",
-    "g3_cmd": "vllnt generate domain billing",
-    "g3_desc": "Convex domain: schemas + queries + mutations",
-    "g4_cmd": "vllnt generate component Button",
-    "g4_desc": "Shared UI component in components/ui/",
-    "g5_cmd": "vllnt add auth",
-    "g5_desc": "BetterAuth + Convex integration",
-    "g6_cmd": "vllnt add payments",
-    "g6_desc": "Stripe + Convex integration"
+  "Guardrails": {
+    "title": "Your agent can't break things",
+    "subtitle": "Strict rules baked into every project. Your agent writes code that passes on the first try.",
+    "eslint": "Every lint rule is an error. No warnings to ignore. Code is clean or it doesn't compile.",
+    "typescript": "Strict mode everywhere. Your agent uses type guards, not type assertions.",
+    "convex": "Database queries are validated, bounded, and indexed. No N+1, no full table scans.",
+    "zero_error": "Every scaffolded project passes lint, typecheck, and build. Out of the box. Guaranteed."
+  },
+  "Doctor": {
+    "title": "Health check before you ship",
+    "subtitle": "One command validates your entire project. Your agent reads the structured output and fixes issues automatically.",
+    "check": "Full health check",
+    "preflight": "Section-specific validation",
+    "agent_output": "Machine-readable for agents"
   },
   "Agents": {
-    "title": "Works with your AI coding agent",
-    "subtitle": "Every scaffolded project ships with optimized rules for the leading AI coding agents. Your agent understands the architecture from the first prompt."
-  },
-  "Foundations": {
-    "title": "Built on @vllnt open source",
-    "subtitle": "Every scaffolded project is powered by a growing ecosystem of open-source packages — maintained, tested, and published on npm.",
-    "ui_name": "@vllnt/ui",
-    "ui_desc": "93 React components built on Radix UI + Tailwind CSS + CVA",
-    "eslint_name": "@vllnt/eslint-config",
-    "eslint_desc": "Strict ESLint config for TypeScript — all rules enforce error, no warnings",
-    "typescript_name": "@vllnt/typescript",
-    "typescript_desc": "Shared TypeScript configurations for Next.js, Expo, and library projects",
-    "logger_name": "@vllnt/logger",
-    "logger_desc": "Structured logging for server and edge runtimes",
-    "analytics_name": "@vllnt/analytics",
-    "analytics_desc": "Privacy-first analytics with consent management and React integration"
-  },
-  "Stack": {
-    "title": "Opinionated stack. Maximum performance.",
-    "subtitle": "Built on the best tools in the ecosystem. For maximum performance, we highly recommend deploying to Vercel and using Convex Cloud.",
-    "vercel": "Deploy frontend with zero-config. Edge functions, ISR, and global CDN out of the box.",
-    "convex": "Real-time backend with automatic caching, ACID transactions, and global edge deployment."
+    "title": "Works with every AI coding agent",
+    "subtitle": "Claude Code, Codex, Cursor, Windsurf, Gemini — your agent reads the same contracts and follows the same rules."
   },
   "Manifesto": {
     "title": "Why I'm building this",

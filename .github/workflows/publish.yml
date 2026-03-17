@@ -44,8 +44,8 @@ jobs:
         run: pnpm -F create-vllnt-app typecheck
       - name: Build
         run: pnpm build
-      - name: Test
-        run: pnpm test
+      - name: Test + Coverage
+        run: pnpm test:coverage
 
   canary:
     name: Publish Canary

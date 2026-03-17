@@ -17,7 +17,7 @@ These rules are NON-NEGOTIABLE. Violating any BLOCKING rule requires immediate f
 
 ## Stack
 
-- **Framework**: Next.js 15+ (App Router, Server Components, Turbopack)
+- **Framework**: Next.js 16 (App Router, Server Components, Turbopack)
 - **Backend**: Convex (reactive, real-time, serverless)
 - **Styling**: Tailwind CSS v4
 - **i18n**: next-intl (locale in `[locale]` route segment)
@@ -131,7 +131,7 @@ export const upsertUser = internalMutation({
 - Data fetching via convex `useQuery`/`useMutation` hooks in client components
 - Layouts handle metadata via `generateMetadata`
 - Route groups `(name)` for layout segmentation, no URL impact
-- Middleware handles locale routing (next-intl)
+- Proxy handles locale routing (next-intl via proxy.ts)
 
 ## Testing
 
