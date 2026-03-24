@@ -1,10 +1,6 @@
-import { ImageResponse } from 'next/og'
-
-export const runtime = 'edge'
-
 const fontStack = 'ui-monospace, SFMono-Regular, Menlo, Consolas, monospace'
 
-function OgBadge(): React.ReactNode {
+function Badge(): React.ReactElement {
   return (
     <div
       style={{
@@ -24,8 +20,8 @@ function OgBadge(): React.ReactNode {
   )
 }
 
-function OgTitle(): React.ReactNode {
-  const headingStyle = {
+function Title(): React.ReactElement {
+  const style = {
     color: 'white',
     display: 'flex' as const,
     fontSize: '64px',
@@ -42,13 +38,13 @@ function OgTitle(): React.ReactNode {
         gap: '4px',
       }}
     >
-      <div style={headingStyle}>Ship with AI agents</div>
-      <div style={headingStyle}>from day one</div>
+      <div style={style}>Ship with AI agents</div>
+      <div style={style}>from day one</div>
     </div>
   )
 }
 
-function OgFooter(): React.ReactNode {
+function Footer(): React.ReactElement {
   return (
     <>
       <div
@@ -97,8 +93,8 @@ function OgFooter(): React.ReactNode {
   )
 }
 
-export function GET(): ImageResponse {
-  return new ImageResponse(
+export function OgContent(): React.ReactElement {
+  return (
     <div
       style={{
         alignItems: 'center',
@@ -111,10 +107,9 @@ export function GET(): ImageResponse {
         width: '100%',
       }}
     >
-      <OgBadge />
-      <OgTitle />
-      <OgFooter />
-    </div>,
-    { height: 630, width: 1200 },
+      <Badge />
+      <Title />
+      <Footer />
+    </div>
   )
 }
