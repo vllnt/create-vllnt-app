@@ -37,14 +37,6 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   openGraph: {
     description,
-    images: [
-      {
-        alt: 'create-vllnt-app — Ship with AI agents from day one',
-        height: 630,
-        url: '/og.png',
-        width: 1200,
-      },
-    ],
     locale: 'en_US',
     siteName: 'create-vllnt-app',
     title,
@@ -67,7 +59,6 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     creator: '@bntvllnt',
     description,
-    images: ['/og.png'],
     title,
   },
 }
