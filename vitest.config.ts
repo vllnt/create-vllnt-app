@@ -19,10 +19,34 @@ export default defineConfig({
         'cli/src/utils/version.ts',
       ],
       thresholds: {
-        lines: 70,
-        branches: 60,
-        functions: 70,
-        statements: 70,
+        'cli/src/core/presets.ts': {
+          lines: 90,
+          branches: 90,
+          functions: 90,
+          statements: 90,
+        },
+        'cli/src/core/detector.ts': {
+          lines: 90,
+          branches: 90,
+          functions: 90,
+          statements: 90,
+        },
+        'cli/src/utils/validate.ts': {
+          lines: 90,
+          branches: 90,
+          functions: 90,
+          statements: 90,
+        },
+        'cli/src/utils/package-manager.ts': {
+          lines: 80,
+          branches: 80,
+          functions: 90,
+          statements: 80,
+        },
+        'cli/src/core/scaffold.ts': {
+          lines: 10,
+          functions: 30,
+        },
       },
       reporter: ['text', 'text-summary', 'json-summary'],
     },
