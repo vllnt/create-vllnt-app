@@ -62,7 +62,7 @@ function collectFiles(dir: string, prefix = ''): string[] {
   return files
 }
 
-function replacePlaceholders(
+export function replacePlaceholders(
   content: string,
   replacements: Record<string, string>,
 ): string {
@@ -139,7 +139,7 @@ async function mergeI18nKeys(
   await fs.writeJson(messagesPath, messages, { spaces: 2 })
 }
 
-function generateClaudeMd(
+export function generateClaudeMd(
   projectName: string,
   sections: string[],
   sectionMetas: SectionMeta[],
@@ -217,7 +217,7 @@ ${includeBackend ? 'npx convex dev        # Start Convex dev server\n' : ''}\`\`
 `
 }
 
-function generateAgentsMd(
+export function generateAgentsMd(
   projectName: string,
   sectionMetas: SectionMeta[],
   includeBackend: boolean,
@@ -265,7 +265,7 @@ ${includeBackend ? '| Unbounded reads | Always use `.take(n)` or pagination |\n|
 `
 }
 
-function generateVllntJson(
+export function generateVllntJson(
   preset: string,
   sections: string[],
   includeBackend: boolean,
