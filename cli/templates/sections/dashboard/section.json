@@ -5,9 +5,9 @@
   "requiresBackend": true,
   "dependencies": {},
   "devDependencies": {},
-  "i18nNamespace": "Dashboard",
+  "i18nNamespace": "dashboard",
   "i18nKeys": {
-    "Dashboard": {
+    "dashboard": {
       "title": "Dashboard",
       "welcome": "Welcome back"
     }

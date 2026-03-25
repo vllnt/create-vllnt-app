@@ -38,6 +38,72 @@ describe('scaffold-options', () => {
     })
   })
 
+  describe('section validation', () => {
+    let tmpDir: string
+
+    beforeAll(async () => {
+      tmpDir = await createTmpDir('vllnt-section-validation-')
+    })
+
+    afterAll(async () => {
+      if (tmpDir) await cleanTmpDir(tmpDir)
+    })
+
+    it('rejects --sections with path traversal', async () => {
+      const result = await runCli(
+        ['new', 'traversal-app', '--sections', '../../../etc', '--yes', '--skip-install', '--agent'],
+        { cwd: tmpDir },
+      )
+
+      expect(result.exitCode).toBe(1)
+      const output = parseJsonOutput(result.stdout) as { error: string; message: string }
+      expect(output.error).toBe('INVALID_SECTION')
+      expect(fs.existsSync(path.join(tmpDir, 'traversal-app'))).toBe(false)
+    })
+
+    it('rejects --sections not in ALL_SECTIONS allowlist', async () => {
+      const result = await runCli(
+        ['new', 'invalid-section-app', '--sections', 'nonexistent', '--yes', '--skip-install', '--agent'],
+        { cwd: tmpDir },
+      )
+
+      expect(result.exitCode).toBe(1)
+      const output = parseJsonOutput(result.stdout) as { error: string; message: string }
+      expect(output.error).toBe('INVALID_SECTION')
+      expect(output.message).toContain('Valid:')
+    })
+
+    it('i18n namespaces match useTranslations calls in all sections', async () => {
+      const sectionsDir = path.resolve(__dirname, '../../cli/templates/sections')
+      const sectionNames = fs.readdirSync(sectionsDir).filter((d: string) =>
+        fs.statSync(path.join(sectionsDir, d)).isDirectory(),
+      )
+
+      for (const section of sectionNames) {
+        const metaPath = path.join(sectionsDir, section, 'section.json')
+        if (!fs.existsSync(metaPath)) continue
+
+        const meta = fs.readJsonSync(metaPath) as { i18nKeys: Record<string, unknown>; i18nNamespace: string }
+        const sectionDir = path.join(sectionsDir, section)
+        const allFiles = listFiles(sectionDir).filter((f: string) => f.endsWith('.tsx') || f.endsWith('.ts'))
+
+        for (const file of allFiles) {
+          const content = fs.readFileSync(path.join(sectionDir, file), 'utf-8')
+          const matches = content.match(/useTranslations\(['"]([^'"]+)['"]\)/g)
+          if (!matches) continue
+
+          for (const match of matches) {
+            const namespace = match.match(/useTranslations\(['"]([^'"]+)['"]\)/)![1]
+            expect(
+              Object.keys(meta.i18nKeys),
+              `Section "${section}" file "${file}" calls useTranslations('${namespace}') but i18nKeys has: ${Object.keys(meta.i18nKeys).join(', ')}`,
+            ).toContain(namespace)
+          }
+        }
+      }
+    })
+  })
+
   describe('error paths', () => {
     let tmpDir: string
 

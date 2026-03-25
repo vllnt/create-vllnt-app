@@ -24,6 +24,9 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
 
+      - name: Audit
+        run: pnpm audit --audit-level=high
+
       - name: Lint (www)
         run: pnpm -F www lint
 

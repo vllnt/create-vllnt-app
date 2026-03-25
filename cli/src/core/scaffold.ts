@@ -35,8 +35,14 @@ function getBaseDir(): string {
   return path.resolve(__dirname, '..', 'templates', 'base', 'web')
 }
 
+const SECTIONS_BASE = path.resolve(__dirname, '..', 'templates', 'sections')
+
 function getSectionDir(section: string): string {
-  return path.resolve(__dirname, '..', 'templates', 'sections', section)
+  const resolved = path.resolve(SECTIONS_BASE, section)
+  if (!resolved.startsWith(SECTIONS_BASE + path.sep)) {
+    throw new Error(`Invalid section "${section}": path traversal detected.`)
+  }
+  return resolved
 }
 
 function collectFiles(dir: string, prefix = ''): string[] {
