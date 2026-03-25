@@ -88,13 +88,18 @@ export const PRESETS: Preset[] = [
 export const ALL_SECTIONS = ['landing', 'blog', 'dashboard', 'auth', 'docs', 'admin'] as const
 export type SectionName = (typeof ALL_SECTIONS)[number]
 
-const SECTION_DEPS: Record<string, string[]> = {
-  landing: [],
-  blog: [],
-  docs: [],
-  dashboard: ['auth'],
-  auth: [],
-  admin: ['auth'],
+export interface SectionDep {
+  requires: string[]
+  requiresBackend: boolean
+}
+
+export const SECTION_DEPS: Record<string, SectionDep> = {
+  landing: { requires: [], requiresBackend: false },
+  blog: { requires: [], requiresBackend: false },
+  docs: { requires: [], requiresBackend: false },
+  dashboard: { requires: ['auth'], requiresBackend: true },
+  auth: { requires: [], requiresBackend: true },
+  admin: { requires: ['auth'], requiresBackend: true },
 }
 
 export function resolveTransitiveDeps(sections: string[]): string[] {
@@ -102,7 +107,8 @@ export function resolveTransitiveDeps(sections: string[]): string[] {
 
   function resolve(section: string): void {
     if (resolved.has(section)) return
-    const deps = SECTION_DEPS[section] ?? []
+    const entry = SECTION_DEPS[section]
+    const deps = entry?.requires ?? []
     for (const dep of deps) {
       resolve(dep)
     }
@@ -121,8 +127,5 @@ export function getPreset(name: string): Preset | undefined {
 }
 
 export function needsBackend(sections: string[]): boolean {
-  return sections.some((s) => {
-    const deps = SECTION_DEPS[s]
-    return deps !== undefined && (s === 'dashboard' || s === 'auth' || s === 'admin')
-  })
+  return sections.some((s) => SECTION_DEPS[s]?.requiresBackend === true)
 }

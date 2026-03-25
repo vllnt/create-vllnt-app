@@ -2,6 +2,7 @@ import fs from 'fs-extra'
 import path from 'node:path'
 import { execa } from 'execa'
 import { detectPackageManager } from '../utils/package-manager.js'
+import { SECTION_DEPS } from './presets.js'
 
 export interface DoctorFix {
   cmd: string
@@ -76,14 +77,6 @@ function detectProject(cwd: string): DoctorProject {
   return { name, type, sections, backend, packageManager: pm }
 }
 
-const SECTION_DEPS: Record<string, { requires: string[]; requiresBackend: boolean }> = {
-  landing: { requires: [], requiresBackend: false },
-  blog: { requires: [], requiresBackend: false },
-  docs: { requires: [], requiresBackend: false },
-  dashboard: { requires: ['auth'], requiresBackend: true },
-  auth: { requires: [], requiresBackend: true },
-  admin: { requires: ['auth'], requiresBackend: true },
-}
 
 function runGlobalChecks(cwd: string, project: DoctorProject): DoctorCheck[] {
   const checks: DoctorCheck[] = []
