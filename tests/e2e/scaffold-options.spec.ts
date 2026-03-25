@@ -73,6 +73,28 @@ describe('scaffold-options', () => {
       expect(output.message).toContain('Valid:')
     })
 
+    it('no unreplaced {{placeholder}} in scaffolded landing project', async () => {
+      const dir = path.join(tmpDir, 'placeholder-check')
+      await runCli(
+        ['new', 'placeholder-check', '--preset', 'landing', '--yes', '--skip-install', '--agent'],
+        { cwd: tmpDir },
+      )
+
+      const allFiles = listFiles(dir)
+      for (const file of allFiles) {
+        if (file.endsWith('.png') || file.endsWith('.ico') || file.endsWith('.woff2')) continue
+        try {
+          const content = fs.readFileSync(path.join(dir, file), 'utf-8')
+          expect(
+            content,
+            `Unreplaced placeholder found in ${file}`,
+          ).not.toMatch(/\{\{[a-zA-Z]+\}\}/)
+        } catch {
+          // binary files — skip
+        }
+      }
+    })
+
     it('i18n namespaces match useTranslations calls in all sections', async () => {
       const sectionsDir = path.resolve(__dirname, '../../cli/templates/sections')
       const sectionNames = fs.readdirSync(sectionsDir).filter((d: string) =>

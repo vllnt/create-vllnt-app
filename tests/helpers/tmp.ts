@@ -6,7 +6,8 @@ let testRoot: string | undefined
 
 export async function getTestRoot(): Promise<string> {
   if (!testRoot) {
-    testRoot = await fs.mkdtemp(path.join(os.tmpdir(), 'vllnt-tests-'))
+    const suffix = process.env.VITEST_WORKER_ID ?? process.pid.toString()
+    testRoot = await fs.mkdtemp(path.join(os.tmpdir(), `vllnt-tests-${suffix}-`))
   }
   return testRoot
 }
