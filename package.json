@@ -14,6 +14,13 @@
     "test:watch": "vitest",
     "typecheck": "turbo typecheck"
   },
+  "pnpm": {
+    "overrides": {
+      "flatted": ">=3.4.2",
+      "picomatch@<2.3.2": ">=2.3.2",
+      "picomatch@>=4.0.0 <4.0.4": ">=4.0.4"
+    }
+  },
   "devDependencies": {
     "@types/fs-extra": "^11.0.4",
     "@types/node": "^22.15.0",
