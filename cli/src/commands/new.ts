@@ -159,7 +159,18 @@ export const newCommand = new Command('new')
 
       if (!isLegacyTemplate) {
         if (opts.sections) {
-          sections = resolveTransitiveDeps(opts.sections.split(',').map((s) => s.trim()))
+          const rawSections = opts.sections.split(',').map((s) => s.trim())
+          const invalid = rawSections.filter((s) => !ALL_SECTIONS.includes(s as typeof ALL_SECTIONS[number]))
+          if (invalid.length > 0) {
+            const msg = `Invalid section(s): ${invalid.join(', ')}. Valid: ${ALL_SECTIONS.join(', ')}`
+            if (isAgent) {
+              console.log(JSON.stringify({ success: false, error: 'INVALID_SECTION', message: msg }))
+            } else {
+              console.error(msg)
+            }
+            process.exit(1)
+          }
+          sections = resolveTransitiveDeps(rawSections)
           presetName = 'custom'
           includeBackend = needsBackend(sections) && !opts.skipBackend
         } else if (!presetName) {

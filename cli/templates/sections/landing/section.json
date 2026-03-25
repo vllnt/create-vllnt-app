@@ -5,9 +5,9 @@
   "requiresBackend": false,
   "dependencies": {},
   "devDependencies": {},
-  "i18nNamespace": "Landing",
+  "i18nNamespace": "marketing",
   "i18nKeys": {
-    "Landing": {
+    "marketing": {
       "title": "Welcome to {{projectName}}",
       "description": "Built with create-vllnt-app",
       "cta": "Get Started"
