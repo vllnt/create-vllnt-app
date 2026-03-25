@@ -1,0 +1,21 @@
+# create-vllnt-app
+
+> Agent-first CLI scaffolder. One command to production-ready Next.js, Expo, or fullstack monorepo projects with Convex backend. CLAUDE.md + AI agent contracts included.
+
+Ship production apps 10x faster with AI agents. One command. Strict guardrails. Your agent codes from line one.
+
+Every project ships with machine-readable contracts (CLAUDE.md, AGENTS.md, vllnt.json) your AI agent reads immediately. Guardrails baked in: @vllnt/eslint-config (errors-only), TypeScript strict, Convex validators. Zero-error guarantee out of the box.
+
+## Docs
+
+- [README](README.md): Project overview, quick start, presets, CLI options, and stack
+- [CLI Reference](docs/cli.md): Commands, options, presets, and sections reference
+- [Contributing](CONTRIBUTING.md): Contribution guidelines and development setup
+- [Changelog](CHANGELOG.md): Version history and release notes
+- [Agents Guide](AGENTS.md): Architecture, conventions, commands, and boundaries for AI agents
+
+## Optional
+
+- [Security Policy](SECURITY.md): Vulnerability reporting and disclosure policy
+- [Code of Conduct](CODE_OF_CONDUCT.md): Community guidelines
+- [License](LICENSE): MIT license
