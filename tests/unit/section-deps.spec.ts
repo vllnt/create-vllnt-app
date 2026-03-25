@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { ALL_SECTIONS, SECTION_DEPS } from '../../cli/src/core/presets.js'
+import { ALL_SECTIONS, SECTION_DEPS, PRESETS } from '../../cli/src/core/presets.js'
 
 describe('SECTION_DEPS parity', () => {
   it('every ALL_SECTIONS entry has a SECTION_DEPS entry', () => {
@@ -43,5 +43,10 @@ describe('SECTION_DEPS parity', () => {
         }
       }
     }
+  })
+
+  it('all PRESETS have unique names', () => {
+    const names = PRESETS.map((p) => p.name)
+    expect(new Set(names).size).toBe(names.length)
   })
 })
