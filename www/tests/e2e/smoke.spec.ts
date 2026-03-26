@@ -2,11 +2,11 @@ import { expect, test } from '@playwright/test'
 
 const consoleErrors: string[] = []
 
-test.beforeEach(async ({ page }) => {
+test.beforeEach(({ page }) => {
   consoleErrors.length = 0
-  page.on('console', (msg) => {
-    if (msg.type() === 'error') {
-      consoleErrors.push(msg.text())
+  page.on('console', (message) => {
+    if (message.type() === 'error') {
+      consoleErrors.push(message.text())
     }
   })
 })
