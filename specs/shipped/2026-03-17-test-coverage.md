@@ -1,6 +1,7 @@
 ---
 title: Maximum Test Coverage + Coverage Tracking
-status: active
+status: shipped
+shipped: 2026-03-17
 created: 2026-03-17
 estimate: 6h
 tier: standard

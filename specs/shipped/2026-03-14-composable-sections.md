@@ -1,6 +1,7 @@
 ---
 title: Composable Sections — Foundations
-status: active
+status: shipped
+shipped: 2026-03-17
 created: 2026-03-14
 revised: 2026-03-14
 estimate: 14h (4 phases)
