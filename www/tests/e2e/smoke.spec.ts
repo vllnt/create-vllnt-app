@@ -16,7 +16,7 @@ test.describe('Landing page smoke', () => {
     const response = await page.goto('/')
     expect(response?.status()).toBe(200)
     await expect(page.locator('h1')).toBeVisible()
-    await expect(page.locator('h1')).toContainText('create-vllnt-app')
+    await expect(page.locator('h1')).toContainText('Ship production apps')
   })
 
   test('has zero console errors', async ({ page }) => {
