@@ -3,16 +3,10 @@ import { defineConfig } from 'vitest/config'
 export default defineConfig({
   test: {
     globals: true,
-    testTimeout: 60_000,
-    hookTimeout: 30_000,
-    include: ['tests/**/*.spec.ts'],
-    setupFiles: ['tests/setup.ts'],
     globalSetup: ['tests/global-setup.ts'],
     coverage: {
       provider: 'v8',
-      include: [
-        'cli/src/**/*.ts',
-      ],
+      include: ['cli/src/**/*.ts'],
       exclude: [
         'cli/src/index.ts',
         'cli/src/utils/banner.ts',
@@ -50,5 +44,31 @@ export default defineConfig({
       },
       reporter: ['text', 'text-summary', 'json-summary'],
     },
+    projects: [
+      {
+        test: {
+          name: 'unit',
+          include: ['tests/unit/**/*.spec.ts'],
+          testTimeout: 5_000,
+          setupFiles: ['tests/setup.ts'],
+        },
+      },
+      {
+        test: {
+          name: 'e2e',
+          include: ['tests/e2e/**/*.spec.ts'],
+          testTimeout: 60_000,
+          hookTimeout: 30_000,
+          setupFiles: ['tests/setup.ts'],
+          pool: 'forks',
+          poolOptions: {
+            forks: {
+              minForks: 1,
+              maxForks: 4,
+            },
+          },
+        },
+      },
+    ],
   },
 })

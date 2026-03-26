@@ -20,7 +20,7 @@ on:
 
 concurrency:
   group: publish-${{ github.event_name }}
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 permissions:
   contents: write

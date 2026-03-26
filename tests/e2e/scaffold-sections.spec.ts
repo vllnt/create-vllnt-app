@@ -126,7 +126,7 @@ describe('scaffold-sections', () => {
     })
 
     for (const preset of PRESETS) {
-      it(`AC-20: preset "${preset.name}" scaffolds without error`, async () => {
+      it.concurrent(`AC-20: preset "${preset.name}" scaffolds without error`, async () => {
         const projectName = `test-${preset.name}`
         const result = await runCli(
           ['new', projectName, '--preset', preset.name, '--yes', '--skip-install'],

@@ -1,6 +1,7 @@
 ---
 title: create-vllnt-app
-status: active
+status: shipped
+shipped: 2026-03-12
 created: 2026-03-11
 estimate: 80h (4 phases) — revised from 48h after spec review
 tier: standard

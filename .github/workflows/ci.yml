@@ -9,32 +9,99 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  quality:
-    name: Quality Gates
+  setup:
+    name: Audit
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
       - uses: pnpm/action-setup@v4
-
       - uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: pnpm
-
       - run: pnpm install --frozen-lockfile
-
       - name: Audit
         run: pnpm audit --audit-level=high
 
-      - name: Lint (www)
-        run: pnpm -F www lint
+  lint:
+    name: Lint (www)
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm -F www lint
 
-      - name: Typecheck (cli)
-        run: pnpm -F create-vllnt-app typecheck
+  typecheck:
+    name: Typecheck (cli)
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm -F create-vllnt-app typecheck
 
-      - name: Build
-        run: pnpm build
+  unit:
+    name: Unit Tests
+    needs: [setup, lint, typecheck]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Build CLI
+        run: pnpm -F create-vllnt-app build
+      - name: Unit Tests + Coverage
+        run: pnpm test:coverage -- --project unit --reporter=verbose
 
-      - name: Test + Coverage
-        run: pnpm test:coverage
+  e2e:
+    name: E2E Tests
+    needs: [setup, lint, typecheck]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Build CLI
+        run: pnpm -F create-vllnt-app build
+      - name: E2E Tests
+        run: pnpm test -- --project e2e --reporter=verbose
+
+  www:
+    name: Build + Test (www)
+    needs: [setup, lint, typecheck]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Build www
+        run: pnpm -F www build
+      - name: Install Playwright
+        run: pnpm -F www test:e2e:install
+      - name: Smoke Tests
+        run: pnpm -F www test:e2e
+        env:
+          CI: true

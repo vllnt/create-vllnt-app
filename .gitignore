@@ -6,6 +6,7 @@ dist/
 .env.*
 !.env.example
 .DS_Store
+.code-visualizer/
 coverage/
 tmp/
 .next/
