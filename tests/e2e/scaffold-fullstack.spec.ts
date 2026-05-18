@@ -41,9 +41,9 @@ describe('scaffold-fullstack', () => {
     expect(content).toContain('features/')
   })
 
-  it('AC-5b: .cursorrules and .windsurfrules exist', () => {
-    expect(fs.existsSync(path.join(projectDir, '.cursorrules'))).toBe(true)
-    expect(fs.existsSync(path.join(projectDir, '.windsurfrules'))).toBe(true)
+  it('AC-5b: vendor-specific agent aliases are not emitted by default', () => {
+    expect(fs.existsSync(path.join(projectDir, '.cursorrules'))).toBe(false)
+    expect(fs.existsSync(path.join(projectDir, '.windsurfrules'))).toBe(false)
   })
 
   it('AC-6: AGENTS.md exists with required sections', () => {

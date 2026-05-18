@@ -1,6 +1,6 @@
 # create-vllnt-app
 
-> Opinionated CLI for scaffolding agent-first web (Next.js), mobile (Expo), and fullstack monorepo projects with Convex backend. Ships AI agent contracts (CLAUDE.md, AGENTS.md, .cursorrules, .windsurfrules) and feature-sliced architecture out of the box.
+> Opinionated CLI for scaffolding agent-first web (Next.js), mobile (Expo), and fullstack monorepo projects with Convex backend. Ships canonical AI agent contracts (CLAUDE.md, AGENTS.md) and feature-sliced architecture out of the box.
 
 ## Quick Start
 

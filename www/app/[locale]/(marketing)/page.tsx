@@ -109,8 +109,8 @@ export default function HomePage(): React.ReactNode {
             sections="dashboard + auth"
           />
           <PresetCard
-            command="--preset internal"
-            name={t('Presets.internal')}
+            command="--preset admin"
+            name={t('Presets.admin')}
             sections="dashboard + admin + auth"
           />
           <PresetCard

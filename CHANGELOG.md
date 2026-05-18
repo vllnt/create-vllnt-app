@@ -9,7 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 ### Added
 
 - CLI scaffolder with composable sections (landing, blog, dashboard, auth, docs, admin)
-- 10 presets: landing, blog, marketing, saas, saas-blog, full-saas, dashboard, internal, docs, custom
+- 10 presets: landing, blog, marketing, saas, saas-blog, full-saas, dashboard, admin, docs, custom
 - `vllnt doctor` health check with `--json` output for AI agents
 - Agent-first contracts: CLAUDE.md, AGENTS.md, vllnt.json in every scaffold
 - @vllnt/eslint-config strict rules (errors-only, no warnings)

@@ -1,6 +1,6 @@
 # create-vllnt-app
 
-> Opinionated CLI for scaffolding agent-first web (Next.js), mobile (Expo), and fullstack monorepo projects with Convex backend. Ships AI agent contracts (CLAUDE.md, AGENTS.md, .cursorrules, .windsurfrules) and feature-sliced architecture out of the box.
+> Opinionated CLI for scaffolding agent-first web (Next.js), mobile (Expo), and fullstack monorepo projects with Convex backend. Ships canonical AI agent contracts (CLAUDE.md, AGENTS.md) and feature-sliced architecture out of the box.
 
 ## Installation
 
@@ -135,8 +135,6 @@ Health check for a vllnt project. Validates configuration, dependencies, and pro
 ├── specs/                 # Feature specs
 ├── CLAUDE.md              # Claude Code agent contract
 ├── AGENTS.md              # Multi-agent architecture doc
-├── .cursorrules           # Cursor agent rules
-├── .windsurfrules         # Windsurf agent rules
 ├── next.config.mjs
 ├── tailwind.config.ts
 ├── playwright.config.ts
@@ -176,8 +174,6 @@ Health check for a vllnt project. Validates configuration, dependencies, and pro
 ├── docs/                  # Architecture docs
 ├── CLAUDE.md              # Agent contract
 ├── AGENTS.md
-├── .cursorrules
-├── .windsurfrules
 ├── app.json               # Expo configuration
 ├── metro.config.cjs
 ├── eas.json               # EAS Build config
@@ -234,12 +230,6 @@ Multi-agent architecture reference. Contains:
 - Extension points for adding features
 - Common tasks and how to accomplish them
 - Pitfalls and gotchas
-
-### .cursorrules
-Cursor-optimized rules derived from CLAUDE.md.
-
-### .windsurfrules
-Windsurf-optimized rules derived from CLAUDE.md.
 
 ### docs/
 Architecture documentation:

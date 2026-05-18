@@ -26,7 +26,7 @@ interface NewOptions {
 
 export const newCommand = new Command('new')
   .argument('[name]', 'Project name')
-  .option('-p, --preset <preset>', 'Preset: landing, blog, marketing, saas, full-saas, dashboard, internal, docs')
+  .option('-p, --preset <preset>', 'Preset: landing, blog, marketing, saas, saas-blog, full-saas, dashboard, admin, docs')
   .option('-t, --template <template>', 'Alias for --preset (backward compat)')
   .option('-y, --yes', 'Skip prompts, use defaults')
   .option('--agent', 'Machine-readable JSON output (implies --yes)')
@@ -123,11 +123,13 @@ export const newCommand = new Command('new')
           p.log.info(`Auto-added required sections: ${added.join(', ')}`)
         }
       } else {
-        const preset = getPreset(presetName)
+        const preset = getPreset(presetName!)
         if (!preset) {
           p.log.error(`Unknown preset "${presetName}". Available: ${PRESETS.map((p) => p.name).join(', ')}`)
           process.exit(1)
+          return
         }
+        presetName = preset.name
         sections = preset.sections
         includeBackend = preset.backend && !opts.skipBackend
       }
@@ -176,6 +178,7 @@ export const newCommand = new Command('new')
         } else if (!presetName) {
           presetName = 'saas'
           const preset = getPreset(presetName)!
+          presetName = preset.name
           sections = preset.sections
           includeBackend = preset.backend && !opts.skipBackend
         } else {
@@ -188,7 +191,9 @@ export const newCommand = new Command('new')
               console.error(msg)
             }
             process.exit(1)
+            return
           }
+          presetName = preset.name
           sections = preset.sections
           includeBackend = preset.backend && !opts.skipBackend
         }

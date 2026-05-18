@@ -8,7 +8,7 @@ Scaffold a new project.
 
 | Option | Description |
 |--------|-------------|
-| `-p, --preset <preset>` | Project preset (saas, landing, blog, marketing, full-saas, dashboard, internal, docs) |
+| `-p, --preset <preset>` | Project preset (saas, landing, blog, marketing, saas-blog, full-saas, dashboard, admin, docs) |
 | `--sections <sections>` | Comma-separated sections for custom preset |
 | `--skip-backend` | Skip Convex backend setup |
 | `-y, --yes` | Skip prompts, use defaults |
@@ -36,7 +36,7 @@ Run health checks on a scaffolded project.
 | saas-blog | landing + dashboard + auth + blog |
 | full-saas | landing + dashboard + auth + blog + docs |
 | dashboard | dashboard + auth |
-| internal | dashboard + admin + auth |
+| admin | dashboard + admin + auth |
 | docs | docs |
 | custom | interactive selection |
 

@@ -360,7 +360,7 @@ interface DoctorCheck {
 | saas-blog | landing + dashboard + auth + blog | Yes |
 | full-saas | landing + dashboard + auth + blog + docs | Yes |
 | dashboard | dashboard + auth | Yes |
-| internal | dashboard + admin + auth | Yes |
+| admin | dashboard + admin + auth | Yes |
 | docs | docs | No |
 | custom | user picks | auto-detect |
 
