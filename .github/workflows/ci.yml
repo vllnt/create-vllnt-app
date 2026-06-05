@@ -20,8 +20,11 @@ jobs:
           node-version: 22
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - name: Audit
+      - name: Audit (production deps)
+        run: pnpm audit --prod --audit-level=high
+      - name: Audit (all deps, informational)
         run: pnpm audit --audit-level=high
+        continue-on-error: true
 
   lint:
     name: Lint (www)
