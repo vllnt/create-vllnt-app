@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/), and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Changed
+
+- Upgraded all workspace dependencies to latest, including major versions (CLI: commander 15, glob 13, @clack/prompts 1.5; www: Next.js 16.2, next-intl 4.13; tooling: TypeScript 6, Vitest 4.1, Turbo 2.9)
+- Scoped the CI dependency audit gate to production dependencies (`pnpm audit --prod --audit-level=high`); a full-tree audit now runs as a non-blocking informational step
+
+### Security
+
+- Cleared all high-severity production advisories by upgrading dependencies (Next.js 16.1.6 → 16.2.7)
+
 ## [0.1.0] — 2026-03-24
 
 ### Added
