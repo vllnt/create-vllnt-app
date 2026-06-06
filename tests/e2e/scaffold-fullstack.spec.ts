@@ -21,6 +21,7 @@ describe('scaffold-fullstack', () => {
     const result = await runCli([
       'new', projectName,
       '--template', 'fullstack',
+      '--convex', 'cloud',
       '--yes',
       '--skip-install',
     ], { cwd: tmpDir })
