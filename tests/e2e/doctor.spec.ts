@@ -13,7 +13,7 @@ describe('vllnt doctor', () => {
       projectDir = path.join(tmpDir, 'healthy-app')
 
       await runCli(
-        ['new', 'healthy-app', '--preset', 'saas', '--yes', '--skip-install'],
+        ['new', 'healthy-app', '--preset', 'saas', '--convex', 'cloud', '--yes', '--skip-install'],
         { cwd: tmpDir, env: { VLLNT_AGENT: '1' } },
       )
     })
