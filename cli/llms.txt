@@ -1,46 +1,60 @@
 # create-vllnt-app
 
-> Opinionated CLI for scaffolding agent-first web (Next.js), mobile (Expo), and fullstack monorepo projects with Convex backend. Ships AI agent contracts (CLAUDE.md, AGENTS.md, .cursorrules, .windsurfrules) and feature-sliced architecture out of the box.
+> Agent-first CLI scaffolder. One command to a production-ready Next.js project with composable sections (landing, blog, dashboard, auth, docs, admin), optional Convex backend (cloud or self-hosted), and AI agent contracts (CLAUDE.md, AGENTS.md, .cursorrules, .windsurfrules, vllnt.json) out of the box.
 
 ## Quick Start
 
-Install and scaffold a new project:
-
 ```
-npx create-vllnt-app@latest
-npx create-vllnt-app@latest --template web
-npx create-vllnt-app@latest --template mobile
-npx create-vllnt-app@latest --template fullstack
+npx create-vllnt-app
+npx create-vllnt-app my-app --preset saas --convex cloud
+npx create-vllnt-app my-app --preset landing
+npx create-vllnt-app my-app --agent --preset saas --convex cloud
 ```
 
 ## Commands
 
-- `vllnt new [name]`: Scaffold a new project from template
-- `vllnt add <feature>`: Add integrations (auth, payments, analytics)
-- `vllnt generate <type> <name>`: Generate pages, features, components, hooks, Convex domains
-- `vllnt doctor`: Health check for vllnt project
+- `create-vllnt-app [name]` / `vllnt new [name]`: Scaffold a new project from a preset or custom section list
+- `vllnt doctor`: Health check for a vllnt project (`--for <section>` preflight, `--json` for agents)
+- `vllnt add <feature>` / `vllnt generate <type> <name>`: Reserved — not yet implemented (exit code 1, `NOT_IMPLEMENTED` in `--agent` mode)
 
-## Templates
+## Scaffold Options
 
-- **web**: Next.js 16 + Convex + Tailwind v4 + next-intl + @vllnt/ui
-- **mobile**: Expo 55 + Convex + React Native + i18next + Maestro E2E
-- **fullstack**: Turborepo monorepo with shared Convex backend, web + mobile apps
+- `-p, --preset <preset>`: landing | blog | marketing | saas | saas-blog | full-saas | dashboard | internal | docs
+- `--sections <sections>`: Comma-separated sections for a custom preset (landing, blog, dashboard, auth, docs, admin)
+- `--convex <mode>`: Convex backend mode: `cloud` or `self-hosted`. Required when a backend is included (prompts interactively; errors in `--yes`/`--agent` if omitted)
+- `--skip-backend`: Skip Convex backend setup
+- `-y, --yes`: Skip prompts, use defaults
+- `--agent`: Machine-readable JSON output (implies `--yes`, sets `VLLNT_AGENT=1`)
+- `--package-manager <pm>`: npm | pnpm | yarn | bun (auto-detected from lockfile otherwise)
+- `--skip-install`: Skip dependency installation
+
+## Presets
+
+- landing: landing | blog: blog | marketing: landing + blog
+- saas: landing + dashboard + auth | saas-blog: saas + blog | full-saas: saas + blog + docs
+- dashboard: dashboard + auth | internal: dashboard + admin + auth | docs: docs
+- custom: interactive section selection
+
+## Convex Backend Modes
+
+- `cloud`: `.env.example` with `NEXT_PUBLIC_CONVEX_URL`; run `npx convex dev` for a managed deployment
+- `self-hosted`: `.env.example` with `CONVEX_SELF_HOSTED_URL` + `CONVEX_SELF_HOSTED_ADMIN_KEY`, a `docker-compose.yml` (backend + dashboard), and `docs/self-hosting.md`
 
 ## Agent Mode
 
 For AI coding agents and CI/CD pipelines:
 
 ```
-npx create-vllnt-app@latest --agent --template web
+npx create-vllnt-app my-app --agent --preset saas --convex cloud
 ```
 
-Returns JSON: `{ success, path, template, files[], packageManager }`
+Returns JSON: `{ success, path, preset, sections[], backend, convexMode, files[], packageManager }`. Errors return `{ success: false, error, message }`.
 
 Set `VLLNT_AGENT=1` to suppress interactive output.
 
 ## Ecosystem Packages
 
-- [@vllnt/ui](https://www.npmjs.com/package/@vllnt/ui): 93 React components (Radix UI + Tailwind + CVA)
+- [@vllnt/ui](https://www.npmjs.com/package/@vllnt/ui): React components (Radix UI + Tailwind + CVA)
 - [@vllnt/eslint-config](https://www.npmjs.com/package/@vllnt/eslint-config): Strict ESLint config for TypeScript
 - [@vllnt/typescript](https://www.npmjs.com/package/@vllnt/typescript): Shared TypeScript configurations
 - [@vllnt/logger](https://www.npmjs.com/package/@vllnt/logger): Structured logging
@@ -50,4 +64,4 @@ Set `VLLNT_AGENT=1` to suppress interactive output.
 
 - [Source](https://github.com/vllnt/create-vllnt-app)
 - [Website](https://create-vllnt-app.vllnt.com)
-- [Full LLM Reference](./llms-full.txt): Complete CLI reference with all flags, templates, and architecture details
+- [Full LLM Reference](./llms-full.txt): Complete CLI reference with all flags, sections, presets, and architecture details

@@ -77,6 +77,7 @@ Options:
                               dashboard | internal | docs
   --sections <sections>      Comma-separated sections for custom preset
   --skip-backend             Skip Convex backend setup
+  --convex <mode>            Convex backend mode: cloud | self-hosted
   -y, --yes                  Skip prompts, use defaults
   --agent                    Machine-readable JSON output (implies --yes)
   --package-manager <pm>     npm | pnpm | yarn | bun
