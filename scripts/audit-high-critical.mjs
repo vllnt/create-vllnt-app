@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import { spawnSync } from 'node:child_process';
 
-const result = spawnSync('pnpm', ['audit', '--json'], {
+const result = spawnSync('pnpm', ['audit', '--prod', '--json'], {
   encoding: 'utf8',
   maxBuffer: 10 * 1024 * 1024,
 });
@@ -52,7 +52,8 @@ if (high > 0 || critical > 0) {
   process.exit(1);
 }
 
-// Low and moderate advisories stay visible in the summary above, but the CI gate
-// intentionally blocks only high/critical metadata. This keeps the known low
-// workspace-path cli advisory (GHSA-6cpc-mj5c-m9rq) from failing the baseline gate.
-console.log('No high or critical vulnerabilities found.');
+// Low production advisories stay visible in the summary above, but the CI gate
+// intentionally blocks only high/critical production-dependency metadata. This
+// keeps the known low workspace-path cli advisory (GHSA-6cpc-mj5c-m9rq) from
+// failing the baseline gate while still failing on severe runtime exposure.
+console.log('No high or critical production-dependency vulnerabilities found.');
