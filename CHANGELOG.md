@@ -11,11 +11,11 @@ First public release.
 ### Added
 
 - CLI scaffolder with composable sections assembled at init time: landing, blog, dashboard, auth, docs, admin
-- 10 presets: landing, blog, marketing, saas, saas-blog, full-saas, dashboard, internal, docs, custom
+- 10 presets: landing, blog, marketing, saas, saas-blog, full-saas, dashboard, admin, docs, custom
 - Convex backend modes: `--convex cloud` (managed convex.dev) or `--convex self-hosted` (docker-compose + dashboard + `docs/self-hosting.md`); `--skip-backend` to omit entirely
 - `vllnt doctor` health check with `--for <section>` preflights and `--json` output for AI agents
 - Agent mode: `--agent` flag returns machine-readable JSON for CI/CD pipelines and AI agents
-- Agent-first contracts in every scaffold: CLAUDE.md, AGENTS.md, .cursorrules, .windsurfrules, and the vllnt.json section registry
+- Agent-first contracts in every scaffold: CLAUDE.md, AGENTS.md, and the vllnt.json section registry
 - Strict guardrails: @vllnt/eslint-config (errors-only), TypeScript strict mode, zero-error scaffold guarantee
 - Package manager detection and selection: npm, pnpm, yarn, bun
 - Landing page (www) with @vllnt/ui, next-intl i18n, file-based OG images, sitemap, robots.txt, and standalone output for self-hosted deployments

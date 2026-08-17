@@ -33,7 +33,7 @@ Pick what you're building. Get a production-ready project in seconds.
 | **Marketing Site** | Landing + blog | `npx create-vllnt-app --preset marketing` |
 | **Full SaaS** | Landing + dashboard + auth + blog + docs | `npx create-vllnt-app --preset full-saas` |
 | **Dashboard** | Dashboard + auth + Convex | `npx create-vllnt-app --preset dashboard` |
-| **Internal Tool** | Dashboard + admin + auth + Convex | `npx create-vllnt-app --preset internal` |
+| **Admin Console** | Dashboard + admin + auth + Convex | `npx create-vllnt-app --preset admin` |
 | **Docs Site** | Documentation, no backend | `npx create-vllnt-app --preset docs` |
 | **Custom** | Pick sections manually | Interactive prompt |
 
@@ -87,7 +87,7 @@ npx create-vllnt-app [name] [options]
 
 Options:
   -p, --preset <preset>      saas | landing | blog | marketing | full-saas |
-                              dashboard | internal | docs
+                              dashboard | admin | docs
   --sections <sections>      Comma-separated sections for custom preset
   --skip-backend             Skip Convex backend setup
   --convex <mode>            Convex backend mode: cloud | self-hosted
@@ -135,7 +135,7 @@ Scaffold a new project.
 
 | Option | Description |
 |--------|-------------|
-| `-p, --preset <preset>` | Project preset (saas, landing, blog, marketing, full-saas, dashboard, internal, docs) |
+| `-p, --preset <preset>` | Project preset (saas, landing, blog, marketing, full-saas, dashboard, admin, docs) |
 | `--sections <sections>` | Comma-separated sections for custom preset |
 | `--skip-backend` | Skip Convex backend setup |
 | `--convex <mode>` | Convex backend mode: `cloud` or `self-hosted`. Required when a backend is included (no default — prompts interactively, errors in `--yes`/`--agent` if omitted) |
@@ -164,7 +164,7 @@ Run health checks on a scaffolded project.
 | saas-blog | landing + dashboard + auth + blog |
 | full-saas | landing + dashboard + auth + blog + docs |
 | dashboard | dashboard + auth |
-| internal | dashboard + admin + auth |
+| admin | dashboard + admin + auth |
 | docs | docs |
 | custom | interactive selection |
 
@@ -291,11 +291,11 @@ First public release.
 ### Added
 
 - CLI scaffolder with composable sections assembled at init time: landing, blog, dashboard, auth, docs, admin
-- 10 presets: landing, blog, marketing, saas, saas-blog, full-saas, dashboard, internal, docs, custom
+- 10 presets: landing, blog, marketing, saas, saas-blog, full-saas, dashboard, admin, docs, custom
 - Convex backend modes: `--convex cloud` (managed convex.dev) or `--convex self-hosted` (docker-compose + dashboard + `docs/self-hosting.md`); `--skip-backend` to omit entirely
 - `vllnt doctor` health check with `--for <section>` preflights and `--json` output for AI agents
 - Agent mode: `--agent` flag returns machine-readable JSON for CI/CD pipelines and AI agents
-- Agent-first contracts in every scaffold: CLAUDE.md, AGENTS.md, .cursorrules, .windsurfrules, and the vllnt.json section registry
+- Agent-first contracts in every scaffold: CLAUDE.md, AGENTS.md, and the vllnt.json section registry
 - Strict guardrails: @vllnt/eslint-config (errors-only), TypeScript strict mode, zero-error scaffold guarantee
 - Package manager detection and selection: npm, pnpm, yarn, bun
 - Landing page (www) with @vllnt/ui, next-intl i18n, file-based OG images, sitemap, robots.txt, and standalone output for self-hosted deployments

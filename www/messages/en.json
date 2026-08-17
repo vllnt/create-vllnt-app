@@ -20,7 +20,7 @@
     "saas": "SaaS",
     "full_saas": "Full SaaS",
     "dashboard": "Dashboard",
-    "internal": "Internal Tool",
+    "admin": "Admin Console",
     "docs": "Docs Site",
     "custom": "Custom",
     "custom_hint": "pick what you need"

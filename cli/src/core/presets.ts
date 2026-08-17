@@ -70,9 +70,9 @@ export const PRESETS: Preset[] = [
     backend: true,
   },
   {
-    name: 'internal',
-    label: 'Internal Tool',
-    hint: 'Dashboard + admin + auth + Convex',
+    name: 'admin',
+    label: 'Admin Console',
+    hint: 'Dashboard + admin workflows + auth + Convex',
     sections: ['dashboard', 'admin', 'auth'],
     backend: true,
   },
@@ -122,8 +122,14 @@ export function resolveTransitiveDeps(sections: string[]): string[] {
   return [...resolved]
 }
 
+export const PRESET_ALIASES: Record<string, string> = {
+  // Backward compatibility for projects/scripts created before the public preset was renamed.
+  internal: 'admin',
+}
+
 export function getPreset(name: string): Preset | undefined {
-  return PRESETS.find((p) => p.name === name)
+  const canonicalName = PRESET_ALIASES[name] ?? name
+  return PRESETS.find((p) => p.name === canonicalName)
 }
 
 export function needsBackend(sections: string[]): boolean {

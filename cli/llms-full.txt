@@ -1,6 +1,6 @@
 # create-vllnt-app
 
-> Agent-first CLI scaffolder. One command to a production-ready Next.js project assembled from composable sections (landing, blog, dashboard, auth, docs, admin), with an optional Convex backend (cloud or self-hosted) and AI agent contracts (CLAUDE.md, AGENTS.md, .cursorrules, .windsurfrules, vllnt.json) out of the box.
+> Agent-first CLI scaffolder. One command to a production-ready Next.js project assembled from composable sections (landing, blog, dashboard, auth, docs, admin), with an optional Convex backend (cloud or self-hosted) and AI agent contracts (CLAUDE.md, AGENTS.md, vllnt.json) out of the box.
 
 ## Installation
 
@@ -30,7 +30,7 @@ Scaffold a new project. Sections are composed at init time — the base skeleton
 - `[name]` — Project name (optional, prompted if omitted)
 
 **Options:**
-- `-p, --preset <preset>` — Preset: `landing`, `blog`, `marketing`, `saas`, `saas-blog`, `full-saas`, `dashboard`, `internal`, `docs`
+- `-p, --preset <preset>` — Preset: `landing`, `blog`, `marketing`, `saas`, `saas-blog`, `full-saas`, `dashboard`, `admin`, `docs`
 - `-t, --template <template>` — Alias for `--preset` (backward compatibility)
 - `--sections <sections>` — Comma-separated sections for a custom preset: `landing`, `blog`, `dashboard`, `auth`, `docs`, `admin`
 - `--convex <mode>` — Convex backend mode: `cloud` or `self-hosted`. Required when a backend is included (no default — prompts interactively, errors in `--yes`/`--agent` if omitted)
@@ -121,7 +121,7 @@ Reserved for generating code artifacts (page, screen, component, hook, api, feat
 | saas-blog | landing + dashboard + auth + blog |
 | full-saas | landing + dashboard + auth + blog + docs |
 | dashboard | dashboard + auth |
-| internal | dashboard + admin + auth |
+| admin | dashboard + admin + auth |
 | docs | docs |
 | custom | interactive selection |
 
@@ -176,8 +176,6 @@ my-app/
 ├── vllnt.json             # Section registry (source of truth for what's installed)
 ├── CLAUDE.md              # Claude Code agent contract
 ├── AGENTS.md              # Multi-agent architecture doc
-├── .cursorrules           # Cursor agent rules
-├── .windsurfrules         # Windsurf agent rules
 └── package.json
 ```
 
@@ -187,8 +185,6 @@ Every scaffolded project ships with AI agent configuration files:
 
 - **CLAUDE.md** — strict blocking rules: stack info, Convex patterns (dual validators, indexed queries), architecture conventions, forbidden patterns, testing requirements
 - **AGENTS.md** — architecture reference: extension points, common tasks, pitfalls
-- **.cursorrules** — Cursor-optimized rules derived from CLAUDE.md
-- **.windsurfrules** — Windsurf-optimized rules derived from CLAUDE.md
 - **vllnt.json** — machine-readable registry of active sections, preset, and backend status; consumed by `vllnt doctor`
 
 Guardrails baked in: @vllnt/eslint-config (every rule is an error, no warnings), TypeScript strict mode (no `any`, no `@ts-ignore`), zero-error guarantee — every scaffold passes `lint + typecheck + build` out of the box.

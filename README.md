@@ -20,7 +20,7 @@ Pick what you're building. Get a production-ready project in seconds.
 | **Marketing Site** | Landing + blog | `npx create-vllnt-app --preset marketing` |
 | **Full SaaS** | Landing + dashboard + auth + blog + docs | `npx create-vllnt-app --preset full-saas` |
 | **Dashboard** | Dashboard + auth + Convex | `npx create-vllnt-app --preset dashboard` |
-| **Internal Tool** | Dashboard + admin + auth + Convex | `npx create-vllnt-app --preset internal` |
+| **Admin Console** | Dashboard + admin + auth + Convex | `npx create-vllnt-app --preset admin` |
 | **Docs Site** | Documentation, no backend | `npx create-vllnt-app --preset docs` |
 | **Custom** | Pick sections manually | Interactive prompt |
 
@@ -73,8 +73,8 @@ Your agent reads the structured output and fixes issues automatically. Every che
 npx create-vllnt-app [name] [options]
 
 Options:
-  -p, --preset <preset>      saas | landing | blog | marketing | full-saas |
-                              dashboard | internal | docs
+  -p, --preset <preset>      saas | landing | blog | marketing | saas-blog | full-saas |
+                              dashboard | admin | docs
   --sections <sections>      Comma-separated sections for custom preset
   --skip-backend             Skip Convex backend setup
   --convex <mode>            Convex backend mode: cloud | self-hosted

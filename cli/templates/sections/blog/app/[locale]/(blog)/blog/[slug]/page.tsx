@@ -7,7 +7,7 @@ interface BlogPostProps {
 export default async function BlogPost({ params }: BlogPostProps) {
   const { slug } = await params
 
-  // TODO: Load MDX content from content/blog/{slug}.mdx
+  // Add MDX-backed blog post loading here when content files are present.
   void slug
   notFound()
 }

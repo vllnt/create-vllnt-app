@@ -1,6 +1,6 @@
 # create-vllnt-app
 
-> Agent-first CLI scaffolder. One command to a production-ready Next.js project with composable sections (landing, blog, dashboard, auth, docs, admin), optional Convex backend (cloud or self-hosted), and AI agent contracts (CLAUDE.md, AGENTS.md, .cursorrules, .windsurfrules, vllnt.json) out of the box.
+> Agent-first CLI scaffolder. One command to a production-ready Next.js project with composable sections (landing, blog, dashboard, auth, docs, admin), optional Convex backend (cloud or self-hosted), and AI agent contracts (CLAUDE.md, AGENTS.md, vllnt.json) out of the box.
 
 ## Quick Start
 
@@ -19,7 +19,7 @@ npx create-vllnt-app my-app --agent --preset saas --convex cloud
 
 ## Scaffold Options
 
-- `-p, --preset <preset>`: landing | blog | marketing | saas | saas-blog | full-saas | dashboard | internal | docs
+- `-p, --preset <preset>`: landing | blog | marketing | saas | saas-blog | full-saas | dashboard | admin | docs
 - `--sections <sections>`: Comma-separated sections for a custom preset (landing, blog, dashboard, auth, docs, admin)
 - `--convex <mode>`: Convex backend mode: `cloud` or `self-hosted`. Required when a backend is included (prompts interactively; errors in `--yes`/`--agent` if omitted)
 - `--skip-backend`: Skip Convex backend setup
@@ -32,7 +32,7 @@ npx create-vllnt-app my-app --agent --preset saas --convex cloud
 
 - landing: landing | blog: blog | marketing: landing + blog
 - saas: landing + dashboard + auth | saas-blog: saas + blog | full-saas: saas + blog + docs
-- dashboard: dashboard + auth | internal: dashboard + admin + auth | docs: docs
+- dashboard: dashboard + auth | admin: dashboard + admin + auth | docs: docs
 - custom: interactive section selection
 
 ## Convex Backend Modes

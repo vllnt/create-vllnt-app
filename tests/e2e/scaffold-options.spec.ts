@@ -73,26 +73,51 @@ describe('scaffold-options', () => {
       expect(output.message).toContain('Valid:')
     })
 
-    it('no unreplaced {{placeholder}} in scaffolded landing project', async () => {
-      const dir = path.join(tmpDir, 'placeholder-check')
-      await runCli(
-        ['new', 'placeholder-check', '--preset', 'landing', '--yes', '--skip-install', '--agent'],
-        { cwd: tmpDir },
-      )
+    it('no policy-sensitive markers in scaffolded projects for every preset', async () => {
+      const presets = ['landing', 'blog', 'marketing', 'saas', 'saas-blog', 'full-saas', 'dashboard', 'admin', 'docs']
 
-      const allFiles = listFiles(dir)
-      for (const file of allFiles) {
-        if (file.endsWith('.png') || file.endsWith('.ico') || file.endsWith('.woff2')) continue
-        try {
-          const content = fs.readFileSync(path.join(dir, file), 'utf-8')
-          expect(
-            content,
-            `Unreplaced placeholder found in ${file}`,
-          ).not.toMatch(/\{\{[a-zA-Z]+\}\}/)
-        } catch {
-          // binary files — skip
+      for (const preset of presets) {
+        const projectName = `placeholder-${preset.replace(/[^a-z0-9-]/g, '-')}`
+        const dir = path.join(tmpDir, projectName)
+        const backendPresets = new Set(['saas', 'saas-blog', 'full-saas', 'dashboard', 'admin'])
+        const args = ['new', projectName, '--preset', preset, '--yes', '--skip-install', '--agent']
+        if (backendPresets.has(preset)) args.push('--convex', 'cloud')
+
+        const result = await runCli(args, { cwd: tmpDir })
+        expect(result.exitCode).toBe(0)
+
+        const allFiles = listFiles(dir)
+        for (const file of allFiles) {
+          if (file.endsWith('.png') || file.endsWith('.ico') || file.endsWith('.woff2')) continue
+          try {
+            const content = fs.readFileSync(path.join(dir, file), 'utf-8')
+            expect(
+              content,
+              `Unreplaced placeholder found in ${preset}/${file}`,
+            ).not.toMatch(/\{\{[^}\r\n]+\}\}/)
+            expect(
+              content,
+              `Policy-sensitive marker found in ${preset}/${file}`,
+            ).not.toMatch(/\b(?:TODO|FIXME|XXX|HACK)\b/)
+          } catch {
+            // binary files — skip
+          }
         }
       }
+    })
+
+    it('maps deprecated internal preset alias to admin in generated metadata', async () => {
+      const projectName = 'internal-alias-check'
+      const dir = path.join(tmpDir, projectName)
+      const result = await runCli(
+        ['new', projectName, '--preset', 'internal', '--yes', '--skip-install', '--agent', '--convex', 'cloud'],
+        { cwd: tmpDir },
+      )
+      expect(result.exitCode).toBe(0)
+
+      const vllntJson = JSON.parse(readFile(dir, 'vllnt.json'))
+      expect(vllntJson.preset).toBe('admin')
+      expect(vllntJson.sections).toEqual(['dashboard', 'admin', 'auth'])
     })
 
     it('i18n namespaces match useTranslations calls in all sections', async () => {

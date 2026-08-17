@@ -116,12 +116,18 @@ describe('resolveTransitiveDeps', () => {
 
 describe('getPreset', () => {
   it('returns preset for each known name', () => {
-    const names = ['landing', 'blog', 'marketing', 'saas', 'saas-blog', 'full-saas', 'dashboard', 'internal', 'docs']
+    const names = ['landing', 'blog', 'marketing', 'saas', 'saas-blog', 'full-saas', 'dashboard', 'admin', 'docs']
     for (const name of names) {
       const preset = getPreset(name)
       expect(preset, `Preset "${name}" not found`).toBeDefined()
       expect(preset!.name).toBe(name)
     }
+  })
+
+  it('maps deprecated preset aliases to canonical presets', () => {
+    const preset = getPreset('internal')
+    expect(preset).toBeDefined()
+    expect(preset!.name).toBe('admin')
   })
 
   it('returns undefined for unknown preset', () => {

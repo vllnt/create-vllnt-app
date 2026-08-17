@@ -16,7 +16,7 @@ TDD BLOCKING: RED_CONFIRMED required before GREEN_CONFIRMED.
 | AC-3 | `vllnt new --template fullstack` → monorepo apps/ + packages/ | `tests/e2e/scaffold-fullstack.spec.ts` | PENDING | Verify monorepo structure |
 | AC-4 | `--yes --agent` → no prompts, JSON output | `tests/e2e/agent-mode.spec.ts` | PENDING | Parse JSON, verify schema |
 | AC-5 | CLAUDE.md exists with Convex+platform rules | `tests/e2e/scaffold-web.spec.ts` | PENDING | BLOCKING rules first, <200 lines |
-| AC-5b | .cursorrules + .windsurfrules exist (derived from CLAUDE.md) | `tests/e2e/scaffold-web.spec.ts` | PENDING | Parity check with CLAUDE.md |
+| AC-5b | Vendor-specific agent aliases are absent by default | `tests/e2e/scaffold-web.spec.ts` | PENDING | Canonical files are CLAUDE.md + AGENTS.md |
 | AC-6 | AGENTS.md exists with architecture, extension table, tasks, pitfalls | `tests/e2e/scaffold-web.spec.ts` | PENDING | Verify required sections |
 | AC-7 | docs/ has 6 files (architecture, conventions, testing, i18n, theming, extending) | `tests/e2e/scaffold-web.spec.ts` | PENDING | Verify all 6 exist + non-empty |
 | AC-8 | features/ + components/ directories exist with correct structure | `tests/e2e/scaffold-web.spec.ts` | PENDING | Verify decision tree pattern |
@@ -78,7 +78,7 @@ TDD BLOCKING: RED_CONFIRMED required before GREEN_CONFIRMED.
 | FH-5 | turbo.json in fullstack mode | `turbo build` succeeds (correct @repo/* pipeline) | `tests/e2e/failure-modes.spec.ts` | PENDING | Run actual turbo build |
 | FH-6 | CLAUDE.md generated | < 200 lines, BLOCKING rules first | `tests/e2e/failure-modes.spec.ts` | PENDING | Line count + rule order check |
 | FH-7 | CLI package size | < 20MB embedded templates | `tests/e2e/failure-modes.spec.ts` | PENDING | `du -sh` on built CLI |
-| FH-8 | .cursorrules + .windsurfrules | Rule parity with CLAUDE.md (derived from same source) | `tests/e2e/failure-modes.spec.ts` | PENDING | Compare critical rules across files |
+| FH-8 | Vendor-specific agent aliases | Absent by default unless explicit opt-in is implemented | `tests/e2e/failure-modes.spec.ts` | PENDING | Check canonical agent files only |
 | FH-9 | Generated Convex domain code | Matches dual-validator + bounded reads + internal.* | `tests/e2e/failure-modes.spec.ts` | PENDING | Parse schemas.ts + queries.ts + mutations.ts |
 
 ### Edge Case Tests (Advisory)
@@ -100,8 +100,8 @@ Every scaffold mode must pass the same structural tests:
 | Test | Web | Mobile | Fullstack | Test File |
 |------|-----|--------|-----------|-----------|
 | CLAUDE.md exists + < 200 lines | X | X | X | scaffold-{mode}.spec.ts |
-| .cursorrules exists | X | X | X | scaffold-{mode}.spec.ts |
-| .windsurfrules exists | X | X | X | scaffold-{mode}.spec.ts |
+| .cursorrules absent by default | X | X | X | scaffold-{mode}.spec.ts |
+| .windsurfrules absent by default | X | X | X | scaffold-{mode}.spec.ts |
 | AGENTS.md exists + sections | X | X | X | scaffold-{mode}.spec.ts |
 | docs/ has 6 files | X | X | X | scaffold-{mode}.spec.ts |
 | features/ structure | X | X | X | scaffold-{mode}.spec.ts |
