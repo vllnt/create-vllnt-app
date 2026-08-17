@@ -24,6 +24,15 @@ Pick what you're building. Get a production-ready project in seconds.
 | **Docs Site** | Documentation, no backend | `npx create-vllnt-app --preset docs` |
 | **Custom** | Pick sections manually | Interactive prompt |
 
+## Convex: Cloud or Self-Hosted
+
+Backend projects pick a Convex mode (`--convex cloud` or `--convex self-hosted`, or via prompt):
+
+- **Cloud** — managed [convex.dev](https://convex.dev), zero infra. Run `npx convex dev`.
+- **Self-hosted** — ships a `docker-compose.yml` (backend + dashboard) and `docs/self-hosting.md`. Run `docker compose up -d`.
+
+The app code is identical; only env vars and where the backend runs differ. See [docs/cli.md](docs/cli.md#convex-backend-modes).
+
 ## Your Agent is Productive From Line One
 
 Every project ships with machine-readable contracts your AI agent reads immediately:
@@ -68,6 +77,7 @@ Options:
                               dashboard | internal | docs
   --sections <sections>      Comma-separated sections for custom preset
   --skip-backend             Skip Convex backend setup
+  --convex <mode>            Convex backend mode: cloud | self-hosted
   -y, --yes                  Skip prompts, use defaults
   --agent                    Machine-readable JSON output (implies --yes)
   --package-manager <pm>     npm | pnpm | yarn | bun

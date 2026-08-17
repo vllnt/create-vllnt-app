@@ -15,7 +15,7 @@ const RESERVED_NAMES = new Set([
   'tests',
 ])
 
-export function validateProjectName(name: string): string | undefined {
+export function validateProjectName(name: string | undefined): string | undefined {
   if (!name || name.trim().length === 0) {
     return 'Project name cannot be empty.'
   }

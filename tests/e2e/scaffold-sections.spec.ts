@@ -14,7 +14,7 @@ describe('scaffold-sections', () => {
       projectDir = path.join(tmpDir, 'saas-app')
 
       await runCli(
-        ['new', 'saas-app', '--preset', 'saas', '--yes', '--skip-install'],
+        ['new', 'saas-app', '--preset', 'saas', '--convex', 'cloud', '--yes', '--skip-install'],
         { cwd: tmpDir, env: { VLLNT_AGENT: '1' } },
       )
     })
@@ -92,7 +92,7 @@ describe('scaffold-sections', () => {
       projectDir = path.join(tmpDir, 'transitive-app')
 
       await runCli(
-        ['new', 'transitive-app', '--sections', 'dashboard', '--yes', '--skip-install'],
+        ['new', 'transitive-app', '--sections', 'dashboard', '--convex', 'cloud', '--yes', '--skip-install'],
         { cwd: tmpDir, env: { VLLNT_AGENT: '1' } },
       )
     })
@@ -129,7 +129,7 @@ describe('scaffold-sections', () => {
       it.concurrent(`AC-20: preset "${preset.name}" scaffolds without error`, async () => {
         const projectName = `test-${preset.name}`
         const result = await runCli(
-          ['new', projectName, '--preset', preset.name, '--yes', '--skip-install'],
+          ['new', projectName, '--preset', preset.name, '--convex', 'cloud', '--yes', '--skip-install'],
           { cwd: tmpDir, env: { VLLNT_AGENT: '1' } },
         )
 
