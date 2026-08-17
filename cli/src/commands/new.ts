@@ -12,6 +12,7 @@ import {
   resolveTransitiveDeps,
   needsBackend,
 } from '../core/presets.js'
+import { CONVEX_MODES, isConvexMode, type ConvexMode } from '../core/convex-env.js'
 
 interface NewOptions {
   template?: string
@@ -22,6 +23,7 @@ interface NewOptions {
   skipInstall?: boolean
   skipBackend?: boolean
   sections?: string
+  convex?: string
 }
 
 export const newCommand = new Command('new')
@@ -34,6 +36,7 @@ export const newCommand = new Command('new')
   .option('--skip-install', 'Skip dependency installation')
   .option('--skip-backend', 'Skip Convex backend setup')
   .option('--sections <sections>', 'Comma-separated sections for custom preset')
+  .option('--convex <mode>', 'Convex backend mode: cloud, self-hosted (required when a backend is included)')
   .description('Scaffold a new project')
   .action(async (name: string | undefined, opts: NewOptions) => {
     const isAgent = opts.agent ?? false
@@ -200,6 +203,46 @@ export const newCommand = new Command('new')
       }
     }
 
+    // Resolve Convex mode (cloud vs self-hosted). No default — force a choice
+    // whenever a backend is included: prompt interactively, require --convex otherwise.
+    let convexMode: ConvexMode | undefined
+    const backendForChoice = isLegacyTemplate || includeBackend
+    if (backendForChoice) {
+      if (opts.convex) {
+        if (!isConvexMode(opts.convex)) {
+          const message = `Invalid --convex "${opts.convex}". Use: ${CONVEX_MODES.join(', ')}`
+          if (isAgent) {
+            console.log(JSON.stringify({ success: false, error: 'INVALID_CONVEX_MODE', message }))
+          } else {
+            p.log.error(message)
+          }
+          process.exit(1)
+        }
+        convexMode = opts.convex
+      } else if (isNonInteractive) {
+        const message = `--convex <${CONVEX_MODES.join('|')}> is required when a backend is included.`
+        if (isAgent) {
+          console.log(JSON.stringify({ success: false, error: 'CONVEX_MODE_REQUIRED', message }))
+        } else {
+          console.error(`Error: ${message}`)
+        }
+        process.exit(1)
+      } else {
+        const convexResult = await p.select({
+          message: 'Convex backend',
+          options: [
+            { value: 'cloud', label: 'Cloud', hint: 'Managed convex.dev — zero infra' },
+            { value: 'self-hosted', label: 'Self-hosted', hint: 'Run your own backend via Docker' },
+          ],
+        })
+        if (p.isCancel(convexResult)) {
+          p.cancel('Cancelled.')
+          process.exit(0)
+        }
+        convexMode = convexResult as ConvexMode
+      }
+    }
+
     const targetDir = path.resolve(process.cwd(), projectName!)
 
     if (fs.existsSync(targetDir) && fs.readdirSync(targetDir).length > 0) {
@@ -220,6 +263,7 @@ export const newCommand = new Command('new')
           template: presetName as 'mobile' | 'fullstack',
           targetDir,
           packageManager,
+          convexMode,
           isAgent,
           isNonInteractive,
           skipInstall: opts.skipInstall ?? false,
@@ -234,6 +278,11 @@ export const newCommand = new Command('new')
           console.log(`  cd ${projectName}`)
           console.log(`  ${packageManager} dev`)
           console.log()
+          if (convexMode === 'self-hosted') {
+            console.log('  Start backend: docker compose up -d  (see docs/self-hosting.md)')
+          } else {
+            console.log('  Start backend: npx convex dev')
+          }
           console.log('  Agent contract ready: CLAUDE.md + AGENTS.md + docs/')
         }
       } else {
@@ -244,6 +293,7 @@ export const newCommand = new Command('new')
           targetDir,
           packageManager,
           includeBackend,
+          convexMode,
           isAgent,
           isNonInteractive,
           skipInstall: opts.skipInstall ?? false,
@@ -258,7 +308,11 @@ export const newCommand = new Command('new')
           console.log(`  ${packageManager} dev`)
           console.log()
           if (includeBackend) {
-            console.log('  Start backend: npx convex dev')
+            if (convexMode === 'self-hosted') {
+              console.log('  Start backend: docker compose up -d  (see docs/self-hosting.md)')
+            } else {
+              console.log('  Start backend: npx convex dev')
+            }
           }
           console.log('  Health check:  vllnt doctor')
           console.log()

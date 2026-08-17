@@ -187,7 +187,7 @@ describe('scaffold-options', () => {
       await fs.writeFile(path.join(existingDir, 'file.txt'), 'content')
 
       const result = await runCli(
-        ['new', 'existing-app', '--preset', 'saas', '--yes', '--agent'],
+        ['new', 'existing-app', '--preset', 'saas', '--convex', 'cloud', '--yes', '--agent'],
         { cwd: tmpDir },
       )
 

@@ -6,6 +6,13 @@ import { fileURLToPath } from 'node:url'
 import type { PackageManager } from '../utils/package-manager.js'
 import { getInstallCommand } from '../utils/package-manager.js'
 import type { SectionMeta } from './presets.js'
+import {
+  convexComposeYml,
+  convexEnvBlock,
+  selfHostingDoc,
+  type ConvexMode,
+  type PublicConvexVar,
+} from './convex-env.js'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
@@ -16,6 +23,7 @@ export interface ScaffoldOptions {
   targetDir: string
   packageManager: string
   includeBackend: boolean
+  convexMode?: ConvexMode
   isAgent: boolean
   isNonInteractive: boolean
   skipInstall: boolean
@@ -27,6 +35,7 @@ export interface ScaffoldResult {
   preset: string
   sections: string[]
   backend: boolean
+  convexMode?: ConvexMode
   files: string[]
   packageManager: string
 }
@@ -283,6 +292,49 @@ export function generateVllntJson(
   )
 }
 
+interface ConvexEnvFileSpec {
+  relPath: string
+  publicVar: PublicConvexVar | null
+  includeDeploy: boolean
+  extra?: string
+}
+
+async function writeConvexEnvFiles(
+  targetDir: string,
+  mode: ConvexMode,
+  specs: ConvexEnvFileSpec[],
+): Promise<void> {
+  for (const spec of specs) {
+    const block = convexEnvBlock({
+      mode,
+      publicVar: spec.publicVar,
+      includeDeploy: spec.includeDeploy,
+    })
+    const body = spec.extra ? `${block}\n\n${spec.extra}\n` : `${block}\n`
+    const full = path.join(targetDir, spec.relPath)
+    await fs.ensureDir(path.dirname(full))
+    await fs.writeFile(full, body, 'utf-8')
+  }
+}
+
+async function writeSelfHostedExtras(
+  targetDir: string,
+  publicVar: PublicConvexVar,
+  backendDir: string,
+): Promise<void> {
+  await fs.writeFile(
+    path.join(targetDir, 'docker-compose.yml'),
+    convexComposeYml(),
+    'utf-8',
+  )
+  await fs.ensureDir(path.join(targetDir, 'docs'))
+  await fs.writeFile(
+    path.join(targetDir, 'docs', 'self-hosting.md'),
+    selfHostingDoc({ publicVar, backendDir }),
+    'utf-8',
+  )
+}
+
 async function initGit(targetDir: string): Promise<boolean> {
   try {
     await execa('git', ['init'], { cwd: targetDir })
@@ -324,7 +376,7 @@ async function installDeps(
 export async function scaffold(options: ScaffoldOptions): Promise<ScaffoldResult> {
   const {
     name, preset, sections, targetDir, packageManager,
-    includeBackend, isAgent, isNonInteractive, skipInstall,
+    includeBackend, convexMode, isAgent, isNonInteractive, skipInstall,
   } = options
 
   const baseDir = getBaseDir()
@@ -405,13 +457,31 @@ export async function scaffold(options: ScaffoldOptions): Promise<ScaffoldResult
     }
     await processTemplateFiles(targetDir, replacements)
 
-    // 7. Strip backend if not needed
+    // 7. Strip backend if not needed, else apply the chosen Convex mode
     if (!includeBackend) {
       const convexDir = path.join(targetDir, 'convex')
       const convexJson = path.join(targetDir, 'convex.json')
       const convexProvider = path.join(targetDir, 'components', 'providers', 'convex-provider.tsx')
       for (const item of [convexDir, convexJson, convexProvider]) {
         if (fs.existsSync(item)) await fs.remove(item)
+      }
+      // Drop the now-orphaned Convex env var from the base skeleton.
+      await fs.writeFile(
+        path.join(targetDir, '.env.example'),
+        'NEXT_PUBLIC_SITE_URL=http://localhost:3000\n',
+        'utf-8',
+      )
+    } else if (convexMode) {
+      await writeConvexEnvFiles(targetDir, convexMode, [
+        {
+          relPath: '.env.example',
+          publicVar: 'NEXT_PUBLIC_CONVEX_URL',
+          includeDeploy: true,
+          extra: 'NEXT_PUBLIC_SITE_URL=http://localhost:3000',
+        },
+      ])
+      if (convexMode === 'self-hosted') {
+        await writeSelfHostedExtras(targetDir, 'NEXT_PUBLIC_CONVEX_URL', '.')
       }
     }
 
@@ -443,6 +513,7 @@ export async function scaffold(options: ScaffoldOptions): Promise<ScaffoldResult
       preset,
       sections,
       backend: includeBackend,
+      convexMode: includeBackend ? convexMode : undefined,
       files,
       packageManager,
     }
@@ -460,14 +531,47 @@ interface LegacyScaffoldOptions {
   template: 'mobile' | 'fullstack'
   targetDir: string
   packageManager: string
+  convexMode?: ConvexMode
   isAgent: boolean
   isNonInteractive: boolean
   skipInstall: boolean
   includeBackend: boolean
 }
 
+interface LegacyConvexLayout {
+  envFiles: ConvexEnvFileSpec[]
+  selfHostPublicVar: PublicConvexVar
+  selfHostBackendDir: string
+}
+
+function legacyConvexLayout(template: 'mobile' | 'fullstack'): LegacyConvexLayout {
+  if (template === 'mobile') {
+    return {
+      envFiles: [
+        { relPath: '.env.example', publicVar: 'EXPO_PUBLIC_CONVEX_URL', includeDeploy: true },
+      ],
+      selfHostPublicVar: 'EXPO_PUBLIC_CONVEX_URL',
+      selfHostBackendDir: '.',
+    }
+  }
+  return {
+    envFiles: [
+      {
+        relPath: 'apps/web/.env.example',
+        publicVar: 'NEXT_PUBLIC_CONVEX_URL',
+        includeDeploy: false,
+        extra: 'NEXT_PUBLIC_SITE_URL=http://localhost:3000',
+      },
+      { relPath: 'apps/mobile/.env.example', publicVar: 'EXPO_PUBLIC_CONVEX_URL', includeDeploy: false },
+      { relPath: 'packages/backend/.env.example', publicVar: null, includeDeploy: true },
+    ],
+    selfHostPublicVar: 'NEXT_PUBLIC_CONVEX_URL',
+    selfHostBackendDir: 'packages/backend',
+  }
+}
+
 export async function scaffoldLegacy(options: LegacyScaffoldOptions): Promise<ScaffoldResult> {
-  const { name, template, targetDir, packageManager, isAgent, isNonInteractive, skipInstall } = options
+  const { name, template, targetDir, packageManager, convexMode, isAgent, isNonInteractive, skipInstall } = options
   const templateDir = path.resolve(__dirname, '..', 'templates', template)
 
   if (!fs.existsSync(templateDir)) {
@@ -500,6 +604,14 @@ export async function scaffoldLegacy(options: LegacyScaffoldOptions): Promise<Sc
     }
     await processTemplateFiles(targetDir, replacements)
 
+    if (convexMode) {
+      const layout = legacyConvexLayout(template)
+      await writeConvexEnvFiles(targetDir, convexMode, layout.envFiles)
+      if (convexMode === 'self-hosted') {
+        await writeSelfHostedExtras(targetDir, layout.selfHostPublicVar, layout.selfHostBackendDir)
+      }
+    }
+
     spinner?.stop('Template copied.')
 
     const gitOk = await initGit(targetDir)
@@ -524,6 +636,7 @@ export async function scaffoldLegacy(options: LegacyScaffoldOptions): Promise<Sc
       preset: template,
       sections: [],
       backend: true,
+      convexMode,
       files,
       packageManager,
     }

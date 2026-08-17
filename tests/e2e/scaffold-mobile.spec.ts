@@ -21,6 +21,7 @@ describe('scaffold-mobile', () => {
     const result = await runCli([
       'new', projectName,
       '--template', 'mobile',
+      '--convex', 'cloud',
       '--yes',
       '--skip-install',
     ], { cwd: tmpDir })

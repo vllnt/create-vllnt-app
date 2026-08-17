@@ -21,6 +21,7 @@ describe('scaffold-web', () => {
     const result = await runCli([
       'new', projectName,
       '--template', 'web',
+      '--convex', 'cloud',
       '--yes',
       '--skip-install',
     ], { cwd: tmpDir })

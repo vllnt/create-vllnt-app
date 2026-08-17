@@ -1,11 +1,11 @@
 # create-vllnt-app
 
-> Opinionated CLI for scaffolding agent-first web (Next.js), mobile (Expo), and fullstack monorepo projects with Convex backend. Ships canonical AI agent contracts (CLAUDE.md, AGENTS.md) and feature-sliced architecture out of the box.
+> Agent-first CLI scaffolder. One command to a production-ready Next.js project assembled from composable sections (landing, blog, dashboard, auth, docs, admin), with an optional Convex backend (cloud or self-hosted) and AI agent contracts (CLAUDE.md, AGENTS.md, vllnt.json) out of the box.
 
 ## Installation
 
 ```bash
-npx create-vllnt-app@latest
+npx create-vllnt-app
 ```
 
 Or install globally:
@@ -16,20 +16,26 @@ npm install -g create-vllnt-app
 
 Binary names: `create-vllnt-app` or `vllnt`
 
+Requires Node.js >= 22.
+
 ---
 
 ## Commands
 
-### vllnt new [name]
+### create-vllnt-app [name] / vllnt new [name]
 
-Scaffold a new project from template.
+Scaffold a new project. Sections are composed at init time — the base skeleton plus the selected sections are assembled into one project, not merged after the fact.
 
 **Arguments:**
 - `[name]` — Project name (optional, prompted if omitted)
 
 **Options:**
-- `-t, --template <template>` — Template: `web`, `mobile`, or `fullstack`
-- `-y, --yes` — Skip all prompts, use defaults (name=`my-app`, template=`web`)
+- `-p, --preset <preset>` — Preset: `landing`, `blog`, `marketing`, `saas`, `saas-blog`, `full-saas`, `dashboard`, `admin`, `docs`
+- `-t, --template <template>` — Alias for `--preset` (backward compatibility)
+- `--sections <sections>` — Comma-separated sections for a custom preset: `landing`, `blog`, `dashboard`, `auth`, `docs`, `admin`
+- `--convex <mode>` — Convex backend mode: `cloud` or `self-hosted`. Required when a backend is included (no default — prompts interactively, errors in `--yes`/`--agent` if omitted)
+- `--skip-backend` — Skip Convex backend setup
+- `-y, --yes` — Skip all prompts, use defaults
 - `--agent` — Machine-readable JSON output (implies `--yes`, sets `VLLNT_AGENT=1`)
 - `--package-manager <pm>` — Package manager: `npm`, `pnpm`, `yarn`, or `bun`
 - `--skip-install` — Skip dependency installation after scaffold
@@ -38,19 +44,25 @@ Scaffold a new project from template.
 
 ```bash
 # Interactive mode
-npx create-vllnt-app@latest
+npx create-vllnt-app
 
-# Non-interactive with defaults
-npx create-vllnt-app@latest --yes
+# SaaS preset with managed Convex
+npx create-vllnt-app my-app --preset saas --convex cloud
 
-# Specific template
-npx create-vllnt-app@latest my-project --template mobile
+# SaaS preset with self-hosted Convex (docker-compose)
+npx create-vllnt-app my-app --preset saas --convex self-hosted
+
+# Landing page, no backend
+npx create-vllnt-app my-app --preset landing
+
+# Custom section list
+npx create-vllnt-app my-app --sections landing,blog,docs
 
 # Agent/CI mode (JSON output)
-npx create-vllnt-app@latest --agent --template web
+npx create-vllnt-app my-app --agent --preset saas --convex cloud
 
 # Skip install
-npx create-vllnt-app@latest my-project --template web --skip-install
+npx create-vllnt-app my-app --preset blog --skip-install
 ```
 
 **JSON Output (agent mode):**
@@ -60,8 +72,11 @@ Success:
 {
   "success": true,
   "path": "/absolute/path/to/project",
-  "template": "web",
-  "files": ["app/page.tsx", "convex/schema.ts", "..."],
+  "preset": "saas",
+  "sections": ["landing", "dashboard", "auth"],
+  "backend": true,
+  "convexMode": "cloud",
+  "files": ["app/(marketing)/page.tsx", "convex/schema.ts", "..."],
   "packageManager": "pnpm"
 }
 ```
@@ -70,174 +85,109 @@ Error:
 ```json
 {
   "success": false,
-  "error": "INVALID_NAME",
-  "message": "Project name cannot contain spaces"
+  "error": "CONVEX_MODE_REQUIRED",
+  "message": "A Convex mode is required. Pass --convex cloud or --convex self-hosted."
 }
 ```
 
-Error codes: `INVALID_NAME`, `DIR_EXISTS`, `SCAFFOLD_FAILED`, `NOT_IMPLEMENTED`
-
-### vllnt add <feature>
-
-Add integrations to an existing project.
-
-**Planned features:**
-- `auth` — BetterAuth + Convex adapter
-- `payments` — Polar.sh via @convex-dev/polar
-- `analytics` — @vllnt/analytics integration
-
-### vllnt generate <type> <name>
-
-Generate code artifacts following project conventions. Alias: `vllnt gen`
-
-**Types:**
-- `page <Name>` — New page with layout + metadata + i18n
-- `screen <Name>` — New mobile screen with navigation
-- `feature <name>` — Feature slice: components/ + hooks/ + index.ts
-- `component <Name>` — Shared UI component
-- `hook <name>` — Custom React hook
-- `domain <name>` — Convex domain: schemas + queries + mutations
+Error codes: `INVALID_NAME`, `INVALID_SECTION`, `UNKNOWN_PRESET`, `INVALID_CONVEX_MODE`, `CONVEX_MODE_REQUIRED`, `DIR_EXISTS`, `SCAFFOLD_FAILED`, `NOT_IMPLEMENTED`
 
 ### vllnt doctor
 
-Health check for a vllnt project. Validates configuration, dependencies, and project structure.
+Health check for a vllnt project. Validates configuration, dependencies, and project structure against the `vllnt.json` section registry.
+
+**Options:**
+- `--for <section>` — Run preflight checks for a specific section
+- `--json` — Structured JSON output for AI agents (each check includes a machine-readable fix command)
+
+### vllnt add <feature> (not yet implemented)
+
+Reserved for adding integrations (auth, payments, analytics) to an existing project. Currently exits with code 1; in `--agent` mode it returns `{ "success": false, "error": "NOT_IMPLEMENTED" }`.
+
+### vllnt generate <type> <name> (not yet implemented)
+
+Reserved for generating code artifacts (page, screen, component, hook, api, feature, domain). Alias: `vllnt gen`. Currently exits with code 1; in `--agent` mode it returns `{ "success": false, "error": "NOT_IMPLEMENTED" }`.
 
 ---
 
-## Templates
+## Presets
 
-### web — Next.js + Convex
+| Preset | Sections |
+|--------|----------|
+| landing | landing |
+| blog | blog |
+| marketing | landing + blog |
+| saas | landing + dashboard + auth |
+| saas-blog | landing + dashboard + auth + blog |
+| full-saas | landing + dashboard + auth + blog + docs |
+| dashboard | dashboard + auth |
+| admin | dashboard + admin + auth |
+| docs | docs |
+| custom | interactive selection |
 
-**Stack:** Next.js 16, Convex, Tailwind CSS v4, next-intl, @vllnt/ui, Playwright, Vitest
+## Sections
 
-**Directory structure:**
+| Section | Route Group | Requires |
+|---------|-------------|----------|
+| landing | (marketing)/ | none |
+| blog | (blog)/ | none (MDX) |
+| dashboard | (dashboard)/ | auth, backend |
+| auth | (auth)/ | backend |
+| docs | (docs)/ | none |
+| admin | (admin)/ | auth, backend |
+
+Each section ships a `section.json` with metadata, dependencies, providers, and rules. Section dependencies are resolved automatically — selecting `dashboard` pulls in `auth` and the backend.
+
+---
+
+## Convex Backend Modes
+
+When a project includes a Convex backend you must pick a mode via `--convex` (or the interactive prompt). The client code is identical for both — only the environment variables and where the backend runs differ.
+
+| Mode | What you get |
+|------|--------------|
+| `cloud` | `.env.example` with `NEXT_PUBLIC_CONVEX_URL` + commented `CONVEX_DEPLOY_KEY`. Run `npx convex dev` to provision a managed deployment. |
+| `self-hosted` | `.env.example` with `CONVEX_SELF_HOSTED_URL` + `CONVEX_SELF_HOSTED_ADMIN_KEY`, a `docker-compose.yml` (backend + dashboard), and `docs/self-hosting.md`. |
+
+Switch modes anytime by editing env vars — see the generated `docs/self-hosting.md`.
+
+---
+
+## Scaffolded Project
+
+**Stack:** Next.js 16 (App Router, Server Components, Turbopack), Tailwind CSS v4, @vllnt/ui, next-intl, TypeScript strict, Vitest + Playwright, optional Convex backend.
+
+**Layout (sections compose into route groups):**
+
 ```
-├── app/[locale]/          # App Router with i18n locale routing
-├── components/
-│   ├── layout/            # Header, footer, shared layout
-│   ├── providers/         # ConvexProvider, ThemeProvider
-│   └── ui/                # @vllnt/ui re-exports
-├── convex/
-│   ├── auth/              # Auth domain (schemas, queries, mutations)
-│   ├── lib/               # Convex utilities
-│   ├── schema.ts          # Root schema
-│   ├── http.ts            # HTTP routes
-│   └── convex.config.ts   # Convex configuration
-├── features/              # Feature-sliced vertical architecture
-│   ├── auth/hooks/        # Auth feature hooks
-│   └── dashboard/         # Dashboard feature components
-├── hooks/                 # Shared hooks
-├── i18n/                  # i18n configuration
-├── messages/              # Translation files (en.json, etc.)
-├── lib/                   # Utilities
+my-app/
+├── app/[locale]/
+│   ├── (marketing)/       # landing section
+│   ├── (blog)/            # blog section (MDX)
+│   ├── (dashboard)/       # dashboard section
+│   ├── (auth)/            # auth section
+│   ├── (docs)/            # docs section
+│   └── (admin)/           # admin section
+├── components/            # Shared UI + providers
+├── convex/                # Convex backend (when included)
+├── i18n/ + messages/      # next-intl configuration + translations
 ├── tests/e2e/             # Playwright E2E tests
-├── docs/                  # Architecture, testing, i18n, theming docs
-├── specs/                 # Feature specs
+├── specs/                 # Feature specs (active/backlog/shipped/dropped)
+├── vllnt.json             # Section registry (source of truth for what's installed)
 ├── CLAUDE.md              # Claude Code agent contract
 ├── AGENTS.md              # Multi-agent architecture doc
-├── next.config.mjs
-├── tailwind.config.ts
-├── playwright.config.ts
 └── package.json
 ```
-
-**Key patterns:**
-- Feature-sliced architecture: `features/{name}/components/`, `features/{name}/hooks/`
-- Convex domain folders: `convex/{domain}/schemas.ts`, `queries.ts`, `mutations.ts`
-- i18n with next-intl: locale routing via `[locale]` segment
-- @vllnt/ui components (93 Radix + Tailwind components)
-- Server Components by default, client components only when needed
-
-### mobile — Expo + Convex
-
-**Stack:** Expo 55, React Native, Convex, i18next, Maestro E2E, TypeScript
-
-**Directory structure:**
-```
-├── app/
-│   ├── (auth)/            # Auth navigation stack
-│   ├── (stack)/           # Main stack navigator
-│   └── (tabs)/            # Tab-based navigation
-├── components/
-│   ├── layout/            # Shared mobile layout
-│   ├── providers/         # ConvexProvider
-│   └── ui/                # Custom ThemedText, ThemedView primitives
-├── convex/
-│   ├── auth/              # Auth domain
-│   └── convex.config.ts
-├── features/              # Feature-sliced vertical architecture
-│   ├── auth/
-│   └── settings/
-├── hooks/                 # Shared hooks
-├── i18n/locales/          # Translation JSON files
-├── .maestro/              # Maestro E2E test flows
-├── docs/                  # Architecture docs
-├── CLAUDE.md              # Agent contract
-├── AGENTS.md
-├── app.json               # Expo configuration
-├── metro.config.cjs
-├── eas.json               # EAS Build config
-└── package.json
-```
-
-**Key differences from web:**
-- i18next (not next-intl)
-- Custom UI primitives (not @vllnt/ui — no React Native support)
-- expo-router for navigation
-- Maestro for E2E testing (not Playwright)
-- EAS Build for app store deployment
-
-### fullstack — Turborepo Monorepo
-
-**Stack:** Turborepo, pnpm workspaces, Next.js + Expo + Convex, shared packages
-
-**Directory structure:**
-```
-├── apps/
-│   ├── web/               # Full Next.js app (same as web template)
-│   └── mobile/            # Full Expo app (same as mobile template)
-├── packages/
-│   ├── backend/           # Shared Convex backend (domain folders)
-│   ├── client/            # Shared Convex hooks + API wrappers
-│   ├── shared/            # Shared types, enums, constants
-│   └── theme/             # Design tokens, Tailwind config, RN theme
-├── docs/                  # Cross-platform architecture docs
-├── specs/                 # Top-level feature specs
-├── turbo.json             # Turborepo pipeline config
-├── pnpm-workspace.yaml    # Workspace definition
-└── package.json           # Root package
-```
-
-**Key feature:** Shared Convex backend between web and mobile. Design system via `packages/theme`.
-
----
 
 ## Agent Contracts
 
 Every scaffolded project ships with AI agent configuration files:
 
-### CLAUDE.md
-Blocking rules for Claude Code. Contains:
-- Stack information and versions
-- Convex patterns (dual validators, domain folders, withIndex)
-- Architecture conventions (feature-sliced, Server Components)
-- Forbidden patterns and anti-patterns
-- Testing requirements
+- **CLAUDE.md** — strict blocking rules: stack info, Convex patterns (dual validators, indexed queries), architecture conventions, forbidden patterns, testing requirements
+- **AGENTS.md** — architecture reference: extension points, common tasks, pitfalls
+- **vllnt.json** — machine-readable registry of active sections, preset, and backend status; consumed by `vllnt doctor`
 
-### AGENTS.md
-Multi-agent architecture reference. Contains:
-- System architecture diagrams
-- Extension points for adding features
-- Common tasks and how to accomplish them
-- Pitfalls and gotchas
-
-### docs/
-Architecture documentation:
-- `architecture.md` — System design and data flow
-- `testing.md` — Testing strategy and patterns
-- `i18n.md` — Internationalization guide
-- `theming.md` — Theme system and customization
-- `extending.md` — How to add features
+Guardrails baked in: @vllnt/eslint-config (every rule is an error, no warnings), TypeScript strict mode (no `any`, no `@ts-ignore`), zero-error guarantee — every scaffold passes `lint + typecheck + build` out of the box.
 
 ---
 
@@ -270,12 +220,15 @@ Fallback: reads `npm_config_user_agent` environment variable.
 ## Scaffolding Process
 
 1. **Validate** project name against naming rules
-2. **Check** target directory doesn't exist
-3. **Copy** template directory to target
-4. **Process** text files — replace `{{projectName}}` and `{{packageName}}` placeholders
-5. **Initialize** git repository with initial commit
-6. **Install** dependencies (unless `--skip-install`)
-7. **Return** result metadata
+2. **Resolve** preset to sections (or parse `--sections`) and validate section dependencies
+3. **Check** target directory doesn't exist
+4. **Copy** base skeleton, then compose selected sections into it
+5. **Wire** Convex backend for the chosen mode (cloud env vars, or docker-compose + self-hosting docs)
+6. **Process** text files — replace `{{projectName}}` and `{{packageName}}` placeholders
+7. **Generate** CLAUDE.md, AGENTS.md, and the vllnt.json section registry
+8. **Initialize** git repository with initial commit
+9. **Install** dependencies (unless `--skip-install`)
+10. **Return** result metadata
 
 **Processed file extensions:** `.ts`, `.tsx`, `.js`, `.jsx`, `.json`, `.md`, `.mdx`, `.yaml`, `.yml`, `.toml`, `.css`, `.html`, `.mjs`, `.cjs`, `.env`, `.env.example`, `.gitignore`, `.prettierrc`, `.eslintrc`
 
@@ -294,7 +247,7 @@ Fallback: reads `npm_config_user_agent` environment variable.
 All packages are MIT licensed and published on npm under the `@vllnt` scope.
 
 ### @vllnt/ui
-93 React components built on Radix UI, Tailwind CSS, and CVA. Web-only (no React Native support). Used by the web template.
+React components built on Radix UI, Tailwind CSS, and CVA. Web-only (no React Native support). Used by scaffolded projects.
 
 ### @vllnt/eslint-config
 Strict ESLint configuration for TypeScript projects. All rules enforce error — no warnings. Includes configs for Next.js, React, and library projects.
@@ -312,11 +265,11 @@ Lightweight, privacy-first analytics with consent management. React integration,
 
 ## Architecture Decisions
 
-- **Feature-sliced architecture**: Vertical slices in `features/` directory, shared UI in `components/`
-- **Convex domain folders**: `convex/{domain}/schemas.ts` + `queries.ts` + `mutations.ts`
-- **Dual validators**: Convex schemas use both runtime validators and TypeScript types
-- **Server Components default**: Next.js pages are Server Components unless client interactivity needed
-- **No stack choices**: Everything is fixed and opinionated — no configuration prompts for stack
+- **Init-time assembly**: sections are composed at scaffold time, not merged post-hoc — no runtime section machinery in the generated project
+- **vllnt.json as source of truth**: the section registry records what's installed; `vllnt doctor` validates against it
+- **Convex domain folders**: `convex/{domain}/schemas.ts` + `queries.ts` + `mutations.ts` with dual validators
+- **Server Components default**: Next.js pages are Server Components unless client interactivity is needed
+- **No stack choices**: everything is fixed and opinionated — the only choices are sections and the Convex mode
 
 ---
 

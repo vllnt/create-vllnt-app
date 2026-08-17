@@ -27,7 +27,7 @@ create-vllnt-app/
 │   └── i18n/               # Internationalization
 ├── .github/
 │   └── workflows/
-│       ├── ci.yml          # PR quality gates (lint + typecheck + build + test)
+│       ├── ci.yml          # PR quality gates (audit + lint + typecheck + unit + e2e + www build)
 │       └── publish.yml     # Release pipeline (canary on push, release on dispatch)
 └── package.json            # Workspace root
 ```
