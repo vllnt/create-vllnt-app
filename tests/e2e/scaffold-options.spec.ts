@@ -79,10 +79,12 @@ describe('scaffold-options', () => {
       for (const preset of presets) {
         const projectName = `placeholder-${preset.replace(/[^a-z0-9-]/g, '-')}`
         const dir = path.join(tmpDir, projectName)
-        await runCli(
-          ['new', projectName, '--preset', preset, '--yes', '--skip-install', '--agent'],
-          { cwd: tmpDir },
-        )
+        const backendPresets = new Set(['saas', 'saas-blog', 'full-saas', 'dashboard', 'admin'])
+        const args = ['new', projectName, '--preset', preset, '--yes', '--skip-install', '--agent']
+        if (backendPresets.has(preset)) args.push('--convex', 'cloud')
+
+        const result = await runCli(args, { cwd: tmpDir })
+        expect(result.exitCode).toBe(0)
 
         const allFiles = listFiles(dir)
         for (const file of allFiles) {
@@ -107,10 +109,11 @@ describe('scaffold-options', () => {
     it('maps deprecated internal preset alias to admin in generated metadata', async () => {
       const projectName = 'internal-alias-check'
       const dir = path.join(tmpDir, projectName)
-      await runCli(
-        ['new', projectName, '--preset', 'internal', '--yes', '--skip-install', '--agent'],
+      const result = await runCli(
+        ['new', projectName, '--preset', 'internal', '--yes', '--skip-install', '--agent', '--convex', 'cloud'],
         { cwd: tmpDir },
       )
+      expect(result.exitCode).toBe(0)
 
       const vllntJson = JSON.parse(readFile(dir, 'vllnt.json'))
       expect(vllntJson.preset).toBe('admin')
