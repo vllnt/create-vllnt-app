@@ -61,12 +61,8 @@ export default defineConfig({
           hookTimeout: 30_000,
           setupFiles: ['tests/setup.ts'],
           pool: 'forks',
-          poolOptions: {
-            forks: {
-              minForks: 1,
-              maxForks: 4,
-            },
-          },
+          maxWorkers: 4,
+          sequence: { groupOrder: 1 },
         },
       },
     ],

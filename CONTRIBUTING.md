@@ -40,6 +40,16 @@ This project follows the [Contributor Covenant](CODE_OF_CONDUCT.md). By particip
 
 ## Development Setup
 
+Use Node.js 22.12+ (22.x), 24.x, or 26+ for the Vitest 5 development toolchain.
+The CLI runtime still supports Node.js 22+.
+
+The CLI uses TypeScript 7. The website stays on TypeScript 6 and ESLint 9
+until its ESLint plugins support the newer major versions. Upgrade Vitest and
+`@vitest/coverage-v8` together.
+
+The website reads its locale with Next.js `next/root-params`. Its lint and
+typecheck scripts generate the required Next.js types automatically.
+
 ```bash
 git clone https://github.com/vllnt/create-vllnt-app.git
 cd create-vllnt-app
