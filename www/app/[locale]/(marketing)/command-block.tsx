@@ -2,33 +2,67 @@
 
 import { useState } from 'react'
 
-type CommandBlockProps = {
-  command: string
-}
+import { Button, Textarea } from '@vllnt/ui'
+import { Check, Copy } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 
-export function CommandBlock({ command }: CommandBlockProps): React.ReactNode {
-  const [copied, setCopied] = useState(false)
+type CommandBlockProps = { command: string; label: string }
 
-  function handleCopy(): void {
-    void navigator.clipboard.writeText(command)
-    setCopied(true)
-    setTimeout(() => {
-      setCopied(false)
-    }, 2000)
+export function CommandBlock({
+  command,
+  label,
+}: CommandBlockProps): React.ReactNode {
+  const t = useTranslations('Command')
+  const [status, setStatus] = useState<
+    'copied' | 'failed' | 'idle' | 'pending'
+  >('idle')
+
+  async function handleCopy(): Promise<void> {
+    setStatus('pending')
+    try {
+      await navigator.clipboard.writeText(command)
+      setStatus('copied')
+    } catch {
+      setStatus('failed')
+    }
   }
 
   return (
-    <div className="group relative inline-flex items-center gap-3 rounded-lg border border-border px-4 py-2.5 text-sm">
-      <span className="text-muted-foreground">$</span>
-      <span className="text-foreground">{command}</span>
-      <button
-        aria-label="Copy command"
-        className="text-xs text-muted-foreground transition-colors hover:text-foreground"
-        onClick={handleCopy}
-        type="button"
-      >
-        {copied ? 'copied' : 'copy'}
-      </button>
+    <div className="command-block">
+      <div className="command-line">
+        <span aria-hidden="true" className="command-prompt">
+          $
+        </span>
+        <Textarea
+          aria-label={label}
+          readOnly
+          rows={command.split('\n').length}
+          value={command}
+          wrap="off"
+        />
+        <Button
+          aria-label={label}
+          disabled={status === 'pending'}
+          onClick={() => {
+            void handleCopy()
+          }}
+          type="button"
+        >
+          {status === 'copied' ? (
+            <Check aria-hidden="true" />
+          ) : (
+            <Copy aria-hidden="true" />
+          )}
+          {status === 'copied' ? t('copied') : t('copy')}
+        </Button>
+      </div>
+      <p aria-live="polite" className="command-status">
+        {status === 'failed'
+          ? t('failed')
+          : status === 'copied'
+            ? t('success')
+            : t('hint')}
+      </p>
     </div>
   )
 }

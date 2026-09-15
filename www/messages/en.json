@@ -1,19 +1,21 @@
 {
   "Meta": {
-    "title": "create-vllnt-app — Ship production apps 10x faster with AI agents",
-    "description": "One command. Production-ready app. Your AI agent codes, the guardrails keep it clean."
+    "title": "create-vllnt-app \u2014 A starting point for your next app",
+    "description": "Scaffold Next.js, Expo, or fullstack projects with composable sections, typed conventions, and context for your coding agent."
   },
   "Hero": {
-    "badge": "Private Alpha",
-    "title_prefix": "Ship production apps",
-    "title_highlight": "10x faster with AI agents",
-    "description": "One command. Production-ready app. Your AI agent starts coding immediately — strict guardrails keep every line clean.",
-    "cta": "See Presets",
-    "command": "npx create-vllnt-app@latest"
+    "badge": "Open source \u00b7 Early development",
+    "title_prefix": "Skip the setup.",
+    "title_highlight": "Keep the control.",
+    "description": "A source-first scaffolder for Next.js, Expo, and fullstack projects. Start with route skeletons, strict conventions, and context for your coding agent.",
+    "cta": "Find your starting point",
+    "command": "git clone https://github.com/vllnt/create-vllnt-app.git\ncd create-vllnt-app\npnpm install\npnpm --filter create-vllnt-app build\nnode cli/dist/index.js new",
+    "requirements": "Requires Git, Node.js 22+, and pnpm \u00b7 Not yet published to npm",
+    "copy_label": "Copy source setup commands"
   },
   "Presets": {
-    "title": "What are you building?",
-    "subtitle": "Pick a preset. Get a production-ready project in seconds. Your AI agent understands the architecture from the first prompt.",
+    "title": "Start with what you need.",
+    "subtitle": "Nine web presets, or your own mix of sections. Assemble route skeletons and project conventions, then build out the features.",
     "landing": "Landing Page",
     "blog": "Blog",
     "marketing": "Marketing Site",
@@ -23,67 +25,111 @@
     "internal": "Internal Tool",
     "docs": "Docs Site",
     "custom": "Custom",
-    "custom_hint": "pick what you need"
+    "custom_hint": "Choose from landing, blog, dashboard, auth, docs, and admin.",
+    "eyebrow": "Choose your scope",
+    "selector": "Choose a project preset",
+    "included": "Your starting point",
+    "backend": "Includes Convex setup files. Choose cloud or self-hosted, then configure your backend and authentication.",
+    "no_backend": "A Next.js web project, without a backend.",
+    "custom_detail": "Choose Custom in the interactive setup to select your own sections.",
+    "prompt_note": "Run from the source checkout after the setup above. The CLI asks for a project name and preferences.",
+    "saas-blog": "SaaS + Blog",
+    "search": "Search presets\u2026",
+    "empty": "No matching presets. Try another name.",
+    "copy_label": "Copy {preset} command"
   },
   "Sections": {
-    "title": "Build exactly what you need",
-    "subtitle": "Each preset assembles the right pieces. Start small, scale up. Your agent knows how to extend every section.",
-    "landing": "Hero, pricing, CTA — ready to convert",
-    "blog": "MDX-powered content, ship posts fast",
-    "dashboard": "Data tables, charts, protected routes",
-    "auth": "Login, register, sessions — just works",
-    "docs": "Documentation your users actually read",
-    "admin": "User management, settings, controls"
+    "title": "Composable route skeletons",
+    "subtitle": "Choose the sections to build on. Feature implementation is your next step.",
+    "landing": "A starting route for your landing page",
+    "blog": "Blog routes and content structure",
+    "dashboard": "A dashboard route skeleton",
+    "auth": "Login and registration scaffolding; configuration required",
+    "docs": "Documentation routes and content structure",
+    "admin": "An admin route skeleton"
   },
   "AgentFirst": {
-    "title": "Your AI agent is productive from line one",
-    "subtitle": "Every project ships with machine-readable contracts. Your agent reads them and starts building — no guessing, no hallucinating, no wrong patterns.",
+    "title": "A codebase with a handoff built in.",
+    "subtitle": "Your next prompt shouldn\u2019t have to explain the whole project. Generated instructions document the stack, conventions, and installed sections.",
     "workflow_label": "How it works",
-    "step1": "You run one command — project scaffolded in seconds",
-    "step2": "Your agent reads CLAUDE.md — understands every rule",
-    "step3": "Your agent codes — guardrails catch mistakes instantly",
-    "step4": "You ship — lint, types, and build all pass",
-    "claude": "Strict rules your agent follows",
-    "agents": "Architecture your agent understands",
-    "vllnt_json": "Project state your agent reads"
+    "step1": "Run the CLI and choose your setup",
+    "step2": "Give your agent the generated project context",
+    "step3": "Build features and run checks",
+    "step4": "Review, configure, and deploy your app",
+    "claude": "Stack details and coding conventions for Claude Code.",
+    "agents": "Architecture and extension points for coding agents.",
+    "vllnt_json": "A registry of the preset, backend, and installed sections.",
+    "eyebrow": "Context, included",
+    "note": "Not another chat interface. A foundation for the tools you already use.",
+    "source": "Inspect the template files"
   },
   "Guardrails": {
-    "title": "Your agent can't break things",
-    "subtitle": "Strict rules baked into every project. Your agent writes code that passes on the first try.",
-    "eslint": "Every lint rule is an error. No warnings to ignore. Code is clean or it doesn't compile.",
-    "typescript": "Strict mode everywhere. Your agent uses type guards, not type assertions.",
-    "convex": "Database queries are validated, bounded, and indexed. No N+1, no full table scans.",
-    "zero_error": "Every scaffolded project passes lint, typecheck, and build. Out of the box. Guaranteed."
+    "title": "Conventions, not promises.",
+    "subtitle": "Start with strict defaults. Keep running the checks as you build. Your application still needs testing, review, and deployment configuration.",
+    "eslint": "Shared ESLint rules help catch code-quality issues.",
+    "typescript": "Strict TypeScript and shared lint rules make problems visible while you work.",
+    "convex": "Backend templates include Convex validation patterns.",
+    "zero_error": "Run lint, typecheck, and build to verify your project.",
+    "eyebrow": "Check your work",
+    "cta": "Read the CLI documentation",
+    "review_title": "Your code. Your review.",
+    "review": "Configure credentials and backend services, test your flows, and review changes before shipping."
   },
   "Doctor": {
     "title": "Health check before you ship",
-    "subtitle": "One command validates your entire project. Your agent reads the structured output and fixes issues automatically.",
+    "subtitle": "Check project setup and get structured results your agent can read. Diagnostics are a starting point, not a substitute for application tests.",
     "check": "Full health check",
     "preflight": "Section-specific validation",
     "agent_output": "Machine-readable for agents"
   },
   "Agents": {
-    "title": "Works with every AI coding agent",
-    "subtitle": "Claude Code, Codex, Cursor, Windsurf, Gemini — your agent reads the same contracts and follows the same rules."
+    "title": "Context for your coding agent",
+    "subtitle": "Plain-text project context for your coding agent, plus Cursor and Windsurf rules."
   },
   "Manifesto": {
     "title": "Why I'm building this",
     "subtitle": "An open letter from the creator of create-vllnt-app.",
-    "p1": "I've spent years building products — web apps, mobile apps, fullstack systems. Every new project started the same way: days of boilerplate, weeks of configuration, and the constant feeling that I was solving the same problems over and over.",
-    "p2": "Then AI coding agents arrived. Claude Code, Cursor, Codex, Windsurf — they changed everything. Suddenly I could ship 10x faster. But there was a catch: these agents are only as good as the context you give them. Drop an AI agent into a blank project and it flounders. Drop it into a well-structured project with clear rules, conventions, and architecture docs, and it becomes a 100x multiplier.",
-    "p3": "That's the insight behind create-vllnt-app. It's not just a scaffolder — it's the bridge between your idea and a project that AI agents can immediately understand and extend. CLAUDE.md files with blocking rules. AGENTS.md with architecture diagrams. Cursor and Windsurf rules derived from the same source of truth. Documentation that serves both humans and machines.",
+    "p1": "I've spent years building products \u2014 web apps, mobile apps, fullstack systems. Every new project started the same way: days of boilerplate, weeks of configuration, and the constant feeling that I was solving the same problems over and over.",
+    "p2": "Then AI coding agents arrived. Claude Code, Cursor, Codex, Windsurf \u2014 they changed how I work. But there was a catch: these agents depend on the context you give them. A well-structured project with clear rules, conventions, and architecture docs gives them a more useful place to start.",
+    "p3": "That's the insight behind create-vllnt-app. It's not just a scaffolder \u2014 it's the bridge between your idea and a project that AI agents can immediately understand and extend. CLAUDE.md files with blocking rules. AGENTS.md with architecture diagrams. Cursor and Windsurf rules derived from the same source of truth. Documentation that serves both humans and machines.",
     "h_opinionated": "Opinionated by design",
-    "p4": "This scaffolder is deliberately opinionated. Next.js for web. Expo for mobile. Convex for the backend. Tailwind for styling. Feature-sliced architecture. These aren't arbitrary choices — they're the stack I've battle-tested across dozens of production apps. When your AI agent knows the stack, it writes better code. When the conventions are consistent, the agent makes fewer mistakes.",
+    "p4": "This scaffolder is deliberately opinionated. Next.js for web. Expo for mobile. Convex for the backend. Tailwind for styling. Feature-sliced architecture. These aren't arbitrary choices \u2014 they're the stack I've battle-tested across dozens of production apps. When your AI agent knows the stack, it writes better code. When the conventions are consistent, the agent makes fewer mistakes.",
     "h_open": "Open source because it has to be",
     "p5": "create-vllnt-app is open source because the best developer tools always are. I want every solo developer, every indie hacker, every small team to have the same scaffolding advantage that I do. Fork it, extend it, make it yours. The templates are just the starting point.",
     "h_future": "The future is agent-first",
     "p6": "We're at the beginning of a fundamental shift in how software gets built. The developers who win will be the ones who learn to work with AI agents, not against them. That means structuring projects for AI comprehension, writing rules that prevent common mistakes, and building scaffolds that give agents the context they need from the first prompt.",
     "p7": "That's what create-vllnt-app is: a head start on the future of development.",
-    "signoff": "— bntvllnt",
+    "signoff": "\u2014 bntvllnt",
     "cta": "Get started"
   },
   "Footer": {
     "built_by": "Built by",
     "source": "Source"
+  },
+  "Command": {
+    "copy": "Copy command",
+    "copied": "Copied",
+    "hint": "Run from your terminal. Review the source before installing.",
+    "success": "Copied. Review and run in your terminal.",
+    "failed": "Couldn\u2019t copy. Select the command and copy it manually."
+  },
+  "Artifact": {
+    "label": "Inside a generated project",
+    "app": "Next.js routes",
+    "backend": "Convex backend",
+    "rules": "Agent instructions",
+    "architecture": "Project architecture",
+    "registry": "Installed sections",
+    "caption": "SaaS preset \u00b7 simplified file structure"
+  },
+  "Stack": {
+    "label": "An opinionated foundation"
+  },
+  "Closing": {
+    "eyebrow": "Early stage. Open to inspection.",
+    "title": "Try it from the source.",
+    "manifesto": "Why I\u2019m building this",
+    "source": "Read the source on GitHub",
+    "copy_label": "Copy source setup commands from footer"
   }
 }
