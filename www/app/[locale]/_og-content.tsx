@@ -1,4 +1,4 @@
-const fontStack = 'ui-monospace, SFMono-Regular, Menlo, Consolas, monospace'
+const fontStack = 'system-ui, -apple-system, BlinkMacSystemFont, sans-serif'
 
 function Badge(): React.ReactElement {
   return (
@@ -14,7 +14,7 @@ function Badge(): React.ReactElement {
       }}
     >
       <span style={{ color: 'rgba(255,255,255,0.7)', fontSize: '18px' }}>
-        v0.1.0 — Closed Alpha
+        Open source · Early development
       </span>
     </div>
   )
@@ -25,7 +25,7 @@ function Title(): React.ReactElement {
     color: 'white',
     display: 'flex' as const,
     fontSize: '64px',
-    fontWeight: 800,
+    fontWeight: 600,
     letterSpacing: '-0.03em',
   }
 
@@ -38,8 +38,10 @@ function Title(): React.ReactElement {
         gap: '4px',
       }}
     >
-      <div style={style}>Ship with AI agents</div>
-      <div style={style}>from day one</div>
+      <div style={style}>Skip the setup.</div>
+      <div style={{ ...style, color: 'rgba(255,255,255,0.7)' }}>
+        Keep the control.
+      </div>
     </div>
   )
 }
@@ -55,7 +57,7 @@ function Footer(): React.ReactElement {
           marginTop: '24px',
         }}
       >
-        npx create-vllnt-app@latest
+        Source-first scaffolding · Try it on GitHub
       </div>
 
       <div
@@ -98,7 +100,7 @@ export function OgContent(): React.ReactElement {
     <div
       style={{
         alignItems: 'center',
-        backgroundColor: '#09090b',
+        backgroundColor: 'hsl(0, 0%, 3.9%)',
         display: 'flex',
         flexDirection: 'column',
         fontFamily: fontStack,

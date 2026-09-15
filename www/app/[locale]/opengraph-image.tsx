@@ -2,7 +2,7 @@ import { ImageResponse } from 'next/og'
 
 import { OgContent } from './_og-content'
 
-export const alt = 'create-vllnt-app — Ship with AI agents from day one'
+export const alt = 'create-vllnt-app — Project scaffolds with agent context'
 
 export const size = {
   height: 630,

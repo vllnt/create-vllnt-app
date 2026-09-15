@@ -8,9 +8,9 @@ import { ThemeProvider } from 'next-themes'
 import { routing } from '@/i18n/routing'
 
 const siteUrl = 'https://create-vllnt-app.vllnt.com'
-const title = 'create-vllnt-app — Agent-First Fullstack Scaffolder'
+const title = 'create-vllnt-app — Skip the setup. Keep the control.'
 const description =
-  'Scaffold production-grade Next.js, Expo, or fullstack monorepo projects with Convex backend. CLAUDE.md + AI agent contracts included.'
+  'Scaffold Next.js, Expo, or fullstack projects with composable sections, typed conventions, and context for your coding agent.'
 
 export const metadata: Metadata = {
   authors: [{ name: 'vllnt', url: 'https://vllnt.com' }],
