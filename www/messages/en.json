@@ -7,11 +7,11 @@
     "badge": "Open source \u00b7 Early development",
     "title_prefix": "Skip the setup.",
     "title_highlight": "Keep the control.",
-    "description": "A source-first scaffolder for Next.js, Expo, and fullstack projects. Start with route skeletons, strict conventions, and context for your coding agent.",
+    "description": "An agent-first scaffolder for Next.js, Expo, and fullstack projects. Start with route skeletons, strict conventions, and context for your coding agent.",
     "cta": "Find your starting point",
-    "command": "git clone https://github.com/vllnt/create-vllnt-app.git\ncd create-vllnt-app\npnpm install\npnpm --filter create-vllnt-app build\nnode cli/dist/index.js new",
-    "requirements": "Requires Git, Node.js 22+, and pnpm \u00b7 Not yet published to npm",
-    "copy_label": "Copy source setup commands"
+    "command": "npx create-vllnt-app@latest new",
+    "requirements": "Node.js 22+ \u00b7 npm publication pending. Command available after release.",
+    "copy_label": "Copy setup command"
   },
   "Presets": {
     "title": "Start with what you need.",
@@ -32,7 +32,7 @@
     "backend": "Includes Convex setup files. Choose cloud or self-hosted, then configure your backend and authentication.",
     "no_backend": "A Next.js web project, without a backend.",
     "custom_detail": "Choose Custom in the interactive setup to select your own sections.",
-    "prompt_note": "Run from the source checkout after the setup above. The CLI asks for a project name and preferences.",
+    "prompt_note": "The CLI asks for a project name and preferences. npm publication is pending.",
     "saas-blog": "SaaS + Blog",
     "search": "Search presets\u2026",
     "empty": "No matching presets. Try another name.",
@@ -127,9 +127,9 @@
   },
   "Closing": {
     "eyebrow": "Early stage. Open to inspection.",
-    "title": "Try it from the source.",
+    "title": "Your next app starts here.",
     "manifesto": "Why I\u2019m building this",
     "source": "Read the source on GitHub",
-    "copy_label": "Copy source setup commands from footer"
+    "copy_label": "Copy setup command from footer"
   }
 }
