@@ -16,14 +16,14 @@ test.describe('Landing page smoke', () => {
     const response = await page.goto('/')
     expect(response?.status()).toBe(200)
     await expect(page.locator('h1')).toBeVisible()
-    await expect(page.locator('h1')).toContainText('Ship production apps')
+    await expect(page.locator('h1')).toContainText('Skip the setup.')
   })
 
   test('locale routes render translated pages', async ({ page }) => {
     const response = await page.goto('/en')
     expect(response?.status()).toBe(200)
     await expect(page.locator('html')).toHaveAttribute('lang', 'en')
-    await expect(page.locator('h1')).toContainText('Ship production apps')
+    await expect(page.locator('h1')).toContainText('Skip the setup.')
 
     const manifesto = await page.goto('/en/manifesto')
     expect(manifesto?.status()).toBe(200)
@@ -46,7 +46,9 @@ test.describe('Landing page smoke', () => {
     await page.goto('/')
     await page.locator('#presets').scrollIntoViewIfNeeded()
     await expect(page.locator('#presets')).toBeVisible()
-    const presetCards = page.locator('#presets .grid > div, #presets .grid > a')
-    await expect(presetCards).not.toHaveCount(0)
+    await page
+      .getByRole('combobox', { name: 'Choose a project preset' })
+      .click()
+    await expect(page.getByRole('option')).toHaveCount(10)
   })
 })
