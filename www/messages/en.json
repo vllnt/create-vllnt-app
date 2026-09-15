@@ -5,9 +5,9 @@
   },
   "Hero": {
     "badge": "Open source \u00b7 Early development",
-    "title_prefix": "Skip the setup.",
-    "title_highlight": "Keep the control.",
-    "description": "An agent-first scaffolder for Next.js, Expo, and fullstack projects. Start with route skeletons, strict conventions, and context for your coding agent.",
+    "title_prefix": "Your idea.",
+    "title_highlight": "A project to build on.",
+    "description": "Generate a Next.js starter from your terminal. Choose the pages you need, then build with your coding agent.",
     "cta": "Find your starting point",
     "command": "npx create-vllnt-app@latest new",
     "requirements": "Node.js 22+ \u00b7 npm publication pending. Command available after release.",
@@ -16,24 +16,30 @@
   "Presets": {
     "title": "Start with what you need.",
     "subtitle": "Nine web presets, or your own mix of sections. Assemble route skeletons and project conventions, then build out the features.",
-    "landing": "Landing Page",
+    "landing": "Product website",
     "blog": "Blog",
-    "marketing": "Marketing Site",
-    "saas": "SaaS",
-    "full_saas": "Full SaaS",
-    "dashboard": "Dashboard",
-    "internal": "Internal Tool",
-    "docs": "Docs Site",
+    "marketing": "Website + blog",
+    "saas": "SaaS starter",
+    "full_saas": "SaaS + blog + docs",
+    "dashboard": "Dashboard starter",
+    "internal": "Internal tool",
+    "docs": "Documentation site",
     "custom": "Custom",
     "custom_hint": "Choose from landing, blog, dashboard, auth, docs, and admin.",
     "eyebrow": "Choose your scope",
-    "selector": "Choose a project preset",
-    "included": "Your starting point",
-    "backend": "Includes Convex setup files. Choose cloud or self-hosted, then configure your backend and authentication.",
+    "selector": "What are you building?",
+    "options": "9 web presets + Custom",
+    "requirements": "Node.js 22+ · npm publication pending.",
+    "preview_label": "Generated files for {preset}",
+    "skeletons": "Route skeletons, not finished features.",
+    "context": "Project instructions for your coding agent.",
+    "source": "Inspect the templates",
+    "included": "What you get",
+    "backend": "Convex setup included. Backend and auth need configuration.",
     "no_backend": "A Next.js web project, without a backend.",
-    "custom_detail": "Choose Custom in the interactive setup to select your own sections.",
+    "custom_detail": "Pick Custom in the CLI to choose sections and backend.",
     "prompt_note": "The CLI asks for a project name and preferences. npm publication is pending.",
-    "saas-blog": "SaaS + Blog",
+    "saas-blog": "SaaS + blog",
     "search": "Search presets\u2026",
     "empty": "No matching presets. Try another name.",
     "copy_label": "Copy {preset} command"
@@ -102,6 +108,16 @@
     "signoff": "\u2014 bntvllnt",
     "cta": "Get started"
   },
+  "Motion": {
+    "pause": "Pause background",
+    "resume": "Resume background",
+    "static": "Static background · reduced motion"
+  },
+  "Next": {
+    "title": "Then make it yours.",
+    "description": "Add your features. Configure services. Test before you ship.",
+    "docs": "Read the setup guide"
+  },
   "Footer": {
     "built_by": "Built by",
     "source": "Source"
@@ -109,7 +125,7 @@
   "Command": {
     "copy": "Copy command",
     "copied": "Copied",
-    "hint": "Run from your terminal. Review the source before installing.",
+    "hint": "After release: run in your terminal, then name your project.",
     "success": "Copied. Review and run in your terminal.",
     "failed": "Couldn\u2019t copy. Select the command and copy it manually."
   },
