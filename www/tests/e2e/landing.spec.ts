@@ -1,6 +1,40 @@
 import { expect, test } from '@playwright/test'
 
-const COMMAND = 'node cli/dist/index.js new'
+const COMMAND = 'npx create-vllnt-app@latest new'
+
+test('hero and footer present the published CLI workflow honestly', async ({
+  page,
+}) => {
+  await page.addInitScript(() => {
+    Object.defineProperty(navigator, 'clipboard', {
+      value: {
+        writeText: (text: string) => {
+          Object.assign(window, { copiedText: text })
+          return Promise.resolve()
+        },
+      },
+    })
+  })
+  await page.goto('/')
+  await expect(page.locator('.hero textarea')).toHaveValue(COMMAND)
+  await expect(page.locator('.closing-section textarea')).toHaveValue(COMMAND)
+  await expect(page.locator('.requirements')).toContainText(
+    'npm publication pending',
+  )
+  await expect(page.locator('.landing')).not.toContainText('git clone')
+  const footerCopy = page.getByRole('button', {
+    name: 'Copy setup command from footer',
+  })
+  await footerCopy.click()
+  await expect(footerCopy).toContainText('Copied')
+  expect(
+    await page.evaluate(
+      () => (window as unknown as { copiedText: string }).copiedText,
+    ),
+  ).toBe(COMMAND)
+  await page.getByRole('link', { name: 'Find your starting point' }).click()
+  await expect(page).toHaveURL(/#presets$/)
+})
 
 test('copy confirms only after clipboard resolves', async ({ page }) => {
   await page.addInitScript(() => {
@@ -18,7 +52,7 @@ test('copy confirms only after clipboard resolves', async ({ page }) => {
   })
   await page.goto('/')
   const copy = page
-    .getByRole('button', { exact: true, name: 'Copy source setup commands' })
+    .getByRole('button', { exact: true, name: 'Copy setup command' })
     .first()
   await copy.click()
   await expect(copy).toBeDisabled()
@@ -47,7 +81,7 @@ test('copy confirms only after clipboard resolves', async ({ page }) => {
     }, unavailable)
     await page.goto('/')
     await page
-      .getByRole('button', { exact: true, name: 'Copy source setup commands' })
+      .getByRole('button', { exact: true, name: 'Copy setup command' })
       .first()
       .click()
     await expect(page.locator('.hero [aria-live]')).toContainText(
@@ -143,6 +177,14 @@ test('keyboard can choose a preset and copy its command', async ({ page }) => {
     await page.setViewportSize({ height: 900, width })
     await page.goto('/')
     await expect(page.locator('h1')).toBeVisible()
+    const glass = await page
+      .locator('.project-artifact')
+      .evaluate((element) => {
+        const style = getComputedStyle(element)
+        return { background: style.backgroundColor, blur: style.backdropFilter }
+      })
+    expect(glass.blur).toBe('blur(20px)')
+    expect(glass.background).toMatch(/rgba\(.+, 0\.58\)/)
     expect(
       await page.evaluate(
         () => document.documentElement.scrollWidth <= window.innerWidth,
@@ -171,7 +213,7 @@ test('keyboard can choose a preset and copy its command', async ({ page }) => {
     ).toBe(true)
     await page.screenshot({
       fullPage: true,
-      path: `/tmp/vllnt-landing-review/after-${width}-dark.png`,
+      path: `/tmp/vllnt-glass-review/after-${width}-dark.png`,
     })
     await page.getByRole('button', { name: 'Toggle theme' }).click()
     await page.getByRole('menuitem', { name: /Light/ }).click()
@@ -189,7 +231,7 @@ test('keyboard can choose a preset and copy its command', async ({ page }) => {
     ).toBe(true)
     await page.screenshot({
       fullPage: true,
-      path: `/tmp/vllnt-landing-review/after-${width}-light.png`,
+      path: `/tmp/vllnt-glass-review/after-${width}-light.png`,
     })
     await page.getByRole('link', { name: /Why I’m building this/ }).click()
     await expect(page.locator('h1')).toHaveText("Why I'm building this")

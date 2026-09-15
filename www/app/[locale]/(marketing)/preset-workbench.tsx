@@ -34,8 +34,8 @@ export function PresetWorkbench(): React.ReactNode {
   const preset = PRESETS.find((item) => item.id === selected) ?? PRESETS[0]
   const command =
     preset.id === 'custom'
-      ? 'node cli/dist/index.js new'
-      : `node cli/dist/index.js new --preset ${preset.id}`
+      ? 'npx create-vllnt-app@latest new'
+      : `npx create-vllnt-app@latest new --preset ${preset.id}`
 
   return (
     <div className="preset-workbench">
