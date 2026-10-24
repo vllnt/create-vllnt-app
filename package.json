@@ -1,7 +1,7 @@
 {
   "name": "create-vllnt-app",
   "private": true,
-  "packageManager": "pnpm@9.15.4",
+  "packageManager": "pnpm@10.34.7",
   "engines": {
     "node": ">=22"
   },
@@ -26,7 +26,12 @@
       "vite@>=7.0.0 <7.3.5": "^7.3.5",
       "ws@>=8.0.0 <8.21.0": "^8.21.0",
       "sharp@<0.35.5": "^0.35.5"
-    }
+    },
+    "ignoredBuiltDependencies": [
+      "@parcel/watcher",
+      "@swc/core",
+      "esbuild"
+    ]
   },
   "devDependencies": {
     "@types/fs-extra": "^11.0.4",
