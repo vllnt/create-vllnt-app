@@ -6,11 +6,12 @@ import { Button, Textarea } from '@vllnt/ui'
 import { Check, Copy } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
-type CommandBlockProps = { command: string; label: string }
+type CommandBlockProps = { command: string; label: string; subject: string }
 
 export function CommandBlock({
   command,
   label,
+  subject,
 }: CommandBlockProps): React.ReactNode {
   const t = useTranslations('Command')
   const [status, setStatus] = useState<
@@ -41,7 +42,9 @@ export function CommandBlock({
           wrap="off"
         />
         <Button
-          aria-label={label}
+          aria-label={t(status === 'copied' ? 'copied_for' : 'copy_for', {
+            subject,
+          })}
           disabled={status === 'pending'}
           onClick={() => {
             void handleCopy()

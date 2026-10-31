@@ -39,10 +39,16 @@ test('one honest command, every preset and matching route preview', async ({
     await expect(
       page.getByRole('figure', { name: `Generated files for ${label}` }),
     ).toContainText(route)
-    const copy = page.getByRole('button', { name: `Copy ${label} command` })
+    const copy = page.getByRole('button', {
+      name: new RegExp(
+        `^Cop(y|ied) command for ${label.replaceAll('+', '\\+')}$`,
+      ),
+    })
     await expect(copy).toHaveText('Copy command')
+    await expect(copy).toHaveAccessibleName(`Copy command for ${label}`)
     await copy.click()
     await expect(copy).toContainText('Copied')
+    await expect(copy).toHaveAccessibleName(`Copied command for ${label}`)
   }, Promise.resolve())
 })
 
@@ -68,7 +74,7 @@ test('keyboard search and copy writes the selected command', async ({
   await page.keyboard.press('Enter')
   await expect(picker).toBeFocused()
   const copy = page.getByRole('button', {
-    name: 'Copy Product website command',
+    name: /^Cop(y|ied) command for Product website$/,
   })
   await copy.focus()
   await page.keyboard.press('Enter')
@@ -92,7 +98,9 @@ test('copy confirms only after clipboard resolves', async ({ page }) => {
     })
   })
   await page.goto('/')
-  const copy = page.getByRole('button', { name: 'Copy SaaS starter command' })
+  const copy = page.getByRole('button', {
+    name: /^Cop(y|ied) command for SaaS starter$/,
+  })
   await copy.click()
   await expect(copy).toBeDisabled()
   await expect(copy).not.toContainText('Copied')
@@ -114,7 +122,9 @@ test('copy confirms only after clipboard resolves', async ({ page }) => {
     }, unavailable)
     await page.goto('/')
     await page
-      .getByRole('button', { name: 'Copy SaaS starter command' })
+      .getByRole('button', {
+        name: /^Cop(y|ied) command for SaaS starter$/,
+      })
       .click()
     await expect(page.locator('.hero [aria-live]')).toContainText(
       'Couldn’t copy',
@@ -132,7 +142,9 @@ test('copy confirms only after clipboard resolves', async ({ page }) => {
     await page.goto('/')
     await expect(page.locator('h1')).toBeVisible()
     const copyBox = await page
-      .getByRole('button', { name: 'Copy SaaS starter command' })
+      .getByRole('button', {
+        name: /^Cop(y|ied) command for SaaS starter$/,
+      })
       .boundingBox()
     expect(copyBox?.height).toBeGreaterThanOrEqual(44)
     expect(copyBox?.y).toBeLessThan(800)

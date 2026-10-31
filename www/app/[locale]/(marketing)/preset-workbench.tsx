@@ -76,6 +76,7 @@ export function PresetWorkbench(): React.ReactNode {
             command={command}
             key={command}
             label={t('copy_label', { preset: label })}
+            subject={label}
           />
         </div>
         <p className="requirements">{t('requirements')}</p>

@@ -125,6 +125,8 @@
   "Command": {
     "copy": "Copy command",
     "copied": "Copied",
+    "copy_for": "Copy command for {subject}",
+    "copied_for": "Copied command for {subject}",
     "hint": "After release: run in your terminal, then name your project.",
     "success": "Copied. Review and run in your terminal.",
     "failed": "Couldn\u2019t copy. Select the command and copy it manually."
